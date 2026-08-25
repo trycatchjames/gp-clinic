@@ -1,0 +1,33 @@
+{
+  "name": "gp-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.18.2",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "db:generate": "pnpm --filter @gp/api db:generate",
+    "db:migrate": "pnpm --filter @gp/api db:migrate",
+    "db:seed": "pnpm --filter @gp/api db:seed",
+    "db:reset": "docker compose down -v && docker compose up -d postgres && sleep 4 && pnpm db:migrate && pnpm db:seed",
+    "build:contracts": "pnpm --filter @gp/contracts build",
+    "openapi": "pnpm --filter @gp/api openapi",
+    "sdk": "node scripts/generate-sdk.mjs",
+    "api:generate": "pnpm build:contracts && pnpm openapi && pnpm sdk",
+    "dev:api": "pnpm --filter @gp/api dev",
+    "dev:web": "pnpm --filter @gp/web dev",
+    "dev": "pnpm build:contracts && concurrently -n api,web -c cyan,magenta \"pnpm dev:api\" \"pnpm dev:web\"",
+    "build": "pnpm build:contracts && pnpm --filter @gp/api build && pnpm --filter @gp/web build",
+    "typecheck": "pnpm -r typecheck",
+    "lint:features": "node scripts/lint-features.mjs",
+    "bootstrap": "pnpm install && pnpm db:up && sleep 4 && pnpm build:contracts && pnpm db:migrate && pnpm db:seed && pnpm api:generate",
+    "smoke": "node scripts/smoke-test.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.3"
+  }
+}

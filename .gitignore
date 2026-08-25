@@ -1,0 +1,15 @@
+node_modules/
+dist/
+build/
+.env
+.env.local
+*.tsbuildinfo
+.DS_Store
+coverage/
+apps/web/dev-dist/
+packages/sdk/src/generated/
+openapi/openapi.json
+
+# generated
+apps/api/drizzle/meta/_journal.json.bak
+packages/contracts/dist/
