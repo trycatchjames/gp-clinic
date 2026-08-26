@@ -1,6 +1,13 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { actionableFeedback, markerFor, nextAction, stackDescendants, stackOrder } from '../src/lib/decision.mjs';
+import {
+  actionableFeedback,
+  markerFor,
+  nextAction,
+  stackDescendants,
+  stackOrder,
+  stackRegistration,
+} from '../src/lib/decision.mjs';
 
 const pull = (number, head, base, sliceId) => ({ number, head: { ref: head }, base: { ref: base }, sliceId });
 
@@ -20,6 +27,26 @@ test('a forked stack is refused rather than partially rebased', () => {
   const bottom = pull(1, 'one', 'main');
   const pulls = [bottom, pull(2, 'two', 'one'), pull(3, 'three', 'one')];
   assert.throws(() => stackDescendants(bottom, pulls), /forked stack/);
+});
+
+test('the first managed pull request does not call the two-item stack API', () => {
+  assert.equal(stackRegistration([], 13), null);
+});
+
+test('the second managed pull request creates the initial native stack', () => {
+  assert.deepEqual(stackRegistration([13], 14), {
+    path: '/stacks',
+    pullRequests: [13, 14],
+  });
+});
+
+test('later managed pull requests extend the stack containing their parent', () => {
+  assert.deepEqual(stackRegistration([13, 14], 15, [
+    { number: 7, pull_requests: [{ number: 13 }, { number: 14 }] },
+  ]), {
+    path: '/stacks/7/add',
+    pullRequests: [15],
+  });
 });
 
 test('formal and inline trusted feedback is actionable while chat requires a command', () => {
