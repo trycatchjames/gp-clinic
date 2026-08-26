@@ -8,7 +8,7 @@ export function parseLocalArgs(argv) {
   const options = {
     dryRun: false,
     help: false,
-    provider: process.env.AGENT_PROVIDER || 'claude',
+    provider: process.env.AGENT_PROVIDER || 'codex',
     skipReviews: false,
     reviewPull: null,
   };

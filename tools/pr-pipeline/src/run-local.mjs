@@ -28,7 +28,7 @@ if (options.help) {
 Inspect GitHub and perform at most one pipeline action with a locally installed agent CLI.
 
 Options:
-  --provider <claude|codex>  Agent CLI to use (default: AGENT_PROVIDER or claude)
+  --provider <codex|claude>  Agent CLI to use (default: AGENT_PROVIDER or codex)
   --dry-run, --status        Show the next action without changing GitHub or the checkout
   --review-only <number>     Run missing specialist reviews for one managed PR
   --skip-reviews             Publish implementation/feedback but defer specialist reviews

@@ -2,12 +2,12 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { agentCommand, parseLocalArgs } from '../src/lib/local-agent.mjs';
 
-test('defaults to the locally authenticated Claude CLI and supports Codex explicitly', () => {
+test('defaults to the locally authenticated Codex CLI and supports Claude explicitly', () => {
   const previous = process.env.AGENT_PROVIDER;
   delete process.env.AGENT_PROVIDER;
   try {
-    assert.equal(parseLocalArgs([]).provider, 'claude');
-    assert.equal(parseLocalArgs(['--', '--provider', 'codex']).provider, 'codex');
+    assert.equal(parseLocalArgs([]).provider, 'codex');
+    assert.equal(parseLocalArgs(['--', '--provider', 'claude']).provider, 'claude');
   } finally {
     if (previous === undefined) delete process.env.AGENT_PROVIDER;
     else process.env.AGENT_PROVIDER = previous;
