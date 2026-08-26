@@ -47,7 +47,14 @@ export function markerFor(kind, id) {
 
 export function actionableFeedback({ reviews, reviewComments, issueComments, trustedReviewers, commands, headSha }) {
   const trusted = new Set(trustedReviewers.map((login) => login.toLowerCase()));
-  const handledText = issueComments.map((comment) => comment.body ?? '').join('\n');
+  const isPipelinePublisher = (comment) => {
+    const login = comment.user?.login?.toLowerCase() ?? '';
+    return login === 'github-actions[bot]' || trusted.has(login);
+  };
+  const handledText = issueComments
+    .filter(isPipelinePublisher)
+    .map((comment) => comment.body ?? '')
+    .join('\n');
   const isTrustedHuman = (item) => {
     const login = item.user?.login?.toLowerCase() ?? '';
     return trusted.has(login) && !login.endsWith(botSuffix);
@@ -64,7 +71,9 @@ export function actionableFeedback({ reviews, reviewComments, issueComments, tru
       .filter((comment) => isTrustedHuman(comment) && commands.some((command) => (comment.body ?? '').toLowerCase().includes(command)))
       .map((comment) => ({ kind: 'comment', id: comment.id, body: comment.body ?? '', createdAt: comment.created_at })),
     ...issueComments
-      .filter((comment) => comment.user?.login === 'github-actions[bot]' && (comment.body ?? '').includes(`:${headSha} -->`))
+      .filter((comment) => {
+        return isPipelinePublisher(comment) && (comment.body ?? '').includes(`:${headSha} -->`);
+      })
       .filter((comment) => (comment.body ?? '').includes('changes required'))
       .map((comment) => {
         const lane = comment.body.match(/<!-- agent-review:([a-z]+):/)?.[1] ?? 'unknown';

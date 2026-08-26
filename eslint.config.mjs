@@ -21,4 +21,8 @@ export default tseslint.config(
     files: ['e2e/**/*.ts', 'tests/**/*.ts'],
     languageOptions: { globals: { ...globals.node } },
   },
+  {
+    files: ['tools/**/*.mjs'],
+    languageOptions: { globals: { ...globals.node } },
+  },
 );
