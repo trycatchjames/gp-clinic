@@ -12,6 +12,24 @@ export function stackOrder(pulls, trunk = 'main') {
 }
 
 /**
+ * GitHub only creates a native stack once at least two pull requests exist.
+ * The first managed pull request is already reviewable on its own, so it needs
+ * no stack API call. Later pulls either extend the stack containing their
+ * immediate parent or create the initial two-or-more-PR stack.
+ */
+export function stackRegistration(stackPullNumbers, pullNumber, stacks = []) {
+  const parentNumber = stackPullNumbers.at(-1);
+  if (parentNumber === undefined) return null;
+
+  const containsParent = (stack) => (stack.pull_requests ?? [])
+    .some((entry) => (typeof entry === 'number' ? entry : entry?.number) === parentNumber);
+  const existing = stacks.find(containsParent);
+  return existing
+    ? { path: `/stacks/${existing.number}/add`, pullRequests: [pullNumber] }
+    : { path: '/stacks', pullRequests: [...stackPullNumbers, pullNumber] };
+}
+
+/**
  * The pull requests stacked directly above `pull`, ordered bottom-up.
  *
  * Rebasing a stack is only expressible as a linear replay, so a fork above the

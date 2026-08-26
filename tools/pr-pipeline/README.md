@@ -14,10 +14,11 @@ From a clean checkout:
 
 ```bash
 pnpm pipeline:status
-pnpm pipeline:run -- --provider claude
+pnpm pipeline:run
 ```
 
-Use `--provider codex` to use the locally authenticated Codex CLI instead. One invocation performs
+Codex is the default provider. Use `--provider claude` to select a locally authenticated Claude
+CLI explicitly. One invocation performs
 at most one action:
 
 1. trusted feedback on the bottom-most affected stacked PR;
@@ -51,6 +52,6 @@ missing lanes before it claims another slice.
 
 The command reads `GITHUB_TOKEN`, `GITHUB_REPOSITORY`, `PIPELINE_MAX_OPEN_PRS`,
 `TRUSTED_REVIEWERS` and `AGENT_PROVIDER` when present. Otherwise it obtains the GitHub token and
-repository from `gh`, uses repository defaults, and defaults to Claude.
+repository from `gh`, uses repository defaults, and defaults to Codex.
 
 Run `pnpm --filter @gp/pr-pipeline test` for the decision and local-command unit tests.

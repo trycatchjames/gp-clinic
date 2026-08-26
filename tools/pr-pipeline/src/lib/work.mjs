@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import YAML from 'yaml';
 import config from '../../config.json' with { type: 'json' };
-import { markerFor, stackDescendants, stackOrder } from './decision.mjs';
+import { markerFor, stackDescendants, stackOrder, stackRegistration } from './decision.mjs';
 import { removeLabel, setLabels } from './github.mjs';
 import { repositoryRoot } from './manifests.mjs';
 
@@ -182,19 +182,10 @@ async function finishSlice(client, state) {
     ...(state.base === 'main' ? [] : [config.labels.waiting]),
   ]);
 
-  const parentNumber = state.stackPullNumbers.at(-1);
-  if (parentNumber === undefined) {
-    await client.request('POST', '/stacks', { pull_requests: [pull.number] });
-  } else {
+  if (state.stackPullNumbers.length > 0) {
     const stacks = await client.paginate('/stacks');
-    const contains = (stack) => (stack.pull_requests ?? [])
-      .some((entry) => (typeof entry === 'number' ? entry : entry?.number) === parentNumber);
-    const existing = stacks.find(contains);
-    if (existing) {
-      await client.request('POST', `/stacks/${existing.number}/add`, { pull_requests: [pull.number] });
-    } else {
-      await client.request('POST', '/stacks', { pull_requests: [...state.stackPullNumbers, pull.number] });
-    }
+    const registration = stackRegistration(state.stackPullNumbers, pull.number, stacks);
+    await client.request('POST', registration.path, { pull_requests: registration.pullRequests });
   }
   await client.request('POST', `/issues/${state.issueNumber}/comments`, {
     body: `Opened stacked PR #${pull.number}.`,
