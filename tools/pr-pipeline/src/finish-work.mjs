@@ -76,11 +76,19 @@ if (state.mode === 'slice') {
     body: `Closes #${state.issueNumber}\n\nDelivery contract: \`${state.manifest}\`\n\n## Review evidence\n\n${screenshotMarkdown || 'This slice declares no screenshots.'}\n\nPlaywright video, trace and HTML report: [workflow evidence](${runUrl})\n\n## Scope\n\nSee the manifest for the actor outcome, scenarios and explicit exclusions. Deterministic and specialist review gates run on this head.`,
   });
   await setLabels(client, pull.number, [config.labels.managed, config.labels.humanReview, ...(state.base === 'main' ? [] : [config.labels.waiting])]);
-  if (state.stackPullNumbers.length === 0) {
+  // GitHub's stack endpoints require the pinned API version and expect the stack listed
+  // bottom-to-top, with each pull request's base ref matching the one below it. Find the
+  // stack that actually contains the pull request below this one rather than trusting a
+  // query filter: appending to the wrong stack would silently misrepresent review order.
+  const parentNumber = state.stackPullNumbers.at(-1);
+  if (parentNumber === undefined) {
     await client.request('POST', '/stacks', { pull_requests: [pull.number] });
   } else {
-    const stacks = await client.paginate(`/stacks?pull_request=${state.stackPullNumbers.at(-1)}`);
-    if (stacks[0]) await client.request('POST', `/stacks/${stacks[0].number}/add`, { pull_requests: [pull.number] });
+    const stacks = await client.paginate('/stacks');
+    const contains = (stack) => (stack.pull_requests ?? [])
+      .some((entry) => (typeof entry === 'number' ? entry : entry?.number) === parentNumber);
+    const existing = stacks.find(contains);
+    if (existing) await client.request('POST', `/stacks/${existing.number}/add`, { pull_requests: [pull.number] });
     else await client.request('POST', '/stacks', { pull_requests: [...state.stackPullNumbers, pull.number] });
   }
   await client.request('POST', `/issues/${state.issueNumber}/comments`, { body: `Opened stacked PR #${pull.number}.` });
