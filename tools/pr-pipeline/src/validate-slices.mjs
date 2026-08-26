@@ -10,7 +10,8 @@ const validate = new Ajv({ allErrors: true }).compile(schema);
 const manifests = await loadManifests();
 
 for (const slice of Object.values(manifests)) {
-  const { file: _file, ...document } = slice;
+  const document = { ...slice };
+  delete document.file;
   if (!validate(document)) {
     for (const issue of validate.errors ?? []) errors.push(`${slice.file}${issue.instancePath}: ${issue.message}`);
   }

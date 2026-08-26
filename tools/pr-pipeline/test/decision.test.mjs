@@ -46,6 +46,14 @@ test('a failing LLM lane on the current head is actionable', () => {
   assert.deepEqual(feedback.map(({ kind, id }) => [kind, id]), [['llm', 'access:deadbeef']]);
 });
 
+test('a local review published by a trusted owner is actionable', () => {
+  const feedback = actionableFeedback({
+    trustedReviewers: ['owner'], commands: ['@agent fix'], headSha: 'deadbeef', reviews: [], reviewComments: [],
+    issueComments: [{ id: 8, body: '<!-- agent-review:ux:deadbeef -->\n### UX review — changes required', created_at: '2026-01-01', user: { login: 'owner' } }],
+  });
+  assert.deepEqual(feedback.map(({ kind, id }) => [kind, id]), [['llm', 'ux:deadbeef']]);
+});
+
 test('feedback on the bottom pull request wins before filling the stack', () => {
   const pulls = [pull(2, 'two', 'one', 'B'), pull(1, 'one', 'main', 'A')];
   const action = nextAction({
