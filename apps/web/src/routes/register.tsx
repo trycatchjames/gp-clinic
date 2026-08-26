@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Field, FieldGroup } from '@/components/field';
+import { Field, FieldGroup } from '@/components/patterns/form-field';
 
 export function RegisterRoute() {
   const { register } = useAuth();
