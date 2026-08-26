@@ -95,7 +95,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: actions/github-script@v8
+      - uses: actions/github-script@v9
         with:
           script: |
             const number = Number(context.payload.client_payload.pull_number || context.payload.client_payload.issue_number);

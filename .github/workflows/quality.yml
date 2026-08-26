@@ -139,7 +139,7 @@ jobs:
     needs: [context, deterministic, api-integration, playwright]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v8
+      - uses: actions/github-script@v9
         env:
           HEAD_SHA: ${{ needs.context.outputs.sha }}
           PASSED: ${{ needs.deterministic.result == 'success' && needs.api-integration.result == 'success' && needs.playwright.result == 'success' }}
