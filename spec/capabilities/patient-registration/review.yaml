@@ -1,0 +1,6 @@
+human_review: [ux, reception-operations, privacy, clinical-safety, compliance]
+automated_review: [tests, security, permissions, accessibility, data-integrity]
+review_evidence:
+  screenshots: [full-registration, provisional-registration, duplicate-warning, merge-preview, sensitive-demographics]
+  flows: [register-without-medicare, concurrent-duplicate, update-safe-contact, record-deceased, merge-two-records]
+  fixtures: [newborn-unknown-dob, no-fixed-address, diverse-sex-gender, representatives, duplicate-clinical-conflicts]

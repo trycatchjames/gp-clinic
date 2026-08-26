@@ -1,23 +1,27 @@
 # GP Practice Management — Prototype
 
+> **Specification authority:** [`SPEC.md`](SPEC.md) and [`spec/`](spec/) are the authoritative
+> Version 1 product/system specification. The older `docs/`, `features/`, `openapi/` and
+> prototype code are non-authoritative implementation and research history; where they differ,
+> the authoritative specification governs.
+
 Practice management software for **Australian general practice**: the full lifecycle from
 appointment scheduling and patient management, through the clinical consultation, to invoicing
 and billing.
 
-This repository is two things at once:
+This repository contains three kinds of material:
 
-1. **A specification** — 52 workflow documents in [`docs/`](docs/) and 129 Gherkin feature files
-   in [`features/`](features/) covering the whole lifecycle, grounded in the RACGP curriculum,
-   the RACGP Standards (5th edition), the MBS, and the Medicare programme rules currently in
-   force.
-2. **Working software** — a running monorepo that implements practice registration and account
+1. **The authoritative specification** — [`SPEC.md`](SPEC.md) and [`spec/`](spec/) define Version
+   1 product behaviour, domain invariants, safety, permissions, screens, acceptance and
+   architecture, with all external integrations deliberately excluded.
+2. **Legacy workflow/prototype material** — [`docs/`](docs/) and [`features/`](features/) pre-date
+   the authoritative specification and remain useful context only.
+3. **Working prototype software** — a running monorepo that implements practice registration and account
    setup end to end, on the architecture the rest would be built on.
 
-Everything is written for GPs, not specialists. The workflows follow what GPs are actually
-taught and what Australian practices are actually required to do — see
-[docs/00-foundations/02-australian-general-practice-context.md](docs/00-foundations/02-australian-general-practice-context.md)
-for the grounding and [docs/90-reference/references.md](docs/90-reference/references.md) for
-sources.
+The current Australian research basis and its limitations are recorded in
+[`spec/research`](spec/research). See [`SPEC.md`](SPEC.md) before changing behaviour or
+implementing a capability.
 
 ---
 

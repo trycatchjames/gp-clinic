@@ -1,0 +1,6 @@
+human_review: [gp, nurse, reception-operations, clinical-safety, privacy]
+automated_review: [tests, security, permissions, accessibility, data-integrity, queue-invariants]
+review_evidence:
+  screenshots: [assigned-inbox, unmatched-queue, critical-source-flag, result-review, follow-up-in-progress, corrected-result]
+  flows: [match-result, review-no-action, create-recall-atomically, delegated-contact, corrected-re-review, reassign-cover]
+  fixtures: [normal-needs-followup, abnormal-routine, critical-after-hours, unmatched, corrected]

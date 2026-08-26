@@ -1,0 +1,6 @@
+human_review: [ux, practice-operations, clinical-safety]
+automated_review: [tests, permissions, accessibility, queue-invariants]
+review_evidence:
+  screenshots: [my-tasks, team-overdue, unassigned-exception, clinical-task-restricted]
+  flows: [create-assign-complete, reassign, recur, complete-linked-recall-task]
+  fixtures: [mixed-clinical-admin, offboarding-workload]

@@ -59,7 +59,9 @@ export function LoginRoute() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Sign in</CardTitle>
+            <CardTitle asChild>
+              <h2>Sign in</h2>
+            </CardTitle>
             <CardDescription>Use your practice email address.</CardDescription>
           </CardHeader>
           <CardContent>

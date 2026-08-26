@@ -6,6 +6,10 @@ build/
 *.tsbuildinfo
 .DS_Store
 coverage/
+playwright-report/
+test-results/
+tools/pr-pipeline/runtime/*
+!tools/pr-pipeline/runtime/.gitkeep
 apps/web/dev-dist/
 packages/sdk/src/generated/
 openapi/openapi.json

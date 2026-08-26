@@ -21,16 +21,17 @@ import { formatCurrency } from '@/lib/utils';
 export function MbsRoute() {
   const [search, setSearch] = React.useState('');
   const items = useMbsItems(search || undefined);
+  const itemData = items.data;
 
   const groups = React.useMemo(() => {
-    const map = new Map<string, typeof items.data>();
-    for (const item of items.data ?? []) {
+    const map = new Map<string, typeof itemData>();
+    for (const item of itemData ?? []) {
       const list = map.get(item.group) ?? [];
       list.push(item);
       map.set(item.group, list as never);
     }
     return [...map.entries()];
-  }, [items.data]);
+  }, [itemData]);
 
   return (
     <>

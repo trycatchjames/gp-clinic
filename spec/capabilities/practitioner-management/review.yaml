@@ -1,0 +1,6 @@
+human_review: [practice-manager, gp-lead, security, clinical-safety]
+automated_review: [tests, permissions, accessibility, responsibility-invariants]
+review_evidence:
+  screenshots: [practitioner-profile, location-provider-matrix, credential-expiry, offboarding-inventory]
+  flows: [add-location, record-cover, expire-restriction, offboard-reassign]
+  fixtures: [part-time-gp, registrar-supervision, locum, multiple-provider-numbers]

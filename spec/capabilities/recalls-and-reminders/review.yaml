@@ -1,0 +1,6 @@
+human_review: [gp, nurse, reception-operations, clinical-safety, privacy]
+automated_review: [tests, security, permissions, accessibility, queue-invariants]
+review_evidence:
+  screenshots: [recall-worklist, protected-reception-view, contact-history, unable-to-contact, preventive-reminders]
+  flows: [create-from-result, failed-contacts, dna-escalation, clinician-close, reminder-no-response]
+  fixtures: [routine-urgent-critical, unsafe-contact, consent-optout, practitioner-absence]

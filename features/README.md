@@ -1,7 +1,11 @@
-# Gherkin Specifications
+# Legacy Gherkin Specifications
 
-These are the behavioural specifications for the GP practice management system. They are the
-executable counterpart to the workflow documents in [`../docs`](../docs).
+> **Non-authoritative.** Executable examples for the authoritative Version 1 specification live
+> beside capabilities under [`../spec/capabilities`](../spec/capabilities). These earlier feature
+> files are retained as research/implementation history and cannot override [`../SPEC.md`](../SPEC.md).
+
+These are earlier behavioural examples for the GP practice management prototype. They are the
+counterpart to the legacy workflow documents in [`../docs`](../docs).
 
 ## Everything here is currently inactive
 

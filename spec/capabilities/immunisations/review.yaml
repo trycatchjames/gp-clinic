@@ -1,0 +1,6 @@
+human_review: [gp, nurse-immuniser, clinical-safety, compliance]
+automated_review: [tests, permissions, accessibility, data-integrity]
+review_evidence:
+  screenshots: [administered-entry, historical-entry, duplicate-warning, entered-in-error, air-not-connected]
+  flows: [record-administered, record-history, correct-dose, link-aefi]
+  fixtures: [child-series, adult-overseas-history, missing-batch-draft]

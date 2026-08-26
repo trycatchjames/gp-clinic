@@ -1,0 +1,6 @@
+human_review: [gp, nurse, clinical-safety, ux]
+automated_review: [tests, permissions, accessibility, data-integrity]
+review_evidence:
+  screenshots: [observation-entry, trend, mixed-units, implausible-confirmation]
+  flows: [record-measurement, derive-bmi, correct-observation]
+  fixtures: [longitudinal-bp, height-weight-units]

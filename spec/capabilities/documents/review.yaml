@@ -1,0 +1,6 @@
+human_review: [practice-operations, privacy, clinical-safety, ux]
+automated_review: [tests, security, permissions, accessibility, malware-handling, integrity]
+review_evidence:
+  screenshots: [upload-scanning, quarantine, unmatched, legibility-failure, filed-version-history]
+  flows: [upload-match-classify, wrong-patient-correction, replace-version, quarantine]
+  fixtures: [pdf-image, illegible-scan, malicious-file, similar-patient-document]

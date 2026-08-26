@@ -1,0 +1,6 @@
+human_review: [ux, reception-operations, privacy, clinical-safety]
+automated_review: [tests, security, permissions, accessibility, search-quality]
+review_evidence:
+  screenshots: [initial-search, similar-candidates, no-results, restricted-stub, search-failure]
+  flows: [multi-identifier-search, medicare-family-search, merged-record-redirect, keyboard-selection, restricted-search-escalation]
+  fixtures: [twins-and-shared-family, aliases-and-previous-names, inactive-deceased-sensitive]

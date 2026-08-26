@@ -1,0 +1,6 @@
+human_review: [practice-manager, privacy, clinical-governance, finance]
+automated_review: [tests, security, permissions, accessibility, reconciliation, privacy]
+review_evidence:
+  screenshots: [operations-dashboard, clinical-safety-panel, financial-panel, stale-partial-data, restricted-view]
+  flows: [filter-drillthrough, authorised-export, denied-clinical-panel]
+  fixtures: [normal-month, small-cell-risk, stale-projection]

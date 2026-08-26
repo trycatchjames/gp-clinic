@@ -1,0 +1,6 @@
+human_review: [gp, nurse, clinical-safety]
+automated_review: [tests, permissions, accessibility, data-integrity]
+review_evidence:
+  screenshots: [not-assessed, none-known, active-reactions, reaction-editor, prescribing-warning]
+  flows: [record-none-known, add-reaction, resolve-reaction, warning-override]
+  fixtures: [drug-allergy, adverse-reaction, unknown-agent, conflicting-assessment]

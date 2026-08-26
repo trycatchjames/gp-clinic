@@ -1,0 +1,6 @@
+human_review: [gp, practice-operations, privacy]
+automated_review: [tests, security, permissions, accessibility, document-integrity]
+review_evidence:
+  screenshots: [inbound-unmatched, assigned-letter, outbound-editor, dispatch-failure]
+  flows: [match-inbound, action-letter, issue-outbound, failed-dispatch]
+  fixtures: [discharge-summary, specialist-letter, sensitive-letter]

@@ -1,0 +1,6 @@
+human_review: [gp, nurse, clinical-safety]
+automated_review: [tests, permissions, accessibility, data-integrity]
+review_evidence:
+  screenshots: [unassessed-list, current-list, reconciliation, duplicate-warning, medication-history]
+  flows: [add-external-medicine, reconcile-none, cease-hold-reactivate, link-prescription]
+  fixtures: [polypharmacy, otc-complementary, uncertain-dose]

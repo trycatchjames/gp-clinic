@@ -1,0 +1,6 @@
+human_review: [practice-manager, security, privacy, clinical-governance]
+automated_review: [tests, security, permissions, accessibility, configuration-history]
+review_evidence:
+  screenshots: [locations, appointment-types, result-recall-policy, fee-schedule, impact-preview, version-history]
+  flows: [activate-location-hours, schedule-leave-impact, activate-fees, change-role, reject-unsafe-config]
+  fixtures: [multi-location, daylight-saving, future-bookings]

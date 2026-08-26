@@ -1,7 +1,11 @@
 # GP Practice Management System — Workflow Documentation
 
-This directory is the specification for a practice management system built **for Australian
-general practice**. Not specialists, not hospitals — GPs. Every workflow here is modelled on
+> **Legacy, non-authoritative material.** The current source of truth is [`../SPEC.md`](../SPEC.md)
+> and [`../spec`](../spec). These workflow notes pre-date Version 1 of the authoritative
+> specification and must not override its domain, safety, permission, screen or scope rules.
+
+This directory is retained as earlier workflow research for a practice management system built **for Australian
+general practice**. Not specialists, not hospitals — GPs. Its workflows were modelled on
 what GPs are actually taught and what Australian practices are actually required to do:
 
 - the **RACGP Curriculum and Syllabus for Australian General Practice (6th edition, 2022)** —

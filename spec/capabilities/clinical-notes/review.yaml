@@ -1,0 +1,6 @@
+human_review: [ux, gp, nurse, clinical-safety, medico-legal]
+automated_review: [tests, security, permissions, accessibility, recovery, concurrency]
+review_evidence:
+  screenshots: [free-text-note, structured-template, save-failure, conflict-resolution, amendment-chain]
+  flows: [autosave-recover, complete-note, concurrent-edit, late-entry, entered-in-error]
+  fixtures: [short-consult, long-note, two-contributors]

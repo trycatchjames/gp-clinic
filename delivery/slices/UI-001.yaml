@@ -1,0 +1,38 @@
+id: UI-001
+title: Establish accessible application UI foundations
+kind: enablement
+status: queued
+capability: null
+story:
+  actor: Practice staff member
+  goal: use consistent and accessible controls across core workflows
+  benefit: each product slice can focus on task validity instead of rebuilding interaction basics
+spec_refs:
+  - spec/product/principles.md
+  - spec/product/non-functional-requirements.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - A reviewable component gallery demonstrates foundational controls and their meaningful states
+    - Form controls expose labels, descriptions, errors, disabled state and visible keyboard focus
+    - Primitive, pure pattern and API-connected capability component ownership is documented
+evidence:
+  screenshots:
+    - foundation-controls
+    - form-states
+  flows:
+    - keyboard-foundations
+  fixtures:
+    - design-system-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on: []
+out_of_scope:
+  - Patient search or other API-connected capability components
+  - A complete design system built without product usage
+  - Brand identity redesign
+

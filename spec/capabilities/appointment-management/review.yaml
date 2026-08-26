@@ -1,0 +1,6 @@
+human_review: [ux, reception-operations, clinical-safety]
+automated_review: [tests, security, permissions, accessibility, domain-boundaries]
+review_evidence:
+  screenshots: [booking-editor, conflict, overbook-warning, cancelled-history, waiting-room]
+  flows: [book-patient, reschedule, recurring-booking-conflict, authorised-overbook, cancel, dna-linked-recall, arrive]
+  fixtures: [similar-patients, concurrent-booking, recurring-with-leave, recall-appointment]

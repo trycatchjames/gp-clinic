@@ -1,0 +1,29 @@
+name: Out-of-stream finding
+description: Capture worthwhile work without expanding the active story.
+title: "[FOLLOW-UP] "
+labels: ["out-of-stream"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Area
+      options: [Product/spec gap, UX refinement, Security, Access boundary, Architecture, Test infrastructure, Operations]
+    validations:
+      required: true
+  - type: textarea
+    id: finding
+    attributes:
+      label: Finding and consequence
+      description: State the evidence and user/system consequence.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source PR or slice
+      placeholder: "#123 / PATSEARCH-001"
+  - type: textarea
+    id: done
+    attributes:
+      label: Suggested acceptance
+      description: Keep this outcome-focused and testable.

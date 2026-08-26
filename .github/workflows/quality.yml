@@ -1,0 +1,157 @@
+name: Quality gates
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: [main]
+  repository_dispatch:
+    types: [agent_pr_changed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+concurrency:
+  group: quality-${{ github.event.pull_request.number || github.event.client_payload.pull_number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  context:
+    runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.ref.outputs.sha }}
+    steps:
+      - id: ref
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_SHA: ${{ github.event.pull_request.head.sha }}
+          DISPATCH_SHA: ${{ github.event.client_payload.head_sha }}
+        run: echo "sha=${PR_SHA:-${DISPATCH_SHA:-$GITHUB_SHA}}" >> "$GITHUB_OUTPUT"
+
+  deterministic:
+    needs: context
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ needs.context.outputs.sha }}
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.18.2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm gate
+
+  api-integration:
+    needs: context
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: gp
+          POSTGRES_PASSWORD: gp
+          POSTGRES_DB: gp_prototype
+        ports: [5439:5432]
+        options: >-
+          --health-cmd "pg_isready -U gp -d gp_prototype"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      DATABASE_URL: postgres://gp:gp@localhost:5439/gp_prototype
+      NODE_ENV: test
+      JWT_ACCESS_SECRET: ci-access-secret
+      JWT_REFRESH_SECRET: ci-refresh-secret
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ needs.context.outputs.sha }}
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.18.2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build:contracts && pnpm --filter @gp/api build
+      - run: pnpm db:migrate && pnpm db:seed
+      - name: Start the API
+        run: |
+          pnpm --filter @gp/api start > /tmp/gp-api.log 2>&1 &
+          echo $! > /tmp/gp-api.pid
+      - name: Wait for the API to report healthy
+        run: |
+          for attempt in $(seq 1 60); do
+            if curl -fsS http://localhost:3001/api/health > /dev/null 2>&1; then
+              echo "API healthy after ${attempt} attempt(s)."
+              exit 0
+            fi
+            if ! kill -0 "$(cat /tmp/gp-api.pid)" 2>/dev/null; then
+              echo "::error::The API process exited before becoming healthy."
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "::error::The API did not become healthy within 120 seconds."
+          exit 1
+      - run: pnpm smoke
+      - name: API server log
+        if: always()
+        run: cat /tmp/gp-api.log || true
+
+  playwright:
+    needs: context
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ needs.context.outputs.sha }}
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.18.2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:e2e
+      - name: Upload Playwright report, traces, video and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-review-evidence-${{ needs.context.outputs.sha }}
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 30
+
+  quality-gate:
+    name: Deterministic gate summary
+    if: always()
+    needs: [context, deterministic, api-integration, playwright]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v8
+        env:
+          HEAD_SHA: ${{ needs.context.outputs.sha }}
+          PASSED: ${{ needs.deterministic.result == 'success' && needs.api-integration.result == 'success' && needs.playwright.result == 'success' }}
+        with:
+          script: |
+            const passed = process.env.PASSED === 'true';
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: process.env.HEAD_SHA,
+              state: passed ? 'success' : 'failure',
+              context: 'quality/gate',
+              description: passed ? 'All deterministic gates passed' : 'One or more deterministic gates failed',
+            });
+            if (!passed) core.setFailed('One or more deterministic gates failed.');

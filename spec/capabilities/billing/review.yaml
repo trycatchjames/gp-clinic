@@ -1,0 +1,6 @@
+human_review: [reception-operations, practice-manager, billing-compliance, ux]
+automated_review: [tests, security, permissions, accessibility, financial-reconciliation]
+review_evidence:
+  screenshots: [private-checkout, bulk-billing-arrangement, itemised-invoice, part-payment, claim-rejection, debtor-account]
+  flows: [issue-private-invoice, record-payment, reverse-payment, manual-claim, reject-resubmit, void-reissue]
+  fixtures: [patient-vs-claimant, multi-location-provider, dated-fees, cancellation-fee]

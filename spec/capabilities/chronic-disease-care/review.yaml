@@ -1,0 +1,6 @@
+human_review: [gp, nurse, allied-health, clinical-safety, ux]
+automated_review: [tests, permissions, accessibility, domain-boundaries]
+review_evidence:
+  screenshots: [plan-draft, active-plan, review-due, revised-history]
+  flows: [create-activate, assign-actions, review-revise, complete-open-work]
+  fixtures: [multimorbidity, multidisciplinary, plan-without-billing]

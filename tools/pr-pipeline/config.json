@@ -1,0 +1,16 @@
+{
+  "maxOpenPullRequests": 3,
+  "trustedReviewers": ["trycatchjames"],
+  "labels": {
+    "managed": "agent:managed",
+    "queued": "agent:queued",
+    "working": "agent:working",
+    "humanReview": "review:human",
+    "waiting": "stack:waiting",
+    "blocked": "agent:blocked"
+  },
+  "commands": ["@agent fix", "@codex fix", "@claude fix"],
+  "architecture": {
+    "apiModuleAllowList": ["team->auth"]
+  }
+}

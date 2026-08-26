@@ -1,0 +1,6 @@
+human_review: [ui, ux, gp, nurse, privacy, clinical-safety]
+automated_review: [tests, security, permissions, accessibility, performance, domain-boundaries]
+review_evidence:
+  screenshots: [clinical-overview, reception-view, long-timeline, allergies-unavailable, sensitive-entry, amendment]
+  flows: [open-from-waiting-room, filter-timeline, switch-with-draft, open-result-without-review]
+  fixtures: [healthy-adult, multimorbidity-polypharmacy, paediatric, long-history, restricted-record]

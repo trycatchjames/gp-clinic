@@ -1,0 +1,47 @@
+id: PATSEARCH-001
+title: Find and deliberately select an existing patient
+kind: story
+status: queued
+capability: patient-search
+story:
+  actor: Receptionist
+  goal: find the correct existing patient from approved identifiers
+  benefit: appointments and records start from a deliberate identity choice rather than a guess
+spec_refs:
+  - spec/capabilities/patient-search/overview.md
+  - spec/capabilities/patient-search/rules.md
+  - spec/capabilities/patient-search/interactions.md
+  - spec/capabilities/patient-search/permissions.md
+  - spec/capabilities/patient-search/screens/patient-search.md
+  - spec/domain/patient/invariants.md
+  - spec/cross-cutting/search/requirements.md
+  - spec/cross-cutting/authorization/permissions.md
+acceptance:
+  scenarios:
+    - file: spec/capabilities/patient-search/acceptance/patient-search.feature
+      name: Medicare card finds family members but does not verify identity
+    - file: spec/capabilities/patient-search/acceptance/patient-search.feature
+      name: Similar names remain distinct
+  criteria: []
+evidence:
+  screenshots:
+    - initial-search
+    - similar-candidates
+  flows:
+    - multi-identifier-search
+    - keyboard-selection
+  fixtures:
+    - twins-and-shared-family
+risk:
+  permissions: true
+  clinical_safety: true
+  data_migration: true
+  domains:
+    - patient
+depends_on:
+  - UI-001
+out_of_scope:
+  - Creating or editing a patient
+  - Restricted patient identity stubs
+  - Automatic patient selection or identity verification
+

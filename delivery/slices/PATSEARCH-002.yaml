@@ -1,0 +1,46 @@
+id: PATSEARCH-002
+title: Handle restricted records and failed patient searches safely
+kind: story
+status: queued
+capability: patient-search
+story:
+  actor: Receptionist
+  goal: understand when search is restricted or unavailable without receiving clinical content
+  benefit: a system failure or privacy restriction cannot be mistaken for proof that no patient exists
+spec_refs:
+  - spec/capabilities/patient-search/overview.md
+  - spec/capabilities/patient-search/rules.md
+  - spec/capabilities/patient-search/interactions.md
+  - spec/capabilities/patient-search/permissions.md
+  - spec/capabilities/patient-search/screens/patient-search.md
+  - spec/cross-cutting/privacy/specification.md
+  - spec/cross-cutting/error-handling/requirements.md
+  - spec/cross-cutting/authorization/permissions.md
+acceptance:
+  scenarios:
+    - file: spec/capabilities/patient-search/acceptance/patient-search.feature
+      name: Search failure cannot be interpreted as no patient
+    - file: spec/capabilities/patient-search/acceptance/patient-search.feature
+      name: Restricted patient prevents duplicate without exposing clinical content
+  criteria: []
+evidence:
+  screenshots:
+    - restricted-stub
+    - search-failure
+  flows:
+    - restricted-search-escalation
+  fixtures:
+    - inactive-deceased-sensitive
+risk:
+  permissions: true
+  clinical_safety: true
+  data_migration: false
+  domains:
+    - patient
+depends_on:
+  - PATSEARCH-001
+out_of_scope:
+  - Sensitive-record access approval workflow
+  - Patient registration
+  - Clinical record content
+

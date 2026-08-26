@@ -1,0 +1,6 @@
+human_review: [gp, privacy, clinical-safety, ux]
+automated_review: [tests, permissions, accessibility, document-integrity]
+review_evidence:
+  screenshots: [referral-draft, content-selection, issued-preview, failed-dispatch, outcome]
+  flows: [issue-referral, manual-dispatch, change-recipient-version, decline-followup]
+  fixtures: [sensitive-content, attachments, recipient-change]

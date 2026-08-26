@@ -1,0 +1,25 @@
+name: Delivery slice
+description: Queue one small, independently reviewable user-story slice.
+title: "[SLICE-ID] "
+labels: ["agent:queued"]
+body:
+  - type: input
+    id: manifest
+    attributes:
+      label: Delivery manifest
+      description: Path under delivery/slices. This contract is authoritative for the PR.
+      placeholder: delivery/slices/PATSEARCH-001.yaml
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Actor outcome
+      description: What can the actor validly accomplish after this slice?
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Product notes
+      description: Optional context that does not expand the manifest.

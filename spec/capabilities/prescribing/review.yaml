@@ -1,0 +1,6 @@
+human_review: [gp, prescribing-safety, legal-compliance, ux]
+automated_review: [tests, security, permissions, accessibility, data-integrity]
+review_evidence:
+  screenshots: [draft, allergy-not-assessed, exact-allergy-warning, issue-preview, cancelled-limitation]
+  flows: [prepare-and-issue, delegate-draft, failed-issue, supersede-reissue, reprint]
+  fixtures: [multiple-items, inactive-prescriber-location, uncoded-medicine]

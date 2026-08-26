@@ -1,0 +1,86 @@
+# Repository working agreement
+
+This repository is an Australian general-practice product. Treat GitHub pull requests as the
+delivery and approval interface: ship small, reviewable user outcomes with observable evidence.
+
+## Authority
+
+1. Read `SPEC.md` before product work.
+2. Follow accepted ADRs, domain invariants and cross-cutting safety requirements before
+   capability examples or implementation precedent.
+3. Read the relevant capability overview, rules, interactions, permissions, screens,
+   acceptance examples and `review.yaml` before changing observable behaviour.
+4. Follow the nearest nested `AGENTS.md` for area-specific instructions.
+5. If authoritative requirements conflict, stop implementation and repair or escalate the
+   specification conflict. Do not select the easiest interpretation.
+
+Legacy `docs/`, `features/`, `openapi/` and existing prototype behaviour are evidence only. They
+must not override `SPEC.md` or `spec/`.
+
+## Delivery slices
+
+- Implement one delivery slice at a time. A slice has one user outcome, normally one to three
+  Gherkin scenarios, explicit exclusions and named review evidence.
+- Delivery slice manifests live in `delivery/slices/` and follow
+  `delivery/slices/schema.json`. Do not broaden a slice merely because nearby work is easy.
+- Keep no more than three agent-managed pull requests open. They form one stack and are reviewed
+  from the bottom up.
+- Put a dependency in the same slice or a lower stack layer. Never work around a missing lower
+  layer from a higher one.
+- Material behaviour, permission, safety, domain, contract or screen changes require the
+  corresponding authoritative specification change.
+- Findings outside the slice become a linked GitHub issue with evidence and acceptance criteria.
+  Fix them in the current PR only when they block the story or make it unsafe.
+
+## Pull-request contract
+
+Every product PR must make the following obvious in its body:
+
+- actor, outcome and user/safety problem;
+- included acceptance scenarios and explicit exclusions;
+- affected capabilities, domains, permissions and invariants;
+- screenshots for changed states and a Playwright trace/video for the main flow;
+- deterministic validation performed and any unresolved question;
+- stack position and the PR immediately below it, when applicable.
+
+Do not claim evidence that was not generated from the PR head. Use demo data only; never put real
+patient information, secrets or production data into fixtures, screenshots, traces or logs.
+
+## Required engineering behaviour
+
+- Enforce authorization and practice/account isolation server-side. UI hiding is not access
+  control. Add negative tests for forbidden roles and cross-practice identifiers.
+- Use granular permission decisions rather than new role-name checks. Existing role checks are
+  migration evidence, not a pattern to extend.
+- Keep each domain's mutations behind its owner. Cross-domain reads use published contracts;
+  cross-domain writes use explicit application orchestration.
+- Never silently discard failed saves, conflicts or clinically consequential history.
+- Keep generated SDK and OpenAPI outputs deterministic; do not edit generated SDK files.
+- Prefer accessible shadcn-derived primitives in `apps/web/src/components/ui`, pure shared
+  compositions in `apps/web/src/components/patterns`, and API/permission-aware components in a
+  capability-owned feature area.
+- Keep `tools/pr-pipeline` independent of application packages. Application code must not import
+  it. GitHub workflows should be thin adapters around it.
+
+## Validation
+
+Run the smallest relevant checks while iterating, then run the complete local gate before handing
+off a PR:
+
+```bash
+pnpm gate
+```
+
+For UI changes, also run the relevant Playwright project and capture the evidence named by the
+slice and capability review manifests. For API, permission, tenancy, migration or clinical-safety
+changes, run the database-backed checks even if unit tests pass.
+
+LLM reviews supplement deterministic gates. They must identify evidence and risks; they do not
+replace tests for permissions, account boundaries, data integrity or domain invariants.
+
+## Repository skills
+
+Reusable workflows live canonically in `agent-skills/` using the open Agent Skills format.
+`.agents/skills` and `.claude/skills` are checked-in discovery symlinks to that one source. Use the
+relevant skill when a task matches it, especially for delivery slicing, PR evidence, feedback
+handling and specialist reviews.

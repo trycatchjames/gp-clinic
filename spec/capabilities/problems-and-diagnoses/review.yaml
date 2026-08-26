@@ -1,0 +1,6 @@
+human_review: [gp, clinical-safety, data-quality]
+automated_review: [tests, permissions, accessibility, domain-boundaries]
+review_evidence:
+  screenshots: [problem-list, provisional-diagnosis, history]
+  flows: [record-diagnosis, promote-problem, resolve-reactivate, entered-in-error]
+  fixtures: [coded-and-free-text, uncertain-diagnoses]

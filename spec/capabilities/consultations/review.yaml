@@ -1,0 +1,6 @@
+human_review: [ui, ux, gp, nurse, clinical-safety]
+automated_review: [tests, security, permissions, accessibility, data-integrity, domain-boundaries]
+review_evidence:
+  screenshots: [consultation-start, dense-health-summary, unsaved-note, failed-action, completion-review, completed-amended]
+  flows: [preview-without-start, booked-consultation, unbooked-consultation, action-failure-blocks-completion, amend-note]
+  fixtures: [routine-consult, multimorbidity, supervision-required, partial-service-failure]

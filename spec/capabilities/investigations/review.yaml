@@ -1,0 +1,6 @@
+human_review: [gp, clinical-safety, ux]
+automated_review: [tests, permissions, accessibility, data-integrity]
+review_evidence:
+  screenshots: [request-draft, issued-preview, outstanding-list, partial-result]
+  flows: [issue-pathology, issue-imaging, manual-dispatch, cancel-with-limitation, overdue-request]
+  fixtures: [multiple-tests, copy-to-recipient, practitioner-cover]

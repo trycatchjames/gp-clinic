@@ -1,0 +1,6 @@
+human_review: [ui, ux, reception-operations, accessibility]
+automated_review: [tests, types, security, permissions, architecture, accessibility, domain-boundaries]
+review_evidence:
+  screenshots: [empty-calendar, normal-clinic-day, busy-multi-practitioner-day, appointment-selected, unavailable-practitioner, partial-failure]
+  flows: [create-appointment, keyboard-reschedule, invalid-reschedule, mark-arrived, find-next-available]
+  fixtures: [single-practitioner-day, multi-location-busy-day, overlap-and-leave]

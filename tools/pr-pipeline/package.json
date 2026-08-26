@@ -1,0 +1,17 @@
+{
+  "name": "@gp/pr-pipeline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Repository-local GitHub delivery orchestrator, isolated from product runtime code.",
+  "scripts": {
+    "validate": "node src/validate-slices.mjs",
+    "architecture": "node src/check-architecture.mjs",
+    "test": "node --test test/*.test.mjs",
+    "poll": "node src/poll.mjs"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "yaml": "^2.8.1"
+  }
+}
