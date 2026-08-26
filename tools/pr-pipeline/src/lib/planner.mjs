@@ -3,7 +3,10 @@ import { actionableFeedback, nextAction, stackOrder } from './decision.mjs';
 import { removeLabel, setLabels } from './github.mjs';
 import { loadManifests, sliceIdFromIssue } from './manifests.mjs';
 
-export const reviewLanes = ['security', 'access', 'ux', 'architecture'];
+export function hasConsolidatedReview(statuses = []) {
+  return statuses.some((status) =>
+    status.context === 'agent/review' && status.description?.startsWith('Consolidated review'));
+}
 
 export async function inspectPipeline({
   client,
@@ -58,17 +61,12 @@ export async function inspectPipeline({
 
   if (selected.type === 'feedback') return selected;
 
-  // A newly pushed head must receive all specialist reviews before another slice is
+  // A newly pushed head must receive its consolidated review before another slice is
   // claimed. This also recovers cleanly if the local process stopped between opening
-  // a PR and publishing its reviews.
+  // a PR and publishing its review.
   for (const pull of stackOrder(availablePulls)) {
     const combined = await client.request('GET', `/commits/${pull.head.sha}/status`);
-    const latest = new Map();
-    for (const status of combined.statuses ?? []) {
-      if (!latest.has(status.context)) latest.set(status.context, status.state);
-    }
-    const lanes = reviewLanes.filter((lane) => !latest.has(`agent/${lane}`));
-    if (lanes.length > 0) return { type: 'review', pull, lanes };
+    if (!hasConsolidatedReview(combined.statuses)) return { type: 'review', pull, needed: true };
   }
 
   if (selected.type === 'slice' && managedPulls.some((pull) =>
@@ -115,7 +113,7 @@ export function summariseAction(action) {
     return { type: action.type, issue: action.issue.number, slice: action.slice.id };
   }
   if (action.type === 'review') {
-    return { type: action.type, pull: action.pull.number, lanes: action.lanes };
+    return { type: action.type, pull: action.pull.number };
   }
   return action;
 }
