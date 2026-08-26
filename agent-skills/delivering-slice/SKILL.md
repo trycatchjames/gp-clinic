@@ -15,10 +15,12 @@ description: Implement one queued GP Clinic delivery slice as a small, spec-trac
    require forbidden-role and cross-practice negative tests.
 5. Use the `capturing-pr-evidence` skill for observable UI changes. Update the slice manifest to
    `in_review` only after its named evidence exists.
-6. Run `pnpm gate` and the relevant database-backed or Playwright checks. Fix failures caused by
-   the slice; report unrelated failures with evidence.
+6. Run the smallest relevant checks while iterating, including database-backed or Playwright
+   checks when the risk requires them. When invoked by `tools/pr-pipeline`, do not run the full
+   `pnpm gate`; the harness runs it once after implementation. Outside that harness, run the full
+   gate before handoff. Fix failures caused by the slice and report unrelated failures with
+   evidence.
 7. Prepare the PR body from `.github/pull_request_template.md`. State what remains unresolved and
    never claim a check or screenshot that was not produced from the current head.
 
 Do not merge, approve, resolve human review threads or expand the slice without explicit authority.
-

@@ -22,7 +22,7 @@ CLI explicitly. One invocation performs
 at most one action:
 
 1. trusted feedback on the bottom-most affected stacked PR;
-2. missing security, access, UX or architecture reviews for a current PR head;
+2. a missing consolidated, risk-aware review for a current PR head;
 3. the next dependency-ready `agent:queued` delivery slice; or
 4. nothing, when the stack is full or no slice is ready.
 
@@ -41,7 +41,7 @@ pnpm pipeline:run -- --help
 ```
 
 `--skip-reviews` is a recovery/debugging option; the next normal invocation detects and runs the
-missing lanes before it claims another slice.
+missing consolidated review before it claims another slice.
 
 ## Local prerequisites
 

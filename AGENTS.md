@@ -64,23 +64,27 @@ patient information, secrets or production data into fixtures, screenshots, trac
 
 ## Validation
 
-Run the smallest relevant checks while iterating, then run the complete local gate before handing
-off a PR:
+Run the smallest relevant checks while iterating. The local PR pipeline owns the complete
+pre-publication gate and runs it once after the implementation agent returns:
 
 ```bash
 pnpm gate
 ```
 
+When working outside the PR pipeline, run that complete gate before handing off a PR.
+
 For UI changes, also run the relevant Playwright project and capture the evidence named by the
 slice and capability review manifests. For API, permission, tenancy, migration or clinical-safety
 changes, run the database-backed checks even if unit tests pass.
 
-LLM reviews supplement deterministic gates. They must identify evidence and risks; they do not
-replace tests for permissions, account boundaries, data integrity or domain invariants.
+The consolidated LLM review supplements deterministic gates and applies security, access,
+clinical-safety, architecture and UX considerations according to the manifest and diff. It must
+identify evidence and risks; it does not replace tests for permissions, account boundaries, data
+integrity or domain invariants.
 
 ## Repository skills
 
 Reusable workflows live canonically in `agent-skills/` using the open Agent Skills format.
 `.agents/skills` and `.claude/skills` are checked-in discovery symlinks to that one source. Use the
 relevant skill when a task matches it, especially for delivery slicing, PR evidence, feedback
-handling and specialist reviews.
+handling and the consolidated slice review.

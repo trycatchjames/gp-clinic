@@ -13,10 +13,11 @@ description: Apply trusted human review feedback to the correct layer of an agen
    permissions, safety or scope, update the specification only when the reviewer explicitly
    authorized that change; otherwise report the conflict.
 4. Add or update regression tests. Recapture any screenshot or flow evidence invalidated by the
-   change and run `pnpm gate` plus relevant database/Playwright checks.
+   change and run the smallest relevant database/Playwright checks. When invoked by
+   `tools/pr-pipeline`, leave the full `pnpm gate` to the harness; outside it, run the full gate
+   before handoff.
 5. Leave a concise mapping from each feedback item to the resulting change and verification. Do
    not mark a human thread resolved and do not approve or merge the PR.
 
 The pipeline performs the atomic descendant rebase/push after the work succeeds. Do not push,
 force-push, create another PR or manipulate stack metadata yourself.
-
