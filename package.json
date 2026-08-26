@@ -29,7 +29,7 @@
     "test": "vitest run && pnpm --filter @gp/pr-pipeline test",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "gate": "pnpm lint && pnpm typecheck && pnpm lint:features && pnpm lint:slices && pnpm lint:architecture && pnpm test && pnpm build",
+    "gate": "pnpm api:generate && pnpm lint && pnpm typecheck && pnpm lint:features && pnpm lint:slices && pnpm lint:architecture && pnpm test && pnpm build",
     "gate:full": "pnpm gate && pnpm db:migrate && pnpm db:seed && pnpm smoke && pnpm test:e2e",
     "bootstrap": "pnpm install && pnpm db:up && sleep 4 && pnpm build:contracts && pnpm db:migrate && pnpm db:seed && pnpm api:generate",
     "smoke": "node scripts/smoke-test.mjs"

@@ -31,7 +31,7 @@ jobs:
       - uses: pnpm/action-setup@v4
         with:
           version: 10.18.2
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: pnpm
@@ -95,7 +95,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: actions/github-script@v8
+      - uses: actions/github-script@v9
         with:
           script: |
             const number = Number(context.payload.client_payload.pull_number || context.payload.client_payload.issue_number);

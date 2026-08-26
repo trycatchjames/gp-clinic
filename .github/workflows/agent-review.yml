@@ -30,7 +30,7 @@ jobs:
       base: ${{ steps.pr.outputs.base }}
     steps:
       - id: pr
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           NUMBER: ${{ github.event.client_payload.pull_number || inputs.pull_number }}
         with:
@@ -59,7 +59,7 @@ jobs:
       - uses: pnpm/action-setup@v4
         with:
           version: 10.18.2
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
       - run: pnpm install --frozen-lockfile
