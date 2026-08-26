@@ -54,7 +54,3 @@ export async function removeLabel(client, issueNumber, label) {
     if (!String(error.message).includes('(404)')) throw error;
   }
 }
-
-export async function dispatch(client, eventType, clientPayload) {
-  await client.request('POST', '/dispatches', { event_type: eventType, client_payload: clientPayload });
-}

@@ -5,8 +5,6 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
   push:
     branches: [main]
-  repository_dispatch:
-    types: [agent_pr_changed]
   workflow_dispatch:
 
 permissions:
