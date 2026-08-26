@@ -64,7 +64,9 @@ test('[keyboard-foundations] exposes and operates the foundation controls by key
   await page.keyboard.press('Tab');
   await expect(page.getByRole('combobox', { name: 'Default view' })).toBeFocused();
   await page.keyboard.press('Enter');
+  await expect(page.getByRole('option', { name: 'Today' })).toBeVisible();
   await page.keyboard.press('ArrowDown');
+  await expect(page.getByRole('option', { name: 'This week' })).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page.getByRole('combobox', { name: 'Default view' })).toHaveText(/This week/);
 
@@ -78,7 +80,10 @@ test('[keyboard-foundations] exposes and operates the foundation controls by key
   const comfortableDensity = page.getByRole('radio', { name: 'Comfortable' });
   await expect(comfortableDensity).toBeFocused();
   await page.keyboard.press('ArrowDown');
-  await expect(page.getByRole('radio', { name: 'Compact' })).toBeChecked();
+  const compactDensity = page.getByRole('radio', { name: 'Compact' });
+  await expect(compactDensity).toBeFocused();
+  await page.keyboard.press('Space');
+  await expect(compactDensity).toBeChecked();
 
   await page.keyboard.press('Tab');
   const announcements = page.getByRole('switch', { name: 'Announce changes' });

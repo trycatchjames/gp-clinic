@@ -1,7 +1,7 @@
 id: UI-001
 title: Establish accessible application UI foundations
 kind: enablement
-status: queued
+status: in_review
 capability: null
 story:
   actor: Practice staff member
@@ -35,4 +35,3 @@ out_of_scope:
   - Patient search or other API-connected capability components
   - A complete design system built without product usage
   - Brand identity redesign
-
