@@ -21,6 +21,7 @@ import { TeamSettingsRoute } from '@/routes/settings/team';
 import { BookingSettingsRoute } from '@/routes/settings/booking';
 import { BillingSettingsRoute } from '@/routes/settings/billing';
 import { MbsRoute } from '@/routes/mbs';
+import { FoundationsRoute } from '@/routes/foundations';
 
 function FullPageSpinner() {
   return (
@@ -79,6 +80,12 @@ const registerRoute = createRoute({
       <RegisterRoute />
     </RequireGuest>
   ),
+});
+
+const foundationsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/foundations',
+  component: FoundationsRoute,
 });
 
 const acceptInvitationRoute = createRoute({
@@ -183,6 +190,7 @@ const mbsRoute = createRoute({
 const routeTree = rootRoute.addChildren([
   loginRoute,
   registerRoute,
+  foundationsRoute,
   acceptInvitationRoute,
   onboardingRoute,
   dashboardRoute,

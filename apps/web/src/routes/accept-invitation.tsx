@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Field } from '@/components/field';
+import { Field } from '@/components/patterns/form-field';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export function AcceptInvitationRoute() {

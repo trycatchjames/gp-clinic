@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Field } from '@/components/field';
+import { Field } from '@/components/patterns/form-field';
 import { Separator } from '@/components/ui/separator';
 
 const DEMO_ACCOUNTS = [
