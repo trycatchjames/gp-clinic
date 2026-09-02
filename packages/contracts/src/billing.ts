@@ -97,7 +97,7 @@ export const BILLING_COHORT_LABELS: Record<BillingCohort, string> = {
  * From 1 November 2025: practices that bulk bill 100% of eligible services and are
  * registered for MyMedicare may opt in and receive an additional 12.5% on MBS benefits
  * from eligible services, split 50/50 between practice and practitioner.
- * See docs/50-billing/02-medicare-bulk-billing.md.
+ * This programme data is time-sensitive; see spec/research/sources.md and reverify before use.
  */
 export const BBPIP = {
   commencedOn: '2025-11-01',

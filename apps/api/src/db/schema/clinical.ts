@@ -280,7 +280,7 @@ export const results = pgTable(
 
 /**
  * A recall is a duty to pursue. A reminder is a prompt with no duty.
- * They are deliberately separate tables. See docs/40-clinical/05.
+ * They are deliberately separate tables. See spec/domain/result.md and spec/domain/recall.md.
  */
 export const recalls = pgTable(
   'recalls',

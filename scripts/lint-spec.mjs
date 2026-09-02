@@ -140,7 +140,7 @@ for (const entry of domainEntries) {
   }
 }
 
-const tinyFiles = specFiles.filter((file) => statSync(file).size < 500);
+const tinyFiles = specFiles.filter((file) => statSync(file).size < 500 && path.basename(file) !== 'review.yaml');
 const tinyByName = Object.entries(
   tinyFiles.reduce((counts, file) => {
     const name = path.basename(file);
@@ -149,33 +149,15 @@ const tinyByName = Object.entries(
   }, {}),
 ).sort((left, right) => right[1] - left[1]);
 
-const alternateRoots = ['docs', 'features']
-  .map((name) => path.join(repositoryRoot, name))
-  .filter(existsSync);
-const alternateFiles = alternateRoots.flatMap((directory) => walk(directory));
-
-const sourceRoots = ['apps', 'packages', 'e2e', 'tests', 'scripts', 'tools']
-  .map((name) => path.join(repositoryRoot, name))
-  .filter(existsSync);
-const sourceFiles = sourceRoots.flatMap((directory) => walk(directory, (file) => {
-  return /\.(?:[cm]?[jt]sx?|md)$/.test(file) && !file.includes(`${path.sep}node_modules${path.sep}`);
-}));
-let alternateReferenceCount = 0;
-for (const file of sourceFiles) {
-  const text = readFileSync(file, 'utf8');
-  alternateReferenceCount += [...text.matchAll(/(?:docs|features)\//g)].length;
+for (const legacyRoot of ['docs', 'features']) {
+  if (existsSync(path.join(repositoryRoot, legacyRoot))) {
+    errors.push(`${legacyRoot}/ is a removed non-authoritative specification tree`);
+  }
 }
 
 if (tinyFiles.length > 0) {
   warnings.push(`${tinyFiles.length} specification files are smaller than 500 bytes`);
 }
-if (alternateFiles.length > 0) {
-  warnings.push(`${alternateFiles.length} files remain in non-authoritative docs/ and features/ trees`);
-}
-if (alternateReferenceCount > 0) {
-  warnings.push(`${alternateReferenceCount} source or harness references still point at docs/ or features/`);
-}
-
 const result = {
   authoritative: summarize(specFiles),
   markdown: { files: markdownFiles.length, brokenLinks: errors.filter((error) => error.includes('links to missing')).length },
@@ -186,10 +168,6 @@ const result = {
     filesUnder500Bytes: tinyFiles.length,
     percentUnder500Bytes: Math.round((tinyFiles.length / specFiles.length) * 100),
     byBasename: Object.fromEntries(tinyByName),
-  },
-  nonAuthoritativeAlternatives: {
-    ...summarize(alternateFiles),
-    sourceAndHarnessReferences: alternateReferenceCount,
   },
   errors,
   warnings,
@@ -205,10 +183,9 @@ if (jsonOutput) {
   console.log(
     `Fragmentation: ${result.fragmentation.filesUnder500Bytes} files under 500 bytes (${result.fragmentation.percentUnder500Bytes}%)`,
   );
-  console.log(`Small-file concentration: ${tinyByName.slice(0, 8).map(([name, count]) => `${name}=${count}`).join(', ')}`);
-  console.log(
-    `Non-authoritative alternatives: ${result.nonAuthoritativeAlternatives.files} files, ${result.nonAuthoritativeAlternatives.words} words, ${result.nonAuthoritativeAlternatives.sourceAndHarnessReferences} source/harness references`,
-  );
+  if (tinyByName.length > 0) {
+    console.log(`Small-file concentration: ${tinyByName.slice(0, 8).map(([name, count]) => `${name}=${count}`).join(', ')}`);
+  }
   for (const warning of warnings) console.log(`WARN ${warning}`);
   for (const error of errors) console.log(`ERROR ${error}`);
 }

@@ -3,7 +3,7 @@
  *
  * These are scripts, not decisions. Reception reads the question and follows the
  * instruction; they are never asked to judge whether a symptom is serious.
- * See docs/30-scheduling/03-triage-at-booking.md.
+ * See spec/research/australian-general-practice.md and spec/product/workflows.md.
  */
 
 export const TRIAGE_ACTIONS = ['call_000', 'escalate_now', 'same_day'] as const;

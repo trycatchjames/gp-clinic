@@ -3,7 +3,7 @@
  * the billing workflows. Fees are indicative only — the authoritative source is
  * mbsonline.gov.au and the schedule is reindexed at least annually.
  *
- * See docs/90-reference/mbs-item-reference.md.
+ * See spec/research/sources.md. This time-sensitive subset must be reverified before use.
  */
 
 export interface MbsItemSeed {

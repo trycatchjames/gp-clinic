@@ -15,8 +15,7 @@ Before editing, read `SPEC.md`, `spec/AGENTS.md`, `spec/product/scope.md`, and
 owning domains, applicable cross-cutting requirements, contracts, architecture rules, accepted
 ADRs, and research sources identified by that map.
 
-For a structure, cleanup, or autonomy task, first run
-`node agent-skills/gp-specification/scripts/spec-health.mjs` and read
+For a structure, cleanup, or autonomy task, first run `pnpm lint:spec` and read
 [the lean specification shape](references/lean-specification.md). Reduce retrieval cost without
 discarding decisions, safety controls, provenance, or testable behaviour.
 
@@ -83,7 +82,7 @@ material out of the normal implementation read set unless the task actually depe
 Check changed Markdown links, terminology, lifecycle names, YAML syntax, Gherkin structure, and
 authority ordering. Confirm that permissions, audit consequences, failed-save behaviour, data
 migration, and historical-record treatment are explicit wherever affected. Run the smallest
-relevant repository checks while iterating, rerun `spec-health.mjs`, and run `pnpm gate` before a PR
+relevant repository checks while iterating, rerun `pnpm lint:spec`, and run `pnpm gate` before a PR
 handoff.
 
 Do not modify application code as part of specification work unless the user separately requests

@@ -4,7 +4,7 @@ import { id, timestamps } from './_shared';
 /**
  * MBS reference data. Not tenant-scoped, and versioned by effective date so that a
  * July invoice is not repriced by a November fee.
- * See docs/90-reference/mbs-item-reference.md.
+ * See spec/research/sources.md. Catalogue currency must be reverified before use.
  */
 export const mbsItems = pgTable(
   'mbs_items',

@@ -143,7 +143,7 @@ export const patientMyMedicareRegistrations = pgTable(
 
 /**
  * Alerts are split by who can see them. Reception never sees a clinical alert.
- * See docs/20-patient-management/01-patient-registration.md.
+ * See spec/capabilities/patient-registration/spec.md.
  */
 export const patientAlerts = pgTable(
   'patient_alerts',

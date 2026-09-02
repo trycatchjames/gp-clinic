@@ -23,7 +23,7 @@ Version 1 specifies the complete internal practice-management and clinical core.
 | [`architecture/`](architecture/) | Ownership, dependency, data and event boundaries | Assigning responsibilities between domains or components |
 | [`decisions/`](decisions/) | Accepted durable decisions and rejected alternatives | Before revisiting identity, lifecycle, audit or architecture choices |
 
-Legacy `docs/`, `features/`, `openapi/` and prototype code outside this tree may provide evidence, but they are not authoritative and cannot override this specification.
+Generated OpenAPI output and prototype code outside this tree may provide evidence, but they are not authoritative and cannot override this specification.
 
 ## Authority and language
 

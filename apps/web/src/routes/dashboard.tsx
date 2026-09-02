@@ -224,8 +224,7 @@ export function DashboardRoute() {
           </CardTitle>
           <CardDescription>
             Practice setup is built end to end. Scheduling, the clinical record and billing are
-            specified in <code className="text-xs">docs/</code> and{' '}
-            <code className="text-xs">features/</code>, and modelled in the database.
+            specified under <code className="text-xs">spec/</code> and modelled in the database.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-3 sm:grid-cols-3">

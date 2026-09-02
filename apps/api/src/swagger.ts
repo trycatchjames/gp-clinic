@@ -20,8 +20,8 @@ export function buildOpenApiDocument(app: INestApplication): OpenAPIObject {
         '- Every route below `/practices/{practiceId}` is scoped to the practice on the',
         '  caller’s access token. A mismatch returns 404.',
         '',
-        'Workflow documentation lives in `docs/`; the behavioural specifications live in',
-        '`features/`.',
+        'Authoritative product behaviour, domain rules, and executable acceptance examples',
+        'live under `spec/`.',
       ].join('\n'),
     )
     .setVersion('0.1.0')

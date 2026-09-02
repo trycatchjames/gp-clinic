@@ -14,8 +14,8 @@ delivery and approval interface: ship small, reviewable user outcomes with obser
 5. If authoritative requirements conflict, stop implementation and repair or escalate the
    specification conflict. Do not select the easiest interpretation.
 
-Legacy `docs/`, `features/`, `openapi/` and existing prototype behaviour are evidence only. They
-must not override `SPEC.md` or `spec/`.
+Generated OpenAPI output and existing prototype behaviour are evidence only. They must not
+override `SPEC.md` or `spec/`.
 
 ## Delivery slices
 

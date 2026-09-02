@@ -9,7 +9,7 @@ import { tokens } from './tokens';
  * re-executing. Replay is strictly in order per entity, so a create never lands
  * after its own update.
  *
- * See docs/00-foundations/05-offline-and-sync.md.
+ * See spec/contracts/api/principles.md and spec/cross-cutting/data-integrity/requirements.md.
  */
 
 export type OutboxState = 'queued' | 'in_flight' | 'failed' | 'needs_review';

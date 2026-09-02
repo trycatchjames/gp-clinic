@@ -78,13 +78,13 @@ references in the same migration and verify the resulting read set.
 
 Consolidate one bounded area at a time:
 
-1. Measure the current area with `scripts/spec-health.mjs`.
+1. Measure the current area with `pnpm lint:spec`.
 2. Choose one capability and its directly owned domain material.
 3. Create the compact contract without changing behaviour.
 4. Update links, code comments, validators, delivery manifests, and agent instructions atomically.
 5. Prove no normative statement, acceptance scenario, source reference, or evidence requirement was
    lost.
-6. Run the authoritative-spec validator and the repository gate before removing superseded files.
+6. Run `pnpm lint:spec` and the repository gate before removing superseded files.
 
 Do not maintain old and new normative copies in parallel. A compatibility redirect may contain only
 a clear pointer and should be removed once callers migrate.

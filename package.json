@@ -23,7 +23,7 @@
     "build": "pnpm build:contracts && pnpm --filter @gp/api build && pnpm --filter @gp/web build",
     "typecheck": "pnpm -r typecheck",
     "lint": "eslint apps packages tests e2e tools --max-warnings 0",
-    "lint:features": "node scripts/lint-features.mjs",
+    "lint:spec": "node scripts/lint-spec.mjs",
     "lint:slices": "pnpm --filter @gp/pr-pipeline validate",
     "lint:architecture": "pnpm --filter @gp/pr-pipeline architecture",
     "test": "vitest run && pnpm --filter @gp/pr-pipeline test",
@@ -31,7 +31,7 @@
     "test:e2e": "playwright test",
     "pipeline:run": "pnpm --filter @gp/pr-pipeline local",
     "pipeline:status": "pnpm --filter @gp/pr-pipeline local -- --dry-run",
-    "gate": "pnpm api:generate && pnpm lint && pnpm typecheck && pnpm lint:features && pnpm lint:slices && pnpm lint:architecture && pnpm test && pnpm build",
+    "gate": "pnpm api:generate && pnpm lint && pnpm typecheck && pnpm lint:spec && pnpm lint:slices && pnpm lint:architecture && pnpm test && pnpm build",
     "gate:full": "pnpm gate && pnpm db:migrate && pnpm db:seed && pnpm smoke && pnpm test:e2e",
     "bootstrap": "pnpm install && pnpm db:up && sleep 4 && pnpm build:contracts && pnpm db:migrate && pnpm db:seed && pnpm api:generate",
     "smoke": "node scripts/smoke-test.mjs"

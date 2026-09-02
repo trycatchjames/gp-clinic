@@ -22,7 +22,7 @@ The authoritative material is, in descending order:
 5. capability overviews and product documents;
 6. Gherkin acceptance examples, which demonstrate but do not replace the normative rules.
 
-If two authoritative files conflict, implementation MUST stop at the conflict. A specification change must resolve it; an implementation choice must not silently select one interpretation. Research notes explain provenance but are not normative. Existing [`docs`](docs), [`features`](features), generated OpenAPI output and application code pre-date this specification and are non-authoritative evidence only.
+If two authoritative files conflict, implementation MUST stop at the conflict. A specification change must resolve it; an implementation choice must not silently select one interpretation. Research notes explain provenance but are not normative. Generated OpenAPI output and application code are implementation evidence only.
 
 The hierarchy is organised around:
 
