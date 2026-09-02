@@ -52,7 +52,7 @@
             "additionalProperties": false,
             "required": ["file", "name"],
             "properties": {
-              "file": { "type": "string", "pattern": "^spec/capabilities/.+/acceptance/.+\\.feature$" },
+              "file": { "type": "string", "pattern": "^spec/capabilities/[^/]+/acceptance\\.feature$" },
               "name": { "type": "string", "minLength": 4 }
             }
           }
@@ -103,4 +103,3 @@
     }
   }
 }
-

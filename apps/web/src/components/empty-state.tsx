@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { StatePanel } from '@/components/patterns/state-panel';
 
 export function EmptyState({
   icon,
@@ -12,15 +13,12 @@ export function EmptyState({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-3 rounded-lg border border-dashed px-6 py-12 text-center">
-      {icon && <div className="text-muted-foreground">{icon}</div>}
-      <div className="space-y-1">
-        <p className="font-medium">{title}</p>
-        {description && (
-          <p className="text-muted-foreground mx-auto max-w-md text-sm">{description}</p>
-        )}
-      </div>
-      {action}
-    </div>
+    <StatePanel
+      kind="empty"
+      title={title}
+      description={description}
+      details={icon ? <span aria-hidden="true">{icon}</span> : undefined}
+      action={action}
+    />
   );
 }

@@ -9,7 +9,7 @@ Australian products commonly move a booking through booked/arrived/waiting/with 
 
 ## Decision
 
-Appointment owns reservation and operational flow with canonical states in [`../domain/appointment/states.md`](../domain/appointment/states.md). Encounter and Invoice have independent lifecycles linked by explicit transitions. Reschedule is history, not a terminal current state.
+Appointment owns reservation and operational flow with canonical states in [`../domain/appointment.md`](../domain/appointment.md). Encounter and Invoice have independent lifecycles linked by explicit transitions. Reschedule is history, not a terminal current state.
 
 ## Alternatives considered
 

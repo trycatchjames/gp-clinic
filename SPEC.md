@@ -22,11 +22,12 @@ The authoritative material is, in descending order:
 5. capability overviews and product documents;
 6. Gherkin acceptance examples, which demonstrate but do not replace the normative rules.
 
-If two authoritative files conflict, implementation MUST stop at the conflict. A specification change must resolve it; an implementation choice must not silently select one interpretation. Research notes explain provenance but are not normative. Existing [`docs`](docs), [`features`](features), [`openapi`](openapi) and application code pre-date this specification and are non-authoritative evidence only.
+If two authoritative files conflict, implementation MUST stop at the conflict. A specification change must resolve it; an implementation choice must not silently select one interpretation. Research notes explain provenance but are not normative. Generated OpenAPI output and application code are implementation evidence only.
 
 The hierarchy is organised around:
 
-- [`spec/product`](spec/product): purpose, scope, people, terminology and quality goals;
+- [`spec/product`](spec/product): purpose, scope, people, terminology, quality goals and the
+  [product design system](spec/product/design-system.md);
 - [`spec/research`](spec/research): Australian source base, market observations and unresolved questions;
 - [`spec/domain`](spec/domain): owned concepts, relationships, invariants and lifecycles;
 - [`spec/capabilities`](spec/capabilities): user outcomes, interactions, screens, permissions and acceptance examples;
@@ -37,7 +38,7 @@ The hierarchy is organised around:
 
 ## How implementation agents use it
 
-Before changing a capability, an agent MUST read its overview, rules, screen contracts, acceptance examples and `review.yaml`, plus every linked domain and cross-cutting requirement. It must produce the evidence named by `review.yaml`, test the relevant acceptance examples and show that domain invariants still hold. Absence of a screen detail is not permission to contradict a product principle or invariant.
+Before changing a capability, an agent MUST read its `spec.md`, `acceptance.feature` and `review.yaml`, then follow every domain, cross-cutting, contract, architecture and decision dependency linked from `spec.md`. It must produce the evidence named by `review.yaml`, test the relevant acceptance examples and show that domain invariants still hold. Absence of a screen detail is not permission to contradict a product principle or invariant.
 
 Implementation must conform to the specification. Implementation agents must not change product specifications merely to make implementation easier. Material changes to behaviour, domain rules, APIs, permissions, safety requirements, or screen contracts require explicit specification changes.
 

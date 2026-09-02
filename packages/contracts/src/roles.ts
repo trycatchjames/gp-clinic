@@ -2,7 +2,7 @@
  * Roles and permissions.
  *
  * Australian general practice mixes clinical and small-business roles in one
- * building. See docs/00-foundations/01-personas-and-roles.md.
+ * building. See spec/product/roles.md and spec/cross-cutting/authorization/permissions.md.
  */
 
 export const PRACTICE_ROLES = [

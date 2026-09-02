@@ -121,7 +121,7 @@ export const DEFAULT_TIMEZONE_BY_STATE: Record<AustralianState, AustralianTimezo
 /**
  * Real-time prescription monitoring system by jurisdiction.
  * Checking is mandatory in VIC and QLD; voluntary elsewhere.
- * See docs/40-clinical/03-prescribing.md.
+ * See spec/capabilities/prescribing/spec.md.
  */
 export const RTPM_BY_STATE: Record<AustralianState, { name: string; mandatory: boolean }> = {
   VIC: { name: 'SafeScript', mandatory: true },

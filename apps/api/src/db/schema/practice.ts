@@ -29,7 +29,7 @@ import {
 
 /**
  * The tenant. Every non-reference row in the system carries a practice_id.
- * See docs/00-foundations/03-domain-model.md.
+ * See spec/domain/practice.md and spec/architecture/domain-boundaries.md.
  */
 export const practices = pgTable(
   'practices',
@@ -161,7 +161,8 @@ export const locationClosures = pgTable(
 /**
  * Programme registrations and identifiers held at practice level.
  * BBPIP requires MyMedicare registration and obliges the practice to bulk bill
- * 100% of eligible services. See docs/50-billing/02-medicare-bulk-billing.md.
+ * 100% of eligible services. This programme rule is time-sensitive; see
+ * spec/research/sources.md and reverify before use.
  */
 export const practiceRegistrations = pgTable('practice_registrations', {
   id: id(),

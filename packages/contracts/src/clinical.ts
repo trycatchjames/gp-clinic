@@ -36,7 +36,7 @@ export const APPOINTMENT_STATUSES = [
 ] as const;
 export type AppointmentStatus = (typeof APPOINTMENT_STATUSES)[number];
 
-/** Valid appointment status transitions. See docs/30-scheduling/04. */
+/** Prototype appointment transitions. The product authority is spec/domain/appointment.md. */
 export const APPOINTMENT_TRANSITIONS: Record<AppointmentStatus, readonly AppointmentStatus[]> = {
   booked: ['confirmed', 'arrived', 'cancelled', 'did_not_attend'],
   confirmed: ['arrived', 'cancelled', 'did_not_attend'],
@@ -51,7 +51,8 @@ export const APPOINTMENT_TRANSITIONS: Record<AppointmentStatus, readonly Appoint
 
 /**
  * Murtagh's safe diagnostic strategy — the five questions taught in Australian
- * GP training. See docs/40-clinical/01-consultation-workflow.md.
+ * GP training. These prompts must not become autonomous diagnostic decisions; see
+ * spec/cross-cutting/clinical-safety/principles.md.
  */
 export const DIAGNOSTIC_SCAFFOLD_FIELDS = [
   { key: 'probability_diagnosis', label: 'What is the probability diagnosis?' },
@@ -77,7 +78,7 @@ export type RecallPriority = (typeof RECALL_PRIORITIES)[number];
 
 /**
  * A recall is a duty; a reminder is a prompt. They are never merged.
- * See docs/40-clinical/05-results-and-recalls.md.
+ * See spec/domain/result.md and spec/domain/recall.md.
  */
 export const RESULT_ACTIONS = [
   'no_action_normal',

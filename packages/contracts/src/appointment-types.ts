@@ -1,7 +1,7 @@
 /**
  * Default appointment types seeded during onboarding, reflecting how Australian
  * general practices actually run their books.
- * See docs/10-practice-setup/01-practice-registration-and-onboarding.md.
+ * See spec/capabilities/practice-management/spec.md.
  */
 import type { PractitionerKind } from './practitioner';
 

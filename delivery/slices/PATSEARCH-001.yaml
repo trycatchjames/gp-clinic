@@ -8,19 +8,15 @@ story:
   goal: find the correct existing patient from approved identifiers
   benefit: appointments and records start from a deliberate identity choice rather than a guess
 spec_refs:
-  - spec/capabilities/patient-search/overview.md
-  - spec/capabilities/patient-search/rules.md
-  - spec/capabilities/patient-search/interactions.md
-  - spec/capabilities/patient-search/permissions.md
-  - spec/capabilities/patient-search/screens/patient-search.md
-  - spec/domain/patient/invariants.md
+  - spec/capabilities/patient-search/spec.md
+  - spec/domain/patient.md
   - spec/cross-cutting/search/requirements.md
   - spec/cross-cutting/authorization/permissions.md
 acceptance:
   scenarios:
-    - file: spec/capabilities/patient-search/acceptance/patient-search.feature
+    - file: spec/capabilities/patient-search/acceptance.feature
       name: Medicare card finds family members but does not verify identity
-    - file: spec/capabilities/patient-search/acceptance/patient-search.feature
+    - file: spec/capabilities/patient-search/acceptance.feature
       name: Similar names remain distinct
   criteria: []
 evidence:
@@ -44,4 +40,3 @@ out_of_scope:
   - Creating or editing a patient
   - Restricted patient identity stubs
   - Automatic patient selection or identity verification
-

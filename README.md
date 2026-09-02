@@ -1,22 +1,18 @@
 # GP Practice Management — Prototype
 
-> **Specification authority:** [`SPEC.md`](SPEC.md) and [`spec/`](spec/) are the authoritative
-> Version 1 product/system specification. The older `docs/`, `features/`, `openapi/` and
-> prototype code are non-authoritative implementation and research history; where they differ,
-> the authoritative specification governs.
+> **Specification authority:** [`SPEC.md`](SPEC.md) and [`spec/`](spec/) define Version 1 product
+> behaviour. Generated OpenAPI output and prototype code are implementation evidence only.
 
 Practice management software for **Australian general practice**: the full lifecycle from
 appointment scheduling and patient management, through the clinical consultation, to invoicing
 and billing.
 
-This repository contains three kinds of material:
+This repository contains two kinds of material:
 
 1. **The authoritative specification** — [`SPEC.md`](SPEC.md) and [`spec/`](spec/) define Version
    1 product behaviour, domain invariants, safety, permissions, screens, acceptance and
    architecture, with all external integrations deliberately excluded.
-2. **Legacy workflow/prototype material** — [`docs/`](docs/) and [`features/`](features/) pre-date
-   the authoritative specification and remain useful context only.
-3. **Working prototype software** — a running monorepo that implements practice registration and account
+2. **Working prototype software** — a running monorepo that implements practice registration and account
    setup end to end, on the architecture the rest would be built on.
 
 The current Australian research basis and its limitations are recorded in
@@ -62,50 +58,26 @@ To see the onboarding wizard, create a new account at `/register` instead.
 
 ---
 
-## What is built, modelled and specified
+## Specification shape
 
-| State | Meaning |
-|---|---|
-| **Built** | Working end to end in the running app |
-| **Modelled** | Tables exist in the database and the workflow is documented; no UI or API yet |
-| **Specified** | Documented and covered by Gherkin |
+```text
+SPEC.md
+spec/
+  product/                         product promise, actors and vocabulary
+  domain/<owner>.md                canonical concepts, invariants and lifecycle
+  capabilities/<capability>/
+    spec.md                        outcome, rules, permissions, screens and dependencies
+    acceptance.feature             consequential executable examples
+    review.yaml                    required human, automated and visual evidence
+  cross-cutting/                   shared safety, privacy and reliability rules
+  contracts/                       stable exchanged meaning
+  architecture/                    ownership and dependency boundaries
+  decisions/                       accepted durable decisions
+  research/                        non-normative sources and open questions
+```
 
-**Built** — practice registration and onboarding (8-step resumable wizard), locations with
-opening hours and after-hours arrangements, practitioners with credentials and per-location
-provider numbers, registrar supervision, team roles and invitations, appointment types and
-session templates, fee schedules and billing policy, auth with RBAC and a full audit log.
-
-**Modelled** — patients and entitlements, the appointment book and arrivals, encounters and
-the clinical note, invoices, payments and claims. 62 tables.
-
-**Specified** — prescribing and RTPM, results/recalls/reminders, chronic condition management,
-referrals, immunisation and cold chain, mental health, health assessments, accreditation
-evidence, and the rest of [`docs/`](docs/).
-
----
-
-## The parts worth looking at
-
-A few places where the domain drove the design, rather than the other way around:
-
-- **Provider numbers are per practitioner *per location*.** Modelled as a matrix, not a field.
-  Getting this wrong is the most common cause of rejected Medicare claims.
-  → [`docs/10-practice-setup/03`](docs/10-practice-setup/03-practitioners-and-credentialing.md)
-- **BBPIP is enforced, not just recorded.** Participation requires MyMedicare registration, and
-  obliges the practice to bulk bill 100% of eligible services — so opting in locks the billing
-  policy, and the API refuses to unlock it while participation stands.
-  → [`docs/50-billing/02`](docs/50-billing/02-medicare-bulk-billing.md)
-- **MBS 2715/2717 are gated on Mental Health Skills Training.** A practitioner without it is
-  never offered the higher items, enforced server-side.
-  → [`docs/40-clinical/10`](docs/40-clinical/10-mental-health.md)
-- **Recalls and reminders are separate entities.** There is a legal duty to recall a patient
-  about a clinically significant result; there is no equivalent duty for a screening reminder.
-  Merging them is the classic medico-legal failure in this domain.
-  → [`docs/40-clinical/05`](docs/40-clinical/05-results-and-recalls.md)
-- **Reception never receives clinical notes over the API.** Not a hidden button — a 403.
-- **Every clinical record *view* is audit-logged**, not just edits.
-- **Red-flag triage prompts are scripts, not decisions.** Reception is never asked to judge
-  whether chest pain is serious. → [`docs/30-scheduling/03`](docs/30-scheduling/03-triage-at-booking.md)
+Start every product change from `SPEC.md`, then read the complete three-file capability packet and
+follow every dependency linked from `spec.md`.
 
 ---
 
@@ -116,9 +88,11 @@ apps/api     NestJS 11 · Drizzle · Postgres 17
 apps/web     React 19 · Vite · TanStack Router + Query · Tailwind v4 · shadcn/ui · PWA
 packages/contracts   Shared enums, MBS catalogue, validation (dual ESM/CJS)
 packages/sdk         Generated TypeScript client — never edited by hand
-docs/                Workflow specifications
-features/            Gherkin specifications (all @inactive)
-scripts/             SDK generation, feature linting
+agent-skills         Repository workflows shared by Codex, Pi and Claude
+delivery             Bounded slices and review evidence
+spec                 Authoritative product and system specification
+scripts              Deterministic generation and validation
+tools/pr-pipeline    Local delivery and review orchestration
 ```
 
 ### The self-documenting API
@@ -149,7 +123,10 @@ every mutating endpoint, an IndexedDB outbox that replays in order per entity, a
 surfaced rather than silently merged. Opening the app with no connection restores the cached
 session and renders cached data behind an unmistakable banner.
 
-→ [`docs/00-foundations/05-offline-and-sync.md`](docs/00-foundations/05-offline-and-sync.md)
+Offline behaviour remains implementation evidence until it is represented in an authoritative
+capability. Its writes must still follow [API command](spec/contracts/api/principles.md),
+[data-integrity](spec/cross-cutting/data-integrity/requirements.md) and
+[error-recovery](spec/cross-cutting/error-handling/requirements.md) requirements.
 
 ---
 
@@ -160,7 +137,7 @@ pnpm bootstrap      # install, db up, migrate, seed, generate
 pnpm dev            # api + web
 pnpm build          # build everything
 pnpm typecheck      # typecheck every package
-pnpm lint:features  # verify the Gherkin specs against docs/
+pnpm lint:spec      # validate the authoritative specification
 pnpm api:generate   # regenerate openapi + sdk
 pnpm db:reset       # drop, recreate, migrate, seed
 pnpm db:migrate     # apply migrations
@@ -173,7 +150,7 @@ pnpm db:seed        # seed the demo practice
 
 - **No integrations.** Medicare claiming, eScripts, RTPM, AIR, My Health Record, secure
   messaging and bank feeds are all modelled but not connected. Where a workflow depends on one,
-  the doc says so.
+  the authoritative specification labels it manual or simulated.
 - **The MBS catalogue is a working subset** with indicative fees, sufficient to demonstrate the
   billing workflows. The authoritative source is mbsonline.gov.au.
 - **Programme rules change.** The chronic condition management framework changed on 1 July 2025

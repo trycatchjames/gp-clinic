@@ -23,7 +23,7 @@ import { practices, practiceLocations } from './practice';
 
 /**
  * A person who provides care, whether or not they log in.
- * See docs/10-practice-setup/03-practitioners-and-credentialing.md.
+ * See spec/domain/practitioner.md.
  */
 export const practitioners = pgTable(
   'practitioners',
@@ -60,7 +60,8 @@ export const practitioners = pgTable(
     vocationalRegistration: boolean('vocational_registration').default(false).notNull(),
     /**
      * GPMHSC-accredited Mental Health Skills Training.
-     * Gates MBS items 2715 and 2717. See docs/40-clinical/10-mental-health.md.
+     * Gates MBS items 2715 and 2717. This programme rule is time-sensitive; see
+     * spec/research/sources.md and reverify before use.
      */
     mentalHealthSkillsTraining: boolean('mental_health_skills_training')
       .default(false)

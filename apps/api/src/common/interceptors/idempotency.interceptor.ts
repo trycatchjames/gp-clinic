@@ -20,7 +20,7 @@ const REPLAY_WINDOW_HOURS = 24;
 /**
  * Makes writes replay-safe, which is what lets the offline outbox retry without
  * creating duplicates. A repeated Idempotency-Key returns the stored response.
- * See docs/00-foundations/05-offline-and-sync.md.
+ * See spec/contracts/api/principles.md and spec/cross-cutting/data-integrity/requirements.md.
  */
 @Injectable()
 export class IdempotencyInterceptor implements NestInterceptor {
