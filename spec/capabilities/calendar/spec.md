@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-- Domains: [appointment](../../domain/appointment/overview.md), [availability](../../domain/availability/overview.md), [location](../../domain/location/overview.md), [patient](../../domain/patient/overview.md), [practitioner](../../domain/practitioner/overview.md).
+- Domains: [appointment](../../domain/appointment.md), [availability](../../domain/availability.md), [location](../../domain/location.md), [patient](../../domain/patient.md), [practitioner](../../domain/practitioner.md).
 - Cross-cutting: [accessibility](../../cross-cutting/accessibility/requirements.md), [authorisation](../../cross-cutting/authorization/permissions.md), [audit](../../cross-cutting/audit/requirements.md), [data integrity](../../cross-cutting/data-integrity/requirements.md), [dates and times](../../cross-cutting/dates-and-times/requirements.md), [error handling](../../cross-cutting/error-handling/requirements.md), [privacy](../../cross-cutting/privacy/specification.md), [security](../../cross-cutting/security/requirements.md).
 - Boundaries and contracts: [domain boundaries](../../architecture/domain-boundaries.md), [dependency rules](../../architecture/dependency-rules.md), and [API principles](../../contracts/api/principles.md).
 
@@ -35,7 +35,7 @@ External/online booking, automated reminders, video platform integration and cli
 
 ## Contracts
 
-See the [screen contracts](#screen-contracts), [acceptance examples](acceptance.feature), [appointment-management capability](../appointment-management/spec.md) and [appointment domain](../../domain/appointment/overview.md).
+See the [screen contracts](#screen-contracts), [acceptance examples](acceptance.feature), [appointment-management capability](../appointment-management/spec.md) and [appointment domain](../../domain/appointment.md).
 
 ## Rules
 

@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-- Domains: [availability](../../domain/availability/overview.md), [location](../../domain/location/overview.md), [practice](../../domain/practice/overview.md), [practitioner](../../domain/practitioner/overview.md), [task](../../domain/task/overview.md).
+- Domains: [availability](../../domain/availability.md), [location](../../domain/location.md), [practice](../../domain/practice.md), [practitioner](../../domain/practitioner.md), [task](../../domain/task.md).
 - Cross-cutting: [accessibility](../../cross-cutting/accessibility/requirements.md), [authorisation](../../cross-cutting/authorization/permissions.md), [audit](../../cross-cutting/audit/requirements.md), [data integrity](../../cross-cutting/data-integrity/requirements.md), [dates and times](../../cross-cutting/dates-and-times/requirements.md), [error handling](../../cross-cutting/error-handling/requirements.md), [privacy](../../cross-cutting/privacy/specification.md), [security](../../cross-cutting/security/requirements.md).
 - Boundaries and contracts: [domain boundaries](../../architecture/domain-boundaries.md), [dependency rules](../../architecture/dependency-rules.md), and [API principles](../../contracts/api/principles.md).
 

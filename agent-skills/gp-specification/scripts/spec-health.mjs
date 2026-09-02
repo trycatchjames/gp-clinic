@@ -130,6 +130,16 @@ for (const directory of capabilityDirectories) {
   }
 }
 
+const domainRoot = path.join(specificationRoot, 'domain');
+const domainEntries = readdirSync(domainRoot).map((name) => path.join(domainRoot, name));
+for (const entry of domainEntries) {
+  if (statSync(entry).isDirectory()) {
+    errors.push(`spec/domain/${path.basename(entry)} is a directory; domains must use one owner file`);
+  } else if (!entry.endsWith('.md')) {
+    errors.push(`spec/domain/${path.basename(entry)} is not a Markdown domain contract`);
+  }
+}
+
 const tinyFiles = specFiles.filter((file) => statSync(file).size < 500);
 const tinyByName = Object.entries(
   tinyFiles.reduce((counts, file) => {

@@ -5,7 +5,7 @@ Use this map to find obligations. It does not change the authority order in `SPE
 | Change signal | Inspect and update when affected |
 |---|---|
 | Product promise, actor, workflow, terminology, or scope | `spec/product/` |
-| Stored meaning, relationship, invariant, or lifecycle | Owning `spec/domain/<domain>/` files |
+| Stored meaning, relationship, invariant, or lifecycle | Owning `spec/domain/<domain>.md` file |
 | Observable task behaviour | Full `spec/capabilities/<capability>/` bundle |
 | Screen information, actions, states, or keyboard behaviour | Capability `screens/` contracts |
 | Permission or restricted-data behaviour | Capability `permissions.md`; cross-cutting authorisation, privacy, audit, and security |

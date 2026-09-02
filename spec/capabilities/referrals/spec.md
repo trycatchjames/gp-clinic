@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-- Domains: [consultation](../../domain/consultation/overview.md), [correspondence](../../domain/correspondence/overview.md), [document](../../domain/document/overview.md), [patient](../../domain/patient/overview.md), [referral](../../domain/referral/overview.md).
+- Domains: [consultation](../../domain/consultation.md), [correspondence](../../domain/correspondence.md), [document](../../domain/document.md), [patient](../../domain/patient.md), [referral](../../domain/referral.md).
 - Cross-cutting: [accessibility](../../cross-cutting/accessibility/requirements.md), [authorisation](../../cross-cutting/authorization/permissions.md), [audit](../../cross-cutting/audit/requirements.md), [data integrity](../../cross-cutting/data-integrity/requirements.md), [dates and times](../../cross-cutting/dates-and-times/requirements.md), [error handling](../../cross-cutting/error-handling/requirements.md), [privacy](../../cross-cutting/privacy/specification.md), [security](../../cross-cutting/security/requirements.md), [clinical-record integrity](../../cross-cutting/clinical-safety/clinical-record-integrity.md), [clinical safety](../../cross-cutting/clinical-safety/principles.md).
 - Boundaries and contracts: [domain boundaries](../../architecture/domain-boundaries.md), [dependency rules](../../architecture/dependency-rules.md), and [API principles](../../contracts/api/principles.md).
 

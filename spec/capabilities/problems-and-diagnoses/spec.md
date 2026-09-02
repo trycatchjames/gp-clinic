@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-- Domain: [Problem and diagnosis](../../domain/problem/overview.md), [problem lifecycle](../../domain/problem/states.md), [consultation](../../domain/consultation/overview.md), and [patient](../../domain/patient/overview.md).
+- Domain: [Problem and diagnosis](../../domain/problem.md), [problem lifecycle](../../domain/problem.md), [consultation](../../domain/consultation.md), and [patient](../../domain/patient.md).
 - Cross-cutting: [authorisation](../../cross-cutting/authorization/permissions.md), [audit](../../cross-cutting/audit/requirements.md), [clinical-record integrity](../../cross-cutting/clinical-safety/clinical-record-integrity.md), [clinical safety](../../cross-cutting/clinical-safety/principles.md), [data integrity](../../cross-cutting/data-integrity/requirements.md), [dates and times](../../cross-cutting/dates-and-times/requirements.md), [error handling](../../cross-cutting/error-handling/requirements.md), and [privacy](../../cross-cutting/privacy/specification.md).
 - Boundaries and decisions: [domain boundaries](../../architecture/domain-boundaries.md), [core-resource summaries](../../contracts/schemas/core-resources.md), and [ADR-002: additive clinical-record amendments](../../decisions/ADR-002-clinical-record-amendments.md).
 

@@ -9,7 +9,7 @@ story:
   benefit: appointments and records start from a deliberate identity choice rather than a guess
 spec_refs:
   - spec/capabilities/patient-search/spec.md
-  - spec/domain/patient/invariants.md
+  - spec/domain/patient.md
   - spec/cross-cutting/search/requirements.md
   - spec/cross-cutting/authorization/permissions.md
 acceptance:
