@@ -22,6 +22,7 @@ acceptance:
 evidence:
   screenshots:
     - theme-foundations
+    - interactive-primitives
     - workflow-patterns
     - form-states
     - responsive-patterns

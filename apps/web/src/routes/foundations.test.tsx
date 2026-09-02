@@ -25,7 +25,7 @@ describe('FoundationsRoute', () => {
     expect(screen.getByRole('button', { name: 'Save changes' })).toBeEnabled();
     expect(screen.getByRole('button', { name: 'Remove draft' })).toBeEnabled();
     expect(screen.getByRole('button', { name: 'Continue' })).toBeDisabled();
-    expect(screen.getByText('Ready')).toBeVisible();
+    expect(screen.getAllByText('Ready')).toHaveLength(2);
     expect(screen.getByText('Needs attention')).toBeVisible();
     expect(screen.getByText('Unavailable')).toBeVisible();
     expect(screen.getAllByText('Changes were not saved')).toHaveLength(2);
@@ -50,6 +50,20 @@ describe('FoundationsRoute', () => {
       'data-state',
       'empty',
     );
+  });
+
+  it('demonstrates named tabs, table data, progress and transient action triggers', () => {
+    render(<FoundationsRoute />);
+
+    expect(screen.getByRole('tab', { name: 'Today' })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('table', { name: 'Synthetic appointments' })).toBeVisible();
+    expect(screen.getByRole('row', { name: /9:20 am Amelia Hart Standard Ready/ })).toBeVisible();
+    expect(screen.getByRole('progressbar', { name: 'Practice setup progress' })).toHaveAttribute(
+      'aria-valuenow',
+      '64',
+    );
+    expect(screen.getByRole('button', { name: 'More actions' })).toBeEnabled();
+    expect(screen.getByRole('button', { name: 'Review removal' })).toBeEnabled();
   });
 
   it('exposes labelled, described, invalid and disabled form states', () => {

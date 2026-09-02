@@ -4,8 +4,12 @@ import {
   ArrowRight,
   CheckCircle2,
   CircleUserRound,
+  Eye,
+  FileClock,
+  HelpCircle,
   Info,
   Loader2,
+  MoreHorizontal,
   RotateCcw,
   Save,
   ShieldCheck,
@@ -24,8 +28,27 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Progress } from '@/components/ui/progress';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   Select,
@@ -35,7 +58,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { ContextBanner } from '@/components/patterns/context-banner';
 import { Field } from '@/components/patterns/form-field';
 import { StatePanel } from '@/components/patterns/state-panel';
@@ -176,6 +202,7 @@ export function FoundationsRoute() {
         <div className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 py-2 sm:px-8">
           {[
             ['#foundation-controls', 'Controls'],
+            ['#interactive-primitives', 'Interactions'],
             ['#workflow-patterns', 'Workflow patterns'],
             ['#form-states', 'Forms'],
             ['#ownership', 'Ownership'],
@@ -259,6 +286,138 @@ export function FoundationsRoute() {
                 Check the highlighted fields, then try again. Your entered values remain available.
               </AlertDescription>
             </Alert>
+          </div>
+        </section>
+
+        <section
+          id="interactive-primitives"
+          data-evidence="interactive-primitives"
+          aria-labelledby="interactive-primitives-heading"
+          className="scroll-mt-20 space-y-7"
+        >
+          <div>
+            <GalleryHeading
+              id="interactive-primitives-heading"
+              eyebrow="Atoms in concert"
+              title="Dense where it helps, spacious where it matters"
+              description="Established primitives share one visual rhythm while preserving native roles, focus behaviour and task order."
+            />
+          </div>
+
+          <div className="grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">
+            <Card className="border-primary/15 overflow-hidden">
+              <CardHeader className="border-b pb-5">
+                <CardTitle asChild><h3>Appointment view</h3></CardTitle>
+                <CardDescription>A compact table with an equivalent, named tab structure.</CardDescription>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <Tabs defaultValue="today" className="gap-5">
+                  <TabsList aria-label="Appointment range">
+                    <TabsTrigger value="today">Today</TabsTrigger>
+                    <TabsTrigger value="week">This week</TabsTrigger>
+                    <TabsTrigger value="unassigned">Unassigned</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="today">
+                    <Table aria-label="Synthetic appointments">
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Time</TableHead>
+                          <TableHead>Patient</TableHead>
+                          <TableHead>Type</TableHead>
+                          <TableHead className="text-right">Status</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {fixture.appointments.map((appointment) => (
+                          <TableRow key={`${appointment.time}-${appointment.name}`}>
+                            <TableCell className="tabular font-semibold">{appointment.time}</TableCell>
+                            <TableCell>{appointment.name}</TableCell>
+                            <TableCell className="text-muted-foreground">{appointment.kind}</TableCell>
+                            <TableCell className="text-right">
+                              <Badge variant={appointment.state === 'Ready' ? 'success' : 'outline'}>
+                                {appointment.state}
+                              </Badge>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TabsContent>
+                  <TabsContent value="week" className="text-muted-foreground rounded-lg border border-dashed p-6 text-sm">
+                    Weekly density is supplied by the capability; tab selection does not fetch data here.
+                  </TabsContent>
+                  <TabsContent value="unassigned" className="text-muted-foreground rounded-lg border border-dashed p-6 text-sm">
+                    No synthetic unassigned appointments in this fixture.
+                  </TabsContent>
+                </Tabs>
+              </CardContent>
+            </Card>
+
+            <Card className="border-primary/15">
+              <CardHeader>
+                <CardTitle asChild><h3>Transient interaction</h3></CardTitle>
+                <CardDescription>Menus explain choice; dialogs reserve space for consequence.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-sm font-medium">Practice setup</p>
+                    <div className="flex items-center gap-2">
+                      <span className="tabular text-sm font-semibold">64%</span>
+                      <TooltipProvider delayDuration={0}>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button type="button" variant="ghost" size="icon" aria-label="About setup progress" className="size-7">
+                              <HelpCircle aria-hidden="true" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>Progress is calculated by capability code.</TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </div>
+                  </div>
+                  <Progress aria-label="Practice setup progress" value={64} />
+                  <p className="text-muted-foreground text-xs">Four of six required setup tasks complete.</p>
+                </div>
+
+                <div className="bg-muted/55 flex flex-wrap items-center gap-2 rounded-xl border p-4">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button type="button" variant="outline">
+                        <MoreHorizontal aria-hidden="true" />
+                        More actions
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="start">
+                      <DropdownMenuLabel>Synthetic appointment</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem><Eye aria-hidden="true" />View details</DropdownMenuItem>
+                      <DropdownMenuItem><FileClock aria-hidden="true" />View history</DropdownMenuItem>
+                      <DropdownMenuItem disabled>Print summary</DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button type="button" variant="destructive">Review removal</Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Remove this synthetic draft?</DialogTitle>
+                        <DialogDescription>
+                          This gallery action does not change data. A real dialog must name the affected
+                          record, consequence, and safer alternative.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <DialogFooter>
+                        <DialogClose asChild><Button type="button" variant="outline">Keep draft</Button></DialogClose>
+                        <DialogClose asChild><Button type="button" variant="destructive">Remove draft</Button></DialogClose>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
 

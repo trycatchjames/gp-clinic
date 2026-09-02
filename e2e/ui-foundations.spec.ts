@@ -34,6 +34,41 @@ test('[keyboard-foundations] demonstrates the theme and operates foundations by 
   await page.keyboard.press('Tab');
   await expect(page.getByRole('button', { name: 'Save changes' })).toBeFocused();
 
+  const interactivePrimitives = page.locator('[data-evidence="interactive-primitives"]');
+  await interactivePrimitives.scrollIntoViewIfNeeded();
+  await interactivePrimitives.screenshot({
+    path: path.join(evidenceDirectory, 'interactive-primitives.png'),
+    animations: 'disabled',
+  });
+
+  const todayTab = page.getByRole('tab', { name: 'Today' });
+  await todayTab.focus();
+  await page.keyboard.press('ArrowRight');
+  await expect(page.getByRole('tab', { name: 'This week' })).toHaveAttribute(
+    'aria-selected',
+    'true',
+  );
+  await expect(page.getByText(/Weekly density is supplied/)).toBeVisible();
+
+  const progressHelp = page.getByRole('button', { name: 'About setup progress' });
+  await progressHelp.focus();
+  await expect(page.getByRole('tooltip')).toHaveText(/calculated by capability code/);
+  await page.keyboard.press('Escape');
+
+  const menuTrigger = page.getByRole('button', { name: 'More actions' });
+  await menuTrigger.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('menuitem', { name: 'View details' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(menuTrigger).toBeFocused();
+
+  const dialogTrigger = page.getByRole('button', { name: 'Review removal' });
+  await dialogTrigger.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('dialog', { name: 'Remove this synthetic draft?' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(dialogTrigger).toBeFocused();
+
   const patterns = page.locator('[data-evidence="workflow-patterns"]');
   await patterns.scrollIntoViewIfNeeded();
   await expect(page.getByRole('region', { name: 'Amelia Hart' })).toBeVisible();

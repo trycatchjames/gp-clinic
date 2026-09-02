@@ -3,6 +3,11 @@ export const designSystemStates = {
   controls: {
     statuses: ['Ready', 'Needs attention', 'Unavailable'],
   },
+  appointments: [
+    { time: '8:40 am', name: 'Sam Reed', kind: 'Review', state: 'Arrived' },
+    { time: '9:20 am', name: 'Amelia Hart', kind: 'Standard', state: 'Ready' },
+    { time: '10:00 am', name: 'Taylor Chen', kind: 'Long', state: 'Confirmed' },
+  ],
   context: {
     title: 'Amelia Hart',
     description: 'Synthetic record · ordinary consultation context',
