@@ -1,7 +1,6 @@
 ---
 name: gp-ui-foundations
 description: Create or evolve accessible reusable GP Clinic UI primitives and pure patterns, demonstrate their meaningful states in /foundations, and capture deterministic visual and keyboard evidence. Use when a capability needs a shared design-system component before connected feature work; do not use for API-connected screens or one-off styling.
-compatibility: Requires the GP Clinic web app, React, Tailwind CSS, shadcn-derived primitives, Vitest, and Playwright.
 ---
 
 # Evolve the UI foundation

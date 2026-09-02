@@ -1,5 +1,17 @@
 import * as React from 'react';
-import { AlertCircle, CheckCircle2, Info, Loader2, Save, Trash2 } from 'lucide-react';
+import {
+  AlertCircle,
+  ArrowRight,
+  CheckCircle2,
+  CircleUserRound,
+  Info,
+  Loader2,
+  RotateCcw,
+  Save,
+  ShieldCheck,
+  Sparkles,
+  Trash2,
+} from 'lucide-react';
 import { designSystemStates } from '@/fixtures/design-system-states';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
@@ -24,25 +36,58 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
+import { ContextBanner } from '@/components/patterns/context-banner';
 import { Field } from '@/components/patterns/form-field';
+import { StatePanel } from '@/components/patterns/state-panel';
+import { SummaryList } from '@/components/patterns/summary-list';
 
 const ownershipLayers = [
   {
+    atomic: 'Atom',
     name: 'Primitive',
     path: 'components/ui',
-    description: 'Accessible interaction mechanics, DOM semantics and visual variants.',
+    description: 'Accessible interaction mechanics, DOM semantics and token-based variants.',
   },
   {
+    atomic: 'Molecule',
     name: 'Pure pattern',
     path: 'components/patterns',
-    description: 'Reusable primitive compositions driven only by props and callbacks.',
+    description: 'Reusable primitive compositions driven only by props, slots and callbacks.',
   },
   {
+    atomic: 'Organism',
     name: 'Capability-connected',
     path: 'features/<capability>/components',
     description: 'API state, permission-aware presentation and capability orchestration.',
   },
 ] as const;
+
+const palette = [
+  { name: 'Eucalyptus', use: 'Primary action', className: 'bg-primary text-primary-foreground' },
+  { name: 'Wattle', use: 'Orientation', className: 'bg-accent text-accent-foreground' },
+  { name: 'Paper', use: 'Work surface', className: 'bg-card text-card-foreground' },
+  { name: 'Mineral', use: 'Record text', className: 'bg-foreground text-background' },
+] as const;
+
+function GalleryHeading({
+  id,
+  eyebrow,
+  title,
+  description,
+}: {
+  id: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="max-w-3xl space-y-2">
+      <p className="text-primary text-xs font-semibold tracking-[0.16em] uppercase">{eyebrow}</p>
+      <h2 id={id} className="text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h2>
+      <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">{description}</p>
+    </div>
+  );
+}
 
 export function FoundationsRoute() {
   const fixture = designSystemStates;
@@ -61,70 +106,127 @@ export function FoundationsRoute() {
   }
 
   return (
-    <div className="bg-muted/30 min-h-svh">
+    <div className="bg-background min-h-svh">
       <a
-        href="#form-states"
+        href="#foundation-controls"
         onClick={(event) => {
           event.preventDefault();
-          document.getElementById('form-states')?.focus();
+          document.getElementById('foundation-controls')?.focus();
         }}
-        className="bg-primary text-primary-foreground focus-visible:ring-ring absolute top-3 left-3 z-50 -translate-y-20 rounded-md px-4 py-2 text-sm font-medium focus:translate-y-0 focus-visible:ring-3 focus-visible:outline-none"
+        className="bg-primary text-primary-foreground focus-visible:ring-ring fixed top-3 left-3 z-50 -translate-y-20 rounded-md px-4 py-2 text-sm font-medium shadow-lg focus:translate-y-0 focus-visible:ring-3 focus-visible:outline-none"
       >
-        Skip to form states
+        Skip to component gallery
       </a>
 
-      <header className="bg-background border-b">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
-          <div>
-            <p className="text-muted-foreground text-sm font-medium">Application foundations</p>
-            <h1 className="text-2xl font-semibold tracking-tight">Accessible control gallery</h1>
+      <header
+        data-evidence="theme-foundations"
+        className="bg-primary text-primary-foreground relative isolate overflow-hidden border-b"
+      >
+        <div
+          aria-hidden="true"
+          className="bg-accent/20 absolute -top-36 -right-28 -z-10 size-96 rounded-full blur-2xl"
+        />
+        <div
+          aria-hidden="true"
+          className="border-primary-foreground/15 absolute right-[16%] -bottom-48 -z-10 size-96 rounded-full border-[48px]"
+        />
+        <div className="mx-auto max-w-6xl px-5 py-6 sm:px-8 sm:py-8">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="bg-primary-foreground text-primary flex size-10 items-center justify-center rounded-xl shadow-sm">
+                <Sparkles aria-hidden="true" className="size-5" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold">GP Clinic</p>
+                <p className="text-primary-foreground/70 text-xs">Product foundations</p>
+              </div>
+            </div>
+            <Badge className="border-primary-foreground/25 bg-primary-foreground/10 text-primary-foreground max-w-[15rem] whitespace-normal">
+              Synthetic fixture · {fixture.id}
+            </Badge>
           </div>
-          <Badge variant="outline">Synthetic fixture · {fixture.id}</Badge>
+
+          <div className="grid gap-8 pt-16 pb-8 lg:grid-cols-[1.3fr_0.7fr] lg:items-end lg:pt-24">
+            <div className="max-w-3xl space-y-5">
+              <p className="text-accent text-xs font-semibold tracking-[0.2em] uppercase">
+                Eucalyptus &amp; Wattle
+              </p>
+              <h1 className="text-4xl leading-[1.05] font-semibold tracking-[-0.035em] text-balance sm:text-6xl">
+                Quiet confidence for busy care.
+              </h1>
+              <p className="text-primary-foreground/75 max-w-2xl text-base leading-relaxed sm:text-lg">
+                A warm, precise interface language for the high-throughput moments where context,
+                state and the next safe action must be immediately clear.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 overflow-hidden rounded-2xl border border-primary-foreground/20 bg-primary-foreground/5 backdrop-blur-sm">
+              {palette.map((colour) => (
+                <div key={colour.name} className="border-primary-foreground/15 border-r border-b p-3 last:border-r-0 sm:p-4">
+                  <div className={`mb-3 h-8 rounded-lg border border-black/10 ${colour.className}`} />
+                  <p className="text-xs font-semibold">{colour.name}</p>
+                  <p className="text-primary-foreground/65 mt-0.5 text-[11px]">{colour.use}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl space-y-10 px-6 py-8">
+      <nav aria-label="Foundation sections" className="bg-card border-b">
+        <div className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 py-2 sm:px-8">
+          {[
+            ['#foundation-controls', 'Controls'],
+            ['#workflow-patterns', 'Workflow patterns'],
+            ['#form-states', 'Forms'],
+            ['#ownership', 'Ownership'],
+          ].map(([href, label]) => (
+            <a
+              key={href}
+              href={href}
+              className="hover:bg-accent focus-visible:ring-ring shrink-0 rounded-md px-3 py-2 text-sm font-medium focus-visible:ring-3 focus-visible:outline-none"
+            >
+              {label}
+            </a>
+          ))}
+        </div>
+      </nav>
+
+      <main className="mx-auto max-w-6xl space-y-20 px-5 py-12 sm:px-8 sm:py-16">
         <section
           id="foundation-controls"
-          data-evidence="foundation-controls"
           aria-labelledby="foundation-controls-heading"
-          className="space-y-5"
+          tabIndex={-1}
+          className="focus-visible:ring-ring scroll-mt-20 space-y-7 rounded-xl focus-visible:ring-3 focus-visible:outline-none"
         >
-          <div className="max-w-3xl space-y-1">
-            <h2 id="foundation-controls-heading" className="text-xl font-semibold">
-              Foundation controls
-            </h2>
-            <p className="text-muted-foreground text-sm">
-              Meaningful action, status and feedback states for repeatable staff workflows.
-            </p>
+          <div>
+            <GalleryHeading
+              id="foundation-controls-heading"
+              eyebrow="Atoms"
+              title="Clear action and unmistakable state"
+              description="Controls remain legible and predictable across routine, pending, unavailable and consequential moments. Semantic colour always travels with words or symbols."
+            />
           </div>
 
           <div className="grid gap-5 lg:grid-cols-2">
-            <Card>
+            <Card className="border-primary/15">
               <CardHeader>
                 <CardTitle asChild>
-                  <h3>Actions</h3>
+                  <h3>Action hierarchy</h3>
                 </CardTitle>
-                <CardDescription>Text and iconography make consequence clear.</CardDescription>
+                <CardDescription>Consequence and availability stay visible.</CardDescription>
               </CardHeader>
               <CardContent className="flex flex-wrap items-center gap-3">
                 <Button type="button">
                   <Save aria-hidden="true" />
                   Save changes
                 </Button>
-                <Button type="button" variant="secondary">
-                  Review details
-                </Button>
-                <Button type="button" variant="outline">
-                  Cancel
-                </Button>
+                <Button type="button" variant="secondary">Review details</Button>
+                <Button type="button" variant="outline">Cancel</Button>
                 <Button type="button" variant="destructive">
                   <Trash2 aria-hidden="true" />
                   Remove draft
                 </Button>
-                <Button type="button" disabled>
-                  Continue
-                </Button>
+                <Button type="button" disabled>Continue</Button>
                 <Button type="button" variant="outline" aria-busy="true">
                   <Loader2 aria-hidden="true" className="animate-spin" />
                   Saving…
@@ -132,26 +234,15 @@ export function FoundationsRoute() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-primary/15">
               <CardHeader>
-                <CardTitle asChild>
-                  <h3>Status</h3>
-                </CardTitle>
-                <CardDescription>Labels and icons carry meaning alongside colour.</CardDescription>
+                <CardTitle asChild><h3>Status language</h3></CardTitle>
+                <CardDescription>Brand and clinical status never borrow meaning.</CardDescription>
               </CardHeader>
               <CardContent className="flex flex-wrap gap-3">
-                <Badge variant="success">
-                  <CheckCircle2 aria-hidden="true" />
-                  {fixture.controls.statuses[0]}
-                </Badge>
-                <Badge variant="warning">
-                  <AlertCircle aria-hidden="true" />
-                  {fixture.controls.statuses[1]}
-                </Badge>
-                <Badge variant="outline">
-                  <Info aria-hidden="true" />
-                  {fixture.controls.statuses[2]}
-                </Badge>
+                <Badge variant="success"><CheckCircle2 aria-hidden="true" />{fixture.controls.statuses[0]}</Badge>
+                <Badge variant="warning"><AlertCircle aria-hidden="true" />{fixture.controls.statuses[1]}</Badge>
+                <Badge variant="outline"><Info aria-hidden="true" />{fixture.controls.statuses[2]}</Badge>
               </CardContent>
             </Card>
 
@@ -172,42 +263,116 @@ export function FoundationsRoute() {
         </section>
 
         <section
+          id="workflow-patterns"
+          data-evidence="workflow-patterns"
+          aria-labelledby="workflow-patterns-heading"
+          className="scroll-mt-20 space-y-8"
+        >
+          <div>
+            <GalleryHeading
+              id="workflow-patterns-heading"
+              eyebrow="Molecules"
+              title="Keep context attached to the work"
+              description="Pure patterns provide hierarchy, density and state semantics. Capability code supplies the facts, permissions and callbacks."
+            />
+          </div>
+
+          <div data-evidence="responsive-patterns" className="space-y-5">
+            <ContextBanner
+              contextLabel="Synthetic patient context"
+              title={fixture.context.title}
+              description={fixture.context.description}
+              status={<Badge variant="success"><ShieldCheck aria-hidden="true" />Identity checked</Badge>}
+              facts={fixture.context.facts}
+              actions={
+                <>
+                  <Button type="button" variant="outline" size="sm">Change context</Button>
+                  <Button type="button" size="sm">Open record<ArrowRight aria-hidden="true" /></Button>
+                </>
+              }
+              notice={
+                <span className="flex items-start gap-2">
+                  <Info aria-hidden="true" className="text-primary mt-0.5 size-4 shrink-0" />
+                  Context patterns keep identity visible; capability code still enforces every
+                  permission and cross-practice boundary.
+                </span>
+              }
+            />
+
+            <SummaryList items={fixture.summary} columns={3} density="compact" />
+          </div>
+
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold">Truthful data states</h3>
+              <p className="text-muted-foreground mt-1 text-sm">
+                Similar-looking blanks are dangerous. Each state names what is known and what can happen next.
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              <StatePanel kind="loading" compact title="Loading appointments" description="Checking today’s appointment book." />
+              <StatePanel
+                kind="empty"
+                compact
+                title="No appointments match"
+                description="The request succeeded. Adjust or clear the current filters."
+                action={<Button variant="outline" size="sm">Clear filters</Button>}
+              />
+              <StatePanel
+                kind="offline"
+                compact
+                title="Working from a cached copy"
+                description="Last updated at 8:42 am. Saving is unavailable until reconnection."
+                action={<Button variant="outline" size="sm"><RotateCcw aria-hidden="true" />Retry connection</Button>}
+              />
+              <StatePanel
+                kind="unavailable"
+                compact
+                title="Clinical summary unavailable"
+                description="Do not interpret this as no medicines, allergies or problems recorded."
+              />
+              <StatePanel
+                kind="restricted"
+                compact
+                title="Access not available"
+                description="Your current access does not include this workspace area."
+              />
+              <StatePanel
+                kind="failure"
+                compact
+                title="Changes were not saved"
+                description="Your entered values remain here. Review the error and try again."
+                action={<Button variant="outline" size="sm">Try again</Button>}
+              />
+            </div>
+          </div>
+        </section>
+
+        <section
           id="form-states"
           data-evidence="form-states"
           aria-labelledby="form-states-heading"
-          tabIndex={-1}
-          className="focus-visible:ring-ring scroll-mt-6 space-y-5 rounded-xl focus-visible:ring-3 focus-visible:outline-none"
+          className="scroll-mt-20 space-y-7"
         >
-          <div className="max-w-3xl space-y-1">
-            <h2 id="form-states-heading" className="text-xl font-semibold">
-              Form states
-            </h2>
-            <p className="text-muted-foreground text-sm">
-              Labels, descriptions, errors and availability remain perceivable without relying on colour.
-            </p>
+          <div>
+            <GalleryHeading
+              id="form-states-heading"
+              eyebrow="Molecule"
+              title="Forms explain themselves at the point of need"
+              description="Labels, brief hints, validation and availability remain connected to each control. Failed saves preserve the entered work."
+            />
           </div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle asChild>
-                <h3>Workspace preferences</h3>
-              </CardTitle>
+          <Card className="border-primary/15">
+            <CardHeader className="border-b pb-5">
+              <CardTitle asChild><h3>Workspace preferences</h3></CardTitle>
               <CardDescription>Example state only; this fixture does not call an API.</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={savePreferences} className="space-y-6">
                 <div className="grid gap-5 md:grid-cols-2">
-                  <Field
-                    label="Workspace label"
-                    htmlFor="workspace-label"
-                    required
-                    hint="Used to distinguish this workspace in staff navigation."
-                  >
-                    <Input
-                      value={workspaceLabel}
-                      onChange={(event) => setWorkspaceLabel(event.target.value)}
-                      required
-                    />
+                  <Field label="Workspace label" htmlFor="workspace-label" required hint="Used to distinguish this workspace in staff navigation.">
+                    <Input value={workspaceLabel} onChange={(event) => setWorkspaceLabel(event.target.value)} required />
                   </Field>
 
                   <Field
@@ -216,39 +381,21 @@ export function FoundationsRoute() {
                     hint="Receives non-clinical workspace notices."
                     error="Enter an email address in the format name@example.com."
                   >
-                    <Input
-                      inputMode="email"
-                      value={email}
-                      onChange={(event) => setEmail(event.target.value)}
-                    />
+                    <Input inputMode="email" value={email} onChange={(event) => setEmail(event.target.value)} />
                   </Field>
 
-                  <Field
-                    label="Default location"
-                    htmlFor="default-location"
-                    hint="Unavailable while this fixture is locked to one location."
-                  >
+                  <Field label="Default location" htmlFor="default-location" hint="Unavailable while this fixture is locked to one location.">
                     <Input value={fixture.form.defaultLocation} disabled />
                   </Field>
 
-                  <Field
-                    label="Handover note"
-                    htmlFor="handover-note"
-                    hint="Keep the note short and operational; do not include patient information."
-                  >
+                  <Field label="Handover note" htmlFor="handover-note" hint="Keep the note short and operational; do not include patient information.">
                     <Textarea value={note} onChange={(event) => setNote(event.target.value)} />
                   </Field>
 
-                  <Field
-                    label="Default view"
-                    htmlFor="default-view"
-                    hint="Choose the view shown when this workspace opens."
-                  >
+                  <Field label="Default view" htmlFor="default-view" hint="Choose the view shown when this workspace opens.">
                     {(controlProps) => (
                       <Select value={defaultView} onValueChange={setDefaultView}>
-                        <SelectTrigger {...controlProps}>
-                          <SelectValue />
-                        </SelectTrigger>
+                        <SelectTrigger {...controlProps}><SelectValue /></SelectTrigger>
                         <SelectContent>
                           <SelectItem value="today">Today</SelectItem>
                           <SelectItem value="week">This week</SelectItem>
@@ -270,24 +417,15 @@ export function FoundationsRoute() {
                       />
                       <Label htmlFor="show-keyboard-hints">Show keyboard hints</Label>
                     </div>
-                    <p
-                      id="show-keyboard-hints-description"
-                      className="text-muted-foreground text-xs leading-relaxed"
-                    >
+                    <p id="show-keyboard-hints-description" className="text-muted-foreground text-xs leading-relaxed">
                       Adds shortcut hints beside supported actions.
                     </p>
                   </div>
 
                   <fieldset className="space-y-2">
                     <legend className="text-sm font-medium">Workspace density</legend>
-                    <p id="density-description" className="text-muted-foreground text-xs">
-                      Changes spacing, not the available information.
-                    </p>
-                    <RadioGroup
-                      value={density}
-                      onValueChange={setDensity}
-                      aria-describedby="density-description"
-                    >
+                    <p id="density-description" className="text-muted-foreground text-xs">Changes spacing, not the available information.</p>
+                    <RadioGroup value={density} onValueChange={setDensity} aria-describedby="density-description">
                       <div className="flex min-h-6 items-center gap-3">
                         <RadioGroupItem value="comfortable" id="density-comfortable" />
                         <Label htmlFor="density-comfortable">Comfortable</Label>
@@ -309,16 +447,13 @@ export function FoundationsRoute() {
                       />
                       <Label htmlFor="announce-changes">Announce changes</Label>
                     </div>
-                    <p
-                      id="announce-changes-description"
-                      className="text-muted-foreground text-xs leading-relaxed"
-                    >
+                    <p id="announce-changes-description" className="text-muted-foreground text-xs leading-relaxed">
                       Announces dynamic save and validation messages.
                     </p>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap items-center justify-between gap-4 border-t pt-5">
+                <div className="bg-muted/55 flex flex-wrap items-center justify-between gap-4 rounded-xl border px-4 py-3">
                   <p role="status" aria-live="polite" className="text-muted-foreground text-sm">
                     {saved ? 'Preferences saved for this synthetic fixture.' : 'No changes saved yet.'}
                   </p>
@@ -329,25 +464,27 @@ export function FoundationsRoute() {
           </Card>
         </section>
 
-        <section aria-labelledby="ownership-heading" className="space-y-5">
-          <div className="max-w-3xl space-y-1">
-            <h2 id="ownership-heading" className="text-xl font-semibold">
-              Component ownership
-            </h2>
-            <p className="text-muted-foreground text-sm">
-              Components live at the lowest layer that has enough knowledge to do their job.
-            </p>
+        <section id="ownership" aria-labelledby="ownership-heading" className="scroll-mt-20 space-y-7">
+          <div>
+            <GalleryHeading
+              id="ownership-heading"
+              eyebrow="Composition"
+              title="Atomic language, one ownership model"
+              description="Atomic levels explain how the interface composes. Repository layers decide what knowledge each component may own."
+            />
           </div>
           <div className="grid gap-4 md:grid-cols-3">
-            {ownershipLayers.map((layer) => (
-              <Card key={layer.name} className="gap-3 py-5">
-                <CardHeader className="gap-2">
-                  <CardTitle asChild>
-                    <h3>{layer.name}</h3>
-                  </CardTitle>
-                  <code className="text-muted-foreground text-xs">{layer.path}</code>
+            {ownershipLayers.map((layer, index) => (
+              <Card key={layer.name} className="gap-4 overflow-hidden py-0">
+                <div className="bg-secondary flex items-center justify-between border-b px-5 py-3">
+                  <Badge variant="secondary" className="bg-card">{layer.atomic}</Badge>
+                  <span className="text-primary tabular text-xs font-semibold">0{index + 1}</span>
+                </div>
+                <CardHeader className="gap-2 px-5">
+                  <CardTitle asChild><h3>{layer.name}</h3></CardTitle>
+                  <code className="text-muted-foreground text-xs break-all">{layer.path}</code>
                 </CardHeader>
-                <CardContent className="text-muted-foreground text-sm">
+                <CardContent className="text-muted-foreground px-5 pb-5 text-sm leading-relaxed">
                   {layer.description}
                 </CardContent>
               </Card>
@@ -355,6 +492,16 @@ export function FoundationsRoute() {
           </div>
         </section>
       </main>
+
+      <footer className="bg-foreground text-background mt-20">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+          <p className="flex items-center gap-2 text-sm font-medium">
+            <CircleUserRound aria-hidden="true" className="size-4" />
+            Designed for calm, accountable practice work.
+          </p>
+          <p className="text-background/60 text-xs">Synthetic UI evidence only · no patient data</p>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -20,14 +20,36 @@ describe('FoundationsRoute', () => {
   it('renders the named synthetic fixture and meaningful foundation states', () => {
     render(<FoundationsRoute />);
 
-    expect(screen.getByText('Synthetic fixture · design-system-states')).toBeVisible();
+    expect(screen.getByText(/Synthetic fixture · design-system-states/)).toBeVisible();
+    expect(screen.getByRole('heading', { name: 'Quiet confidence for busy care.' })).toBeVisible();
     expect(screen.getByRole('button', { name: 'Save changes' })).toBeEnabled();
     expect(screen.getByRole('button', { name: 'Remove draft' })).toBeEnabled();
     expect(screen.getByRole('button', { name: 'Continue' })).toBeDisabled();
     expect(screen.getByText('Ready')).toBeVisible();
     expect(screen.getByText('Needs attention')).toBeVisible();
     expect(screen.getByText('Unavailable')).toBeVisible();
-    expect(screen.getByText('Changes were not saved')).toBeVisible();
+    expect(screen.getAllByText('Changes were not saved')).toHaveLength(2);
+  });
+
+  it('distinguishes context, summary and truthful data states', () => {
+    render(<FoundationsRoute />);
+
+    expect(screen.getByRole('region', { name: 'Amelia Hart' })).toHaveTextContent(
+      'Identity checked',
+    );
+    expect(screen.getAllByText('Patient no.')[0].tagName).toBe('DT');
+    expect(screen.getByRole('region', { name: 'Loading appointments' })).toHaveAttribute(
+      'aria-busy',
+      'true',
+    );
+    expect(screen.getByRole('alert', { name: 'Changes were not saved' })).toHaveAttribute(
+      'data-state',
+      'failure',
+    );
+    expect(screen.getByRole('region', { name: 'No appointments match' })).toHaveAttribute(
+      'data-state',
+      'empty',
+    );
   });
 
   it('exposes labelled, described, invalid and disabled form states', () => {
@@ -49,6 +71,7 @@ describe('FoundationsRoute', () => {
 
     expect(screen.getByRole('heading', { name: 'Primitive' })).toBeVisible();
     expect(screen.getByText('components/ui')).toBeVisible();
+    expect(screen.getByText('Atom')).toBeVisible();
     expect(screen.getByRole('heading', { name: 'Pure pattern' })).toBeVisible();
     expect(screen.getByText('components/patterns')).toBeVisible();
     expect(screen.getByRole('heading', { name: 'Capability-connected' })).toBeVisible();
