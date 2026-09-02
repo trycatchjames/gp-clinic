@@ -1,26 +1,30 @@
 id: UI-001
-title: Establish accessible application UI foundations
+title: Establish the clinical product design system
 kind: enablement
-status: in_review
+status: working
 capability: null
 story:
   actor: Practice staff member
-  goal: use consistent and accessible controls across core workflows
-  benefit: each product slice can focus on task validity instead of rebuilding interaction basics
+  goal: use a coherent and accessible visual language across core workflows
+  benefit: each product slice can focus on task validity without rebuilding interaction or state patterns
 spec_refs:
+  - spec/product/design-system.md
   - spec/product/principles.md
   - spec/product/non-functional-requirements.md
   - spec/cross-cutting/accessibility/requirements.md
 acceptance:
   scenarios: []
   criteria:
-    - A reviewable component gallery demonstrates foundational controls and their meaningful states
+    - A reviewable component gallery demonstrates the Eucalyptus and Wattle theme, foundational controls and meaningful states
     - Form controls expose labels, descriptions, errors, disabled state and visible keyboard focus
-    - Primitive, pure pattern and API-connected capability component ownership is documented
+    - Context, summary and data-state patterns remain pure, responsive and reusable
+    - Atomic design terminology maps to the documented primitive, pattern and capability ownership layers
 evidence:
   screenshots:
-    - foundation-controls
+    - theme-foundations
+    - workflow-patterns
     - form-states
+    - responsive-patterns
   flows:
     - keyboard-foundations
   fixtures:
@@ -33,5 +37,6 @@ risk:
 depends_on: []
 out_of_scope:
   - Patient search or other API-connected capability components
-  - A complete design system built without product usage
-  - Brand identity redesign
+  - Final capability screen composition or product behaviour
+  - Exhaustive chart, calendar and data-grid foundations before a screen contract needs them
+  - Marketing identity, illustration or logo design

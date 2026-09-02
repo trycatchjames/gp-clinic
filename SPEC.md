@@ -26,7 +26,8 @@ If two authoritative files conflict, implementation MUST stop at the conflict. A
 
 The hierarchy is organised around:
 
-- [`spec/product`](spec/product): purpose, scope, people, terminology and quality goals;
+- [`spec/product`](spec/product): purpose, scope, people, terminology, quality goals and the
+  [product design system](spec/product/design-system.md);
 - [`spec/research`](spec/research): Australian source base, market observations and unresolved questions;
 - [`spec/domain`](spec/domain): owned concepts, relationships, invariants and lifecycles;
 - [`spec/capabilities`](spec/capabilities): user outcomes, interactions, screens, permissions and acceptance examples;

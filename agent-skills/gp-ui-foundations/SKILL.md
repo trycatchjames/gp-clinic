@@ -10,8 +10,9 @@ Build the smallest reusable UI capability required by an approved screen contrac
 dense, high-throughput Australian general-practice workflow; visual polish must improve hierarchy,
 clarity, and state recognition rather than compete with the task.
 
-Before editing, read `SPEC.md`, `AGENTS.md`, `apps/web/AGENTS.md`, the relevant capability screen
-contract and `review.yaml`, and [the foundation contract](references/foundation-contract.md).
+Before editing, read `SPEC.md`, `AGENTS.md`, `apps/web/AGENTS.md`,
+`spec/product/design-system.md`, the relevant capability screen contract and `review.yaml`, and
+[the foundation contract](references/foundation-contract.md).
 
 ## Choose the owning layer
 
@@ -28,6 +29,12 @@ Do not extract a component merely because markup repeats once. A foundation addi
 stable interaction, semantic, density, responsive, or state-display contract needed by the current
 approved behaviour. Keep API calls, generated SDK types, authenticated context, permissions, route
 state, and domain mutation out of primitives and patterns.
+
+Use atomic design as a composition vocabulary, not another directory tree: primitives are atoms,
+pure patterns are molecules, capability-connected components are organisms, and routes supply
+templates/pages. Keep the authoritative inventory and visual decisions in
+`spec/product/design-system.md`; do not create per-component Markdown unless a complex public
+contract genuinely cannot be expressed there and in the component API.
 
 ## Define the contract before styling
 
@@ -61,6 +68,8 @@ and a pending save must not look durable.
 7. Inspect the rendered result at desktop and narrow widths using
    [the visual-quality pass](references/visual-quality.md), then fix the implementation and
    recapture evidence when a defect is visible.
+8. Update the authoritative foundation inventory when adding, renaming, or removing a public atom
+   or molecule.
 
 Keep product copy short and task-specific. Reuse design tokens and established spacing, type, and
 colour decisions. Do not introduce a parallel component library, token vocabulary, or page-specific
