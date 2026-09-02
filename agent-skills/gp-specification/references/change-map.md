@@ -17,16 +17,11 @@ Use this map to find obligations. It does not change the authority order in `SPE
 
 ## Capability bundle
 
-For an affected capability, read its consolidated `spec.md` when present. During migration, a
-capability without `spec.md` still requires all of:
+For an affected capability, read all of:
 
-- `overview.md`
-- `rules.md`
-- `interactions.md`
-- `permissions.md`
-- every relevant file under `screens/`
-- every relevant file under `acceptance/`
-- `review.yaml`
+- `spec.md`, including every linked dependency;
+- `acceptance.feature`;
+- `review.yaml`.
 
 Follow links from those files into owning domains, cross-cutting requirements, contracts, accepted
 ADRs, and research. Do not rely on a filename list alone when the documents link to additional

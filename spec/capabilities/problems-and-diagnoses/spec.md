@@ -35,17 +35,19 @@ A clinician may record an encounter diagnosis and deliberately promote it to the
 
 `clinical.summary.view`/`clinical.entry.view` read; `problem.manage` creates diagnoses/problems and changes longitudinal status. Entered-in-error requires elevated clinical correction authority. Reception, billing and technical administration have no default access or mutation rights. Only clinical permission mutates these records.
 
-## Problem and diagnosis editor
+## Screen contracts
 
-### Purpose
+### Problem and diagnosis editor
+
+#### Purpose
 
 Record an encounter diagnosis or maintain the longitudinal problem list without overstating certainty.
 
-### Content and controls
+#### Content and controls
 
 Patient banner; concept/free text; verification and clinical status; onset/resolution; source encounter; and separate controls for “this encounter” and “add to problem list”. Existing possible matches are shown before creating a duplicate.
 
-### States
+#### States
 
 Draft, validation warning, saved, resolved and entered-in-error. Suspected/provisional/confirmed labels are textual, and changing status requires an attributable reason where clinically material.
 

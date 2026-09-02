@@ -8,9 +8,8 @@ delivery and approval interface: ship small, reviewable user outcomes with obser
 1. Read `SPEC.md` before product work.
 2. Follow accepted ADRs, domain invariants and cross-cutting safety requirements before
    capability examples or implementation precedent.
-3. Read the relevant capability `spec.md` when present; otherwise read its overview, rules,
-   interactions, permissions and screens. Always read its acceptance examples and `review.yaml`
-   before changing observable behaviour.
+3. Read the relevant capability's `spec.md`, `acceptance.feature` and `review.yaml` before changing
+   observable behaviour, then follow every dependency linked from `spec.md`.
 4. Follow the nearest nested `AGENTS.md` for area-specific instructions.
 5. If authoritative requirements conflict, stop implementation and repair or escalate the
    specification conflict. Do not select the easiest interpretation.

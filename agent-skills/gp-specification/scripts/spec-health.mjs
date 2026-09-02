@@ -106,13 +106,21 @@ for (const directory of capabilityDirectories) {
   const legacyParts = ['overview.md', 'rules.md', 'interactions.md', 'permissions.md']
     .map((file) => path.join(directory, file))
     .filter(existsSync);
-  if (existsSync(compactSpecification)) {
-    if (legacyParts.length > 0 || existsSync(path.join(directory, 'screens'))) {
-      errors.push(`spec/capabilities/${name} mixes consolidated and legacy capability files`);
+  if (!existsSync(compactSpecification)) {
+    errors.push(`spec/capabilities/${name} has no spec.md`);
+  } else {
+    const specification = readFileSync(compactSpecification, 'utf8');
+    for (const section of ['Dependencies', 'Rules', 'Interactions', 'Permissions', 'Screen contracts']) {
+      if (!new RegExp(`^## ${section}$`, 'm').test(specification)) {
+        errors.push(`spec/capabilities/${name}/spec.md is missing ${section}`);
+      }
     }
-    if (!existsSync(compactAcceptance)) {
-      errors.push(`spec/capabilities/${name} has spec.md without acceptance.feature`);
-    }
+  }
+  if (legacyParts.length > 0 || existsSync(path.join(directory, 'screens')) || existsSync(path.join(directory, 'acceptance'))) {
+    errors.push(`spec/capabilities/${name} contains legacy capability files`);
+  }
+  if (!existsSync(compactAcceptance)) {
+    errors.push(`spec/capabilities/${name} has no acceptance.feature`);
   }
   if (!files.some((file) => file.endsWith('.feature'))) {
     errors.push(`spec/capabilities/${name} has no acceptance feature`);
