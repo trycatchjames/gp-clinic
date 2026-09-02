@@ -101,6 +101,19 @@ const capabilityDirectories = readdirSync(capabilityRoot)
 for (const directory of capabilityDirectories) {
   const name = path.basename(directory);
   const files = walk(directory);
+  const compactSpecification = path.join(directory, 'spec.md');
+  const compactAcceptance = path.join(directory, 'acceptance.feature');
+  const legacyParts = ['overview.md', 'rules.md', 'interactions.md', 'permissions.md']
+    .map((file) => path.join(directory, file))
+    .filter(existsSync);
+  if (existsSync(compactSpecification)) {
+    if (legacyParts.length > 0 || existsSync(path.join(directory, 'screens'))) {
+      errors.push(`spec/capabilities/${name} mixes consolidated and legacy capability files`);
+    }
+    if (!existsSync(compactAcceptance)) {
+      errors.push(`spec/capabilities/${name} has spec.md without acceptance.feature`);
+    }
+  }
   if (!files.some((file) => file.endsWith('.feature'))) {
     errors.push(`spec/capabilities/${name} has no acceptance feature`);
   }

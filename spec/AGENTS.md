@@ -36,7 +36,9 @@ Use canonical terms from [`product/terminology.md`](product/terminology.md). Pre
 ## Reading process before a change
 
 1. Read [`../SPEC.md`](../SPEC.md), [`product/scope.md`](product/scope.md) and the relevant accepted ADRs.
-2. Read the affected capability's `overview.md`, `rules.md`, `interactions.md`, `permissions.md`, screen contracts, acceptance examples and `review.yaml`.
+2. Read the affected capability's consolidated `spec.md` when present; otherwise read its
+   `overview.md`, `rules.md`, `interactions.md`, `permissions.md` and screen contracts. Always read
+   its acceptance examples and `review.yaml`.
 3. Read every domain that owns data or lifecycle state used by the capability.
 4. Read applicable cross-cutting requirements, especially clinical safety, authorisation, audit, privacy, error handling and data integrity.
 5. Check contracts and architecture ownership before adding a new identifier, enum, event or relationship.

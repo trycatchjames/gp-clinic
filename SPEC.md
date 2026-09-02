@@ -22,7 +22,7 @@ The authoritative material is, in descending order:
 5. capability overviews and product documents;
 6. Gherkin acceptance examples, which demonstrate but do not replace the normative rules.
 
-If two authoritative files conflict, implementation MUST stop at the conflict. A specification change must resolve it; an implementation choice must not silently select one interpretation. Research notes explain provenance but are not normative. Existing [`docs`](docs), [`features`](features), [`openapi`](openapi) and application code pre-date this specification and are non-authoritative evidence only.
+If two authoritative files conflict, implementation MUST stop at the conflict. A specification change must resolve it; an implementation choice must not silently select one interpretation. Research notes explain provenance but are not normative. Existing [`docs`](docs), [`features`](features), generated OpenAPI output and application code pre-date this specification and are non-authoritative evidence only.
 
 The hierarchy is organised around:
 
@@ -37,7 +37,7 @@ The hierarchy is organised around:
 
 ## How implementation agents use it
 
-Before changing a capability, an agent MUST read its overview, rules, screen contracts, acceptance examples and `review.yaml`, plus every linked domain and cross-cutting requirement. It must produce the evidence named by `review.yaml`, test the relevant acceptance examples and show that domain invariants still hold. Absence of a screen detail is not permission to contradict a product principle or invariant.
+Before changing a capability, an agent MUST read its consolidated `spec.md` when present; otherwise it MUST read the capability's overview, rules, interactions, permissions and screen contracts. It MUST always read the acceptance examples and `review.yaml`, plus every linked domain and cross-cutting requirement. It must produce the evidence named by `review.yaml`, test the relevant acceptance examples and show that domain invariants still hold. Absence of a screen detail is not permission to contradict a product principle or invariant.
 
 Implementation must conform to the specification. Implementation agents must not change product specifications merely to make implementation easier. Material changes to behaviour, domain rules, APIs, permissions, safety requirements, or screen contracts require explicit specification changes.
 

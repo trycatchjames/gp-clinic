@@ -17,7 +17,8 @@ Use this map to find obligations. It does not change the authority order in `SPE
 
 ## Capability bundle
 
-For an affected capability, read all of:
+For an affected capability, read its consolidated `spec.md` when present. During migration, a
+capability without `spec.md` still requires all of:
 
 - `overview.md`
 - `rules.md`
