@@ -1,4 +1,6 @@
 export * from './roles';
+export * from './permissions';
+export * from './patient';
 export * from './practice';
 export * from './practitioner';
 export * from './billing';

@@ -63,16 +63,16 @@ export function markerFor(kind, id) {
   return `<!-- pr-pipeline:handled:${kind}:${id} -->`;
 }
 
-export function actionableFeedback({ reviews, reviewComments, issueComments, trustedReviewers, commands, headSha }) {
+export function actionableFeedback({ reviews, reviewComments, issueComments, pullBody = '', trustedReviewers, commands, headSha }) {
   const trusted = new Set(trustedReviewers.map((login) => login.toLowerCase()));
   const isPipelinePublisher = (comment) => {
     const login = comment.user?.login?.toLowerCase() ?? '';
     return login === 'github-actions[bot]' || trusted.has(login);
   };
-  const handledText = issueComments
+  const publishedText = issueComments
     .filter(isPipelinePublisher)
-    .map((comment) => comment.body ?? '')
-    .join('\n');
+    .map((comment) => comment.body ?? '');
+  const handledText = [pullBody, ...publishedText].join('\n');
   const isTrustedHuman = (item) => {
     const login = item.user?.login?.toLowerCase() ?? '';
     return trusted.has(login) && !login.endsWith(botSuffix);
@@ -88,19 +88,19 @@ export function actionableFeedback({ reviews, reviewComments, issueComments, tru
     ...issueComments
       .filter((comment) => isTrustedHuman(comment) && commands.some((command) => (comment.body ?? '').toLowerCase().includes(command)))
       .map((comment) => ({ kind: 'comment', id: comment.id, body: comment.body ?? '', createdAt: comment.created_at })),
-    ...issueComments
-      .filter((comment) => {
-        return isPipelinePublisher(comment) && (comment.body ?? '').includes(`:${headSha} -->`);
-      })
-      .filter((comment) => (comment.body ?? '').includes('changes required'))
-      .map((comment) => {
-        const lane = comment.body.match(/<!-- agent-review:([a-z]+):/)?.[1] ?? 'unknown';
-        return { kind: 'llm', id: `${lane}:${headSha}`, body: comment.body ?? '', createdAt: comment.updated_at ?? comment.created_at, lane };
+    ...[pullBody, ...publishedText]
+      .flatMap((body) => [body, ...body.split(/\r?\n/)])
+      .filter((body) => body.includes(`:${headSha} -->`))
+      .filter((body) => body.toLowerCase().includes('changes required'))
+      .map((body) => {
+        const lane = body.match(/<!-- agent-review:([a-z]+):/)?.[1] ?? 'unknown';
+        return { kind: 'llm', id: `${lane}:${headSha}`, body, createdAt: '', lane };
       })
       .filter((candidate) => (handledText.match(new RegExp(`pr-pipeline:handled:llm:${candidate.lane}:`, 'g')) ?? []).length < 2),
   ];
 
-  return candidates
+  const unique = new Map(candidates.map((candidate) => [`${candidate.kind}:${candidate.id}`, candidate]));
+  return [...unique.values()]
     .filter((candidate) => !handledText.includes(markerFor(candidate.kind, candidate.id)))
     .sort((a, b) => String(a.createdAt).localeCompare(String(b.createdAt)));
 }

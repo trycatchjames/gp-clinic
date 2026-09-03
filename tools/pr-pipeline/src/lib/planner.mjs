@@ -1,4 +1,5 @@
 import config from '../../config.json' with { type: 'json' };
+import { updatePipelineState } from './body.mjs';
 import { actionableFeedback, nextAction, stackOrder } from './decision.mjs';
 import { removeLabel, setLabels } from './github.mjs';
 import { loadManifests, sliceIdFromIssue } from './manifests.mjs';
@@ -37,6 +38,7 @@ export async function inspectPipeline({
       trustedReviewers,
       commands: config.commands,
       headSha: pull.head.sha,
+      pullBody: pull.body,
     }));
   }
 
@@ -80,8 +82,13 @@ export async function inspectPipeline({
 export async function claimAction(client, action) {
   if (action.type === 'feedback') {
     await setLabels(client, action.pull.number, [config.labels.working]);
-    await client.request('POST', `/issues/${action.pull.number}/comments`, {
-      body: `Local agent claimed ${action.feedback.length} feedback item(s). A new commit will be pushed to this stack.`,
+    const pull = await client.request('GET', `/pulls/${action.pull.number}`);
+    await client.request('PATCH', `/pulls/${action.pull.number}`, {
+      body: updatePipelineState(
+        pull.body,
+        'Applying feedback',
+        `${action.feedback.length} requested change${action.feedback.length === 1 ? '' : 's'} claimed.`,
+      ),
     });
     return;
   }
@@ -89,8 +96,9 @@ export async function claimAction(client, action) {
   if (action.type === 'slice') {
     await setLabels(client, action.issue.number, [config.labels.working, config.labels.managed]);
     await removeLabel(client, action.issue.number, config.labels.queued);
-    await client.request('POST', `/issues/${action.issue.number}/comments`, {
-      body: `Local agent claimed delivery slice **${action.slice.id}**. It will become the next pull request in the stack.`,
+    const issue = await client.request('GET', `/issues/${action.issue.number}`);
+    await client.request('PATCH', `/issues/${action.issue.number}`, {
+      body: updatePipelineState(issue.body, 'In progress', `Delivery slice ${action.slice.id} claimed.`),
     });
   }
 }
@@ -100,8 +108,10 @@ export async function recoverAction(client, action, error) {
   if (!number) return;
   await setLabels(client, number, [config.labels.blocked]);
   await removeLabel(client, number, config.labels.working);
-  await client.request('POST', `/issues/${number}/comments`, {
-    body: `The local delivery command stopped. The checkout was left intact for inspection; check the branch and pull-request state before re-queuing.\n\n\`${sanitiseError(error)}\``,
+  const endpoint = action.type === 'feedback' ? `/pulls/${number}` : `/issues/${number}`;
+  const resource = await client.request('GET', endpoint);
+  await client.request('PATCH', endpoint, {
+    body: updatePipelineState(resource.body, 'Blocked', sanitiseError(error)),
   });
 }
 

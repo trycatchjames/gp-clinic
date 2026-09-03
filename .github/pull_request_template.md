@@ -1,8 +1,8 @@
-## Story outcome
+## Outcome
 
 Delivery slice: `delivery/slices/<ID>.yaml`
 
-Explain what the named actor can now accomplish. Do not describe the implementation first.
+State the actor and outcome in one sentence.
 
 ## Acceptance
 
@@ -10,7 +10,8 @@ Explain what the named actor can now accomplish. Do not describe the implementat
 - [ ] Every additional acceptance criterion is demonstrated
 - [ ] Explicitly out-of-scope work was not pulled into this PR
 
-## Review evidence
+<details>
+<summary>Evidence</summary>
 
 ### Screenshots
 
@@ -18,7 +19,9 @@ Explain what the named actor can now accomplish. Do not describe the implementat
 
 ### Playwright flow
 
-<!-- Link the Actions artifact containing HTML report, video and trace. Summarise the exact path and states covered. -->
+<!-- Link the current-head report, video and trace. Name the path and states; omit narration. -->
+
+</details>
 
 ## Boundaries and risk
 
@@ -29,18 +32,7 @@ Explain what the named actor can now accomplish. Do not describe the implementat
 - Clinical-safety consequence:
 - Failure/recovery states:
 
-## Gates
-
-- [ ] Lint
-- [ ] Typecheck
-- [ ] Unit/contract tests
-- [ ] API integration tests
-- [ ] Playwright
-- [ ] Architecture boundaries
-- [ ] Security review
-- [ ] Access-boundary review
-- [ ] UX evidence review
-- [ ] Architecture review
+<!-- The pipeline owns the marked state and automated-review sections below. -->
 
 ## Follow-ups
 

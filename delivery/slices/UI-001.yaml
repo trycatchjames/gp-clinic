@@ -18,12 +18,14 @@ acceptance:
     - A reviewable component gallery demonstrates the Eucalyptus and Wattle theme, foundational controls and meaningful states
     - Form controls expose labels, descriptions, errors, disabled state and visible keyboard focus
     - Context, summary and data-state patterns remain pure, responsive and reusable
+    - Filter and list patterns preserve decision-first hierarchy, explicit selection and keyboard focus movement
     - Atomic design terminology maps to the documented primitive, pattern and capability ownership layers
 evidence:
   screenshots:
     - theme-foundations
     - interactive-primitives
     - workflow-patterns
+    - list-patterns
     - form-states
     - responsive-patterns
   flows:

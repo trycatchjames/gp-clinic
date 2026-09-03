@@ -23,8 +23,8 @@ override `SPEC.md` or `spec/`.
   Gherkin scenarios, explicit exclusions and named review evidence.
 - Delivery slice manifests live in `delivery/slices/` and follow
   `delivery/slices/schema.json`. Do not broaden a slice merely because nearby work is easy.
-- Keep no more than three agent-managed pull requests open. They form one stack and are reviewed
-  from the bottom up.
+- Keep no more than `PIPELINE_MAX_OPEN_PRS` agent-managed pull requests open. The repository default
+  is one; raise it only after the owner explicitly chooses to resume stacking.
 - Put a dependency in the same slice or a lower stack layer. Never work around a missing lower
   layer from a higher one.
 - Material behaviour, permission, safety, domain, contract or screen changes require the
@@ -61,6 +61,22 @@ patient information, secrets or production data into fixtures, screenshots, trac
   capability-owned feature area.
 - Keep `tools/pr-pipeline` independent of application packages. Application code must not import
   it. GitHub workflows should be thin adapters around it.
+
+## Communication and copy
+
+- Pull requests and issues are current-state records, not activity logs. Automation updates the
+  marked `Pipeline` and `Automated review` sections in the description and does not post routine
+  progress, review, rebase or completion comments. PR comments are reserved for humans.
+- Automated review output is verdict-first and capped at three one-line findings. Omit praise,
+  scope recaps, checked-item inventories, repeated context and speculative suggestions.
+- Agent implementation summaries stay under 300 words and report only outcome, evidence,
+  validation and blockers.
+- Product copy is brief, task-specific and written at the point of need. Do not explain normal UI
+  mechanics, repeat headings, or turn safety guidance into persistent prose when a concise label,
+  state or decision-point message is sufficient.
+- Reusable list, search and filter patterns must be specified and demonstrated in the component
+  gallery before a capability makes them the de facto standard. Capability code supplies data and
+  rules; the pattern owns density, hierarchy, keyboard behaviour and responsive layout.
 
 ## Validation
 

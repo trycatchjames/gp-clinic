@@ -1,5 +1,5 @@
 {
-  "maxOpenPullRequests": 3,
+  "maxOpenPullRequests": 1,
   "trustedReviewers": ["trycatchjames"],
   "labels": {
     "managed": "agent:managed",

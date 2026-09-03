@@ -81,6 +81,27 @@ test('a local review published by a trusted owner is actionable', () => {
   assert.deepEqual(feedback.map(({ kind, id }) => [kind, id]), [['llm', 'ux:deadbeef']]);
 });
 
+test('a failing review in the PR description is actionable without a bot comment', () => {
+  const feedback = actionableFeedback({
+    trustedReviewers: ['owner'], commands: ['@agent fix'], headSha: 'deadbeef', reviews: [],
+    reviewComments: [], issueComments: [],
+    pullBody: '- **UX:** Changes required — compact the result rows <!-- agent-review:ux:deadbeef -->',
+  });
+  assert.deepEqual(feedback.map(({ kind, id }) => [kind, id]), [['llm', 'ux:deadbeef']]);
+});
+
+test('handled markers in the PR description suppress completed feedback', () => {
+  const feedback = actionableFeedback({
+    trustedReviewers: ['owner'], commands: ['@agent fix'], headSha: 'deadbeef', reviews: [],
+    reviewComments: [], issueComments: [],
+    pullBody: [
+      '- **UX:** Changes required — compact the result rows <!-- agent-review:ux:deadbeef -->',
+      markerFor('llm', 'ux:deadbeef'),
+    ].join('\n'),
+  });
+  assert.deepEqual(feedback, []);
+});
+
 test('feedback on the bottom pull request wins before filling the stack', () => {
   const pulls = [pull(2, 'two', 'one', 'B'), pull(1, 'one', 'main', 'A')];
   const action = nextAction({

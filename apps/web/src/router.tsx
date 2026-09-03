@@ -14,6 +14,7 @@ import { RegisterRoute } from '@/routes/register';
 import { AcceptInvitationRoute } from '@/routes/accept-invitation';
 import { OnboardingRoute } from '@/routes/onboarding';
 import { DashboardRoute } from '@/routes/dashboard';
+import { PatientSearchRoute } from '@/routes/patients/search';
 import { PracticeSettingsRoute } from '@/routes/settings/practice';
 import { LocationsSettingsRoute } from '@/routes/settings/locations';
 import { PractitionersSettingsRoute } from '@/routes/settings/practitioners';
@@ -177,6 +178,16 @@ const billingSettingsRoute = createRoute({
   ),
 });
 
+const patientSearchRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/patients/search',
+  component: () => (
+    <RequireAuth>
+      <PatientSearchRoute />
+    </RequireAuth>
+  ),
+});
+
 const mbsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/mbs',
@@ -194,6 +205,7 @@ const routeTree = rootRoute.addChildren([
   acceptInvitationRoute,
   onboardingRoute,
   dashboardRoute,
+  patientSearchRoute,
   practiceSettingsRoute,
   locationsSettingsRoute,
   practitionersSettingsRoute,

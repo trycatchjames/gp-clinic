@@ -23,6 +23,8 @@ export const keys = {
     ['practice', id, 'fee-schedules', scheduleId, 'items', search ?? ''] as const,
   mbsItems: (search?: string, group?: string) =>
     ['mbs-items', search ?? '', group ?? ''] as const,
+  patientSearch: (id: string, q: string, dateOfBirth: string) =>
+    ['practice', id, 'patients', 'search', q, dateOfBirth] as const,
 };
 
 export const usePractice = (id: string) =>
@@ -80,6 +82,17 @@ export const useMbsItems = (search?: string, group?: string) =>
   useQuery({
     queryKey: keys.mbsItems(search, group),
     queryFn: () => api.listMbsItems({ search, group }),
+  });
+
+/**
+ * Only fires once the receptionist has typed or picked something — an empty
+ * query must show the initial-help state, never a "no matches" result.
+ */
+export const usePatientSearch = (practiceId: string, q: string, dateOfBirth: string) =>
+  useQuery({
+    queryKey: keys.patientSearch(practiceId, q, dateOfBirth),
+    queryFn: () => api.searchPatients(practiceId, { q: q || undefined, dateOfBirth: dateOfBirth || undefined }),
+    enabled: Boolean(q.trim() || dateOfBirth),
   });
 
 /**

@@ -18,6 +18,7 @@ import {
   locationBusinessHours,
   mbsItems,
   onboardingProgress,
+  patientEntitlements,
   patients,
   practiceBillingSettings,
   practiceLocations,
@@ -583,10 +584,14 @@ async function seedFeeSchedules(practiceId: string) {
 
 /** A handful of patients so the practice does not look empty in a demo. */
 async function seedPatients(practiceId: string, anitaId: string, tomId: string) {
+  const islaId = uuidv7();
+  const miaId = uuidv7();
+
   await db.insert(patients).values([
     {
       id: uuidv7(),
       practiceId,
+      localRecordNumber: 'R000001',
       title: 'Mrs',
       familyName: 'Doyle',
       givenNames: 'Margaret Anne',
@@ -604,6 +609,7 @@ async function seedPatients(practiceId: string, anitaId: string, tomId: string) 
     {
       id: uuidv7(),
       practiceId,
+      localRecordNumber: 'R000002',
       familyName: 'Tran',
       givenNames: 'Minh',
       dateOfBirth: '1988-11-02',
@@ -620,6 +626,7 @@ async function seedPatients(practiceId: string, anitaId: string, tomId: string) 
     {
       id: uuidv7(),
       practiceId,
+      localRecordNumber: 'R000003',
       familyName: 'Williams',
       givenNames: 'Jayden',
       dateOfBirth: '2016-06-21',
@@ -631,6 +638,47 @@ async function seedPatients(practiceId: string, anitaId: string, tomId: string) 
       preferredLanguage: 'English',
       usualPractitionerId: tomId,
     },
+    // Fixture "twins-and-shared-family": twins sharing one family Medicare card
+    // with different reference numbers — exercises "search finds family members
+    // but does not verify identity" and "similar names remain distinct" (same
+    // family name and date of birth). See PATSEARCH-001.
+    {
+      id: islaId,
+      practiceId,
+      localRecordNumber: 'R000004',
+      familyName: 'Ngo',
+      givenNames: 'Isla',
+      dateOfBirth: '2015-04-02',
+      sexAtBirth: 'female',
+      mobile: '0412 555 004',
+      suburb: 'Coburg',
+      state: 'VIC',
+      postcode: '3058',
+      atsiStatus: 'neither',
+      preferredLanguage: 'English',
+      usualPractitionerId: tomId,
+    },
+    {
+      id: miaId,
+      practiceId,
+      localRecordNumber: 'R000005',
+      familyName: 'Ngo',
+      givenNames: 'Mia',
+      dateOfBirth: '2015-04-02',
+      sexAtBirth: 'female',
+      mobile: '0412 555 005',
+      suburb: 'Coburg',
+      state: 'VIC',
+      postcode: '3058',
+      atsiStatus: 'neither',
+      preferredLanguage: 'English',
+      usualPractitionerId: tomId,
+    },
+  ]);
+
+  await db.insert(patientEntitlements).values([
+    { id: uuidv7(), practiceId, patientId: islaId, medicareNumber: '3261125853', medicareIrn: '1' },
+    { id: uuidv7(), practiceId, patientId: miaId, medicareNumber: '3261125853', medicareIrn: '2' },
   ]);
 }
 

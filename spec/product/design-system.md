@@ -82,6 +82,10 @@ not one-page styling preferences.
 The maintained molecules are:
 
 - **Field** — binds a visible label, hint, required state, validation error, and control;
+- **Filter bar** — keeps the primary query, secondary filters, active scope, and live result count in
+  one compact, named search region;
+- **List view** — presents dense selectable rows with a leading task object, distinguishing facts,
+  secondary references, explicit selection, and focus movement that does not select;
 - **Context banner** — keeps the active record or workflow identity and key metadata visible;
 - **State panel** — distinguishes empty, loading, unavailable, offline, restricted, and failure
   outcomes, with an optional recovery action;
@@ -106,6 +110,12 @@ loading, invalid, and selected states. Data-bearing patterns MUST additionally d
 These states MUST NOT share copy that makes them sound equivalent. Pending work MUST NOT look saved.
 Focus movement MUST NOT imply selection. Destructive actions name their consequence and remain
 visually distinct from ordinary primary actions.
+
+Search and list patterns MUST follow the user's decision order. The name or task object leads each
+row, distinguishing facts follow, and internal or external references remain secondary. Normal rows
+fit within two lines; an additional footnote is reserved for relevant match or safety context.
+Keyboard focus may move with Tab or list-navigation keys, but only explicit activation selects.
+Selection has a non-colour cue and the primary query remains easy to reach and revise.
 
 Keyboard order follows visual task order. Focus is visible and unobscured. A composite widget uses
 the native or Radix interaction model expected for its role. Dynamic save and validation messages

@@ -107,6 +107,24 @@ jobs:
   playwright:
     needs: context
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: gp
+          POSTGRES_PASSWORD: gp
+          POSTGRES_DB: gp_prototype
+        ports: [5439:5432]
+        options: >-
+          --health-cmd "pg_isready -U gp -d gp_prototype"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      DATABASE_URL: postgres://gp:gp@localhost:5439/gp_prototype
+      NODE_ENV: test
+      JWT_ACCESS_SECRET: ci-access-secret
+      JWT_REFRESH_SECRET: ci-refresh-secret
     steps:
       - uses: actions/checkout@v5
         with:
@@ -121,9 +139,35 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Generate the contract and SDK outputs the web app imports
         run: pnpm api:generate
+      - run: pnpm --filter @gp/api build
+      # Every authenticated flow proxies /api to the API, which reads the database.
+      # Without both, sign-in fails with ECONNREFUSED and only anonymous specs pass.
+      - run: pnpm db:migrate && pnpm db:seed
+      - name: Start the API
+        run: |
+          pnpm --filter @gp/api start > /tmp/gp-api.log 2>&1 &
+          echo $! > /tmp/gp-api.pid
+      - name: Wait for the API to report healthy
+        run: |
+          for attempt in $(seq 1 60); do
+            if curl -fsS http://localhost:3001/api/health > /dev/null 2>&1; then
+              echo "API healthy after ${attempt} attempt(s)."
+              exit 0
+            fi
+            if ! kill -0 "$(cat /tmp/gp-api.pid)" 2>/dev/null; then
+              echo "::error::The API process exited before becoming healthy."
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "::error::The API did not become healthy within 120 seconds."
+          exit 1
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:e2e
-      - name: Upload Playwright report, traces, video and screenshots
+      - name: API server log
+        if: always()
+        run: cat /tmp/gp-api.log || true
+      - name: Upload Playwright report, traces and failure screenshots
         if: always()
         uses: actions/upload-artifact@v7
         with:

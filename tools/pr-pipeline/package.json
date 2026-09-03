@@ -11,8 +11,8 @@
     "validate": "node src/validate-slices.mjs",
     "architecture": "node src/check-architecture.mjs",
     "test": "node --test test/*.test.mjs",
-    "poll": "node src/poll.mjs",
-    "local": "node src/run-local.mjs"
+    "poll": "node --env-file-if-exists=../../.env src/poll.mjs",
+    "local": "node --env-file-if-exists=../../.env src/run-local.mjs"
   },
   "dependencies": {
     "ajv": "^8.17.1",

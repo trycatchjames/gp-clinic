@@ -3,7 +3,7 @@ import {
   ExecutionContext,
   SetMetadata,
 } from '@nestjs/common';
-import type { PracticeRole } from '@gp/contracts';
+import type { PracticeRole, Permission } from '@gp/contracts';
 
 export interface AuthenticatedUser {
   userId: string;
@@ -20,6 +20,14 @@ export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
 export const ROLES_KEY = 'roles';
 /** Restrict a handler to the given practice roles. */
 export const Roles = (...roles: PracticeRole[]) => SetMetadata(ROLES_KEY, roles);
+
+export const PERMISSIONS_KEY = 'permissions';
+/**
+ * Restrict a handler to callers whose role grants every named permission.
+ * Prefer this over `@Roles` for new endpoints — it decides access from the
+ * granular permission catalogue rather than hard-coding a role name.
+ */
+export const Permissions = (...permissions: Permission[]) => SetMetadata(PERMISSIONS_KEY, permissions);
 
 export const AUDIT_KEY = 'audit';
 /** Record this handler in the audit log under the given action name. */

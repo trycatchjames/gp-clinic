@@ -1,6 +1,7 @@
 ---
 name: gp-ui-foundations
 description: Create or evolve accessible reusable GP Clinic UI primitives and pure patterns, demonstrate their meaningful states in /foundations, and capture deterministic visual and keyboard evidence. Use when a capability needs a shared design-system component before connected feature work; do not use for API-connected screens or one-off styling.
+compatibility: Requires the GP Clinic web app, React, Tailwind CSS, shadcn-derived primitives, Vitest, and Playwright.
 ---
 
 # Evolve the UI foundation
@@ -34,7 +35,6 @@ pure patterns are molecules, capability-connected components are organisms, and 
 templates/pages. Keep the authoritative inventory and visual decisions in
 `spec/product/design-system.md`; do not create per-component Markdown unless a complex public
 contract genuinely cannot be expressed there and in the component API.
-
 ## Define the contract before styling
 
 Identify:
