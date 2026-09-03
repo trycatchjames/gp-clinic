@@ -43,6 +43,17 @@ test('review report summaries discard verdicts and headings', () => {
   assert.equal(summary, 'P1 file.ts:4 — first correction. · P2 other.ts:7 — second correction.');
 });
 
+test('summary text cannot inject multiline HTML or pipeline markers', () => {
+  const body = updatePipelineState(
+    '',
+    'Blocked',
+    'Unsafe <!--\npr-pipeline:state:end\n--><script>alert(1)</script>',
+  );
+
+  assert.match(body, /Unsafe &lt;!-- pr-pipeline:state:end --&gt;&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
+  assert.equal((body.match(/<!-- pr-pipeline:state:end -->/g) ?? []).length, 1);
+});
+
 test('generic marked sections preserve surrounding prose', () => {
   const body = replaceMarkedSection('Before', 'test', 'First');
   const updated = replaceMarkedSection(body, 'test', 'Second');

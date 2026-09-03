@@ -50,6 +50,48 @@ human review.
 Do not add `atoms/`, `molecules/`, or `organisms/` source directories. The existing ownership layers
 remain the code architecture.
 
+## Reference lens: Refactoring UI
+
+The user-supplied *Refactoring UI* v1.0.2 is an informative design reference, not product authority.
+Its strongest applicable ideas should shape `principles-and-foundations.md` and the Storybook
+review rubric:
+
+- start from a real feature and task rather than designing an application shell in the abstract;
+- work in short design/implementation cycles and avoid inventing an exhaustive speculative library;
+- constrain typography, spacing, sizing, colour, radius, and elevation choices so the same minor
+  decision is not remade on each screen;
+- establish hierarchy through a deliberate combination of weight, contrast, size, and spacing,
+  including de-emphasising supporting information rather than continually enlarging primary content;
+- place more space around a semantic group than within it so labels, fields, facts, and actions do
+  not become ambiguously associated;
+- treat dense layouts as a deliberate task choice and preserve hierarchy, legibility, and targets
+  rather than making compactness the default;
+- keep prose to a readable measure, align mixed-size text deliberately, and align tabular numbers
+  for comparison;
+- use preselected colour roles and scales, while ensuring colour only reinforces meaning already
+  conveyed by text, icon, or structure;
+- use background, border, and elevation according to structural meaning rather than decorating
+  every container; and
+- design empty states, long content, and awkward real data as primary cases, not cleanup work.
+
+Generic advice from the book is adapted where this product has stronger constraints:
+
+- Semantic HTML, accessible names, domain meaning, and clinical/financial consequence are never
+  secondary to visual hierarchy.
+- Visible form labels remain the default. Labels may be visually quiet only for read-only values
+  whose meaning stays unambiguous to every intended actor and assistive technology.
+- A destructive action may be visually subordinate before confirmation, but its consequence and
+  destructive meaning remain explicit; the confirmation makes the final consequential action clear.
+- The palette remains semantic-token based and uses the repository's perceptual colour model; the
+  book's specific HSL technique is not a requirement.
+- Empty states remain task-specific and concise. They must not hide scope, filters, safety context,
+  or the distinction between a successful empty result and unavailable data.
+- Related values may share a visually richer table cell, but sortable meaning, headers, numeric
+  comparison, keyboard navigation, and responsive alternatives must remain intact.
+- Advice about cropping or styling user-uploaded imagery applies only to decorative content. A
+  clinical image, result, correspondence, or source document must preserve its evidentiary content
+  and follow the owning capability's safety rules.
+
 ## Proposed Markdown structure
 
 Replace the current single `spec/product/design-system.md` file in one atomic specification change
@@ -373,6 +415,7 @@ end-to-end capability behaviour still require their own screen-contract and acce
 
 ## References
 
+- Adam Wathan and Steve Schoger, *Refactoring UI*, v1.0.2 (user-supplied reference)
 - [Storybook for React with Vite](https://storybook.js.org/docs/get-started/frameworks/react-vite)
 - [Storybook tags](https://storybook.js.org/docs/writing-stories/tags)
 - [Storybook play functions](https://storybook.js.org/docs/writing-stories/play-function)

@@ -24,12 +24,15 @@ export function replaceMarkedSection(body, name, content) {
 }
 
 function cleanSummary(value) {
-  return String(value ?? '')
-    .replace(/<!--.*?-->/g, '')
+  const plainText = String(value ?? '')
     .replace(/[\r\n]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim()
     .slice(0, 800);
+  return plainText
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;');
 }
 
 export function reviewReportSummary(report) {
