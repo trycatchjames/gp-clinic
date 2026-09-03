@@ -12,7 +12,7 @@
  *   pnpm db:reset && pnpm --filter @gp/api start &
  *   pnpm smoke
  */
-const BASE = 'http://localhost:3001/api';
+const BASE = process.env.SMOKE_BASE_URL ?? 'http://localhost:3001/api';
 let pass = 0, fail = 0;
 const ok = (name, cond, extra='') => { cond ? (pass++, console.log(`  ✓ ${name}`)) : (fail++, console.log(`  ✗ ${name} ${extra}`)); };
 
@@ -253,6 +253,29 @@ ok('replayed write returns the same record', firstBody.id === secondBody.id);
 const afterTypes = await req('GET', `/practices/${npid}/appointment-types`, N2);
 ok('  and does not create a duplicate', afterTypes.body.filter(t => t.shortCode === 'IDEM').length === 1);
 
+console.log('\nPatient search');
+const R = { token: recept.accessToken };
+const twins = await req('GET', `/practices/${pid}/patients/search?q=Ngo&dateOfBirth=2015-04-02`, R);
+ok('receptionist can search patients', twins.status === 200);
+ok('same family name and date of birth returns both twins, not one', twins.body?.results?.length === 2, JSON.stringify(twins.body));
+ok('both twins are flagged as a similar match', twins.body?.results?.every((r) => r.similarMatch === true));
+ok('neither result claims identity verification', !JSON.stringify(twins.body).toLowerCase().includes('"verified"'));
+
+const byMedicare = await req('GET', `/practices/${pid}/patients/search?q=3261125853`, R);
+ok('Medicare card number finds both family members', byMedicare.body?.results?.length === 2);
+const irns = (byMedicare.body?.results ?? []).map((r) => r.medicareIrn).sort();
+ok('  distinguished by their own IRN', JSON.stringify(irns) === JSON.stringify(['1', '2']));
+ok('  Medicare number itself is masked', byMedicare.body?.results?.every((r) => r.maskedMedicareNumber?.includes('•')));
+
+const unambiguous = await req('GET', `/practices/${pid}/patients/search?q=Doyle`, R);
+ok('a single clear match is still returned as a list to choose from', Array.isArray(unambiguous.body?.results) && unambiguous.body.results.length === 1);
+
+const crossTenant = await req('GET', `/practices/${pid}/patients/search?q=Ngo&dateOfBirth=2015-04-02`, N2);
+ok('a different practice cannot query another practice\'s patients', crossTenant.status === 404);
+
+const noIdentifiers = await req('GET', `/practices/${pid}/patients/search`, R);
+ok('no identifiers supplied returns nothing rather than every patient', noIdentifiers.body?.results?.length === 0);
+
 console.log('\nAudit log');
 // The audit log has no read endpoint by design, so check it directly.
 const { createRequire } = await import('node:module');
@@ -264,6 +287,8 @@ const [{ count }] = await sqlc`select count(*)::int as count from audit_log_entr
 ok('audit entries written', count > 20, `count=${count}`);
 const [{ count: activations }] = await sqlc`select count(*)::int as count from audit_log_entries where action = 'practice.activated'`;
 ok('activation is audit-logged', activations >= 1);
+const [{ count: searches }] = await sqlc`select count(*)::int as count from audit_log_entries where action = 'patient.search.performed'`;
+ok('patient search is audit-logged', searches >= 3, `count=${searches}`);
 await sqlc.end();
 
 console.log(`\n${pass} passed, ${fail} failed\n`);

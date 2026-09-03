@@ -91,4 +91,15 @@ describe('FoundationsRoute', () => {
     expect(screen.getByRole('heading', { name: 'Capability-connected' })).toBeVisible();
     expect(screen.getByText('features/<capability>/components')).toBeVisible();
   });
+
+  it('demonstrates the compact filter and selectable list pattern', () => {
+    render(<FoundationsRoute />);
+
+    expect(screen.getByRole('search', { name: 'Example record search' })).toBeVisible();
+    expect(screen.getByRole('list', { name: 'Example records' })).toBeVisible();
+    const row = screen.getByRole('button', { name: /^Amelia Hart DOB/ });
+    expect(row).toHaveAttribute('aria-pressed', 'false');
+    expect(row).toHaveTextContent('Brunswick 3056');
+    expect(row).toHaveTextContent('Record R000121');
+  });
 });

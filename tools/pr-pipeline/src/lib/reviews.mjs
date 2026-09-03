@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import { reviewReportSummary, updateReviewBody } from './body.mjs';
 
 export function reviewPassed(report) {
   return /^VERDICT:\s*PASS\b/im.test(report) && !/^VERDICT:\s*FAIL\b/im.test(report);
@@ -16,12 +17,14 @@ export async function publishReview({ client, pullNumber, sha, reportPath }) {
     report = 'VERDICT: FAIL\n\nThe local review agent did not produce a report.';
   }
   const passed = reviewPassed(report);
-  const marker = reviewMarker(sha);
-  const body = `${marker}\n### Consolidated slice review — ${passed ? 'passed' : 'changes required'}\n\n${report.replace(/^VERDICT:.*$/im, '').trim().slice(0, 60000)}`;
-  const comments = await client.paginate(`/issues/${pullNumber}/comments`);
-  const existing = comments.find((comment) => comment.body?.includes('<!-- agent-review:slice:'));
-  if (existing) await client.request('PATCH', `/issues/comments/${existing.id}`, { body });
-  else await client.request('POST', `/issues/${pullNumber}/comments`, { body });
+  const pull = await client.request('GET', `/pulls/${pullNumber}`);
+  const body = updateReviewBody({
+    body: pull.body,
+    sha,
+    passed,
+    summary: passed ? '' : reviewReportSummary(report),
+  });
+  await client.request('PATCH', `/pulls/${pullNumber}`, { body });
   await client.request('POST', `/statuses/${sha}`, {
     state: passed ? 'success' : 'failure',
     context: 'agent/review',

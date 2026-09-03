@@ -24,11 +24,19 @@ at most one action:
 1. trusted feedback on the bottom-most affected stacked PR;
 2. a missing consolidated, risk-aware review for a current PR head;
 3. the next dependency-ready `agent:queued` delivery slice; or
-4. nothing, when the stack is full or no slice is ready.
+4. nothing, when the configured PR limit is reached or no slice is ready.
+
+Before a slice PR is opened, the pipeline records the flows the slice manifest declares and commits
+each video to `delivery/evidence/<SLICE>/flows/<flow>.webm`, so the recording is reviewable from the
+PR itself. UI-bearing feedback refreshes those recordings before publishing the updated head;
+harness-only feedback skips that cost. GitHub Actions records no video; it still publishes traces and the HTML report as build
+artifacts. Recording needs the local app stack (`pnpm db:up`, migrated, seeded, API running), and a
+flow that fails or produces no recording stops the run before anything is published.
 
 Implementation agents may edit and test the checkout but cannot commit, push or call GitHub.
-Review agents are read-only. The pipeline itself owns labels, comments, commits, atomic stack
-rebases, pushes, PR creation and review statuses. It refuses a dirty worktree, an unrecognised
+Review agents are read-only. The pipeline owns labels, the marked status sections in descriptions,
+commits, atomic stack rebases, pushes, PR creation and review statuses. It does not post routine PR
+or issue comments. It refuses a dirty worktree, an unrecognised
 provider, a diverged `main`, an already-existing slice branch or concurrent local invocation.
 
 Useful options:
@@ -50,8 +58,10 @@ missing consolidated review before it claims another slice.
 - Node 22, pnpm 10.18.2 and project dependencies are installed;
 - Playwright Chromium and the local database prerequisites exist for slices that need them.
 
-The command reads `GITHUB_TOKEN`, `GITHUB_REPOSITORY`, `PIPELINE_MAX_OPEN_PRS`,
+The command loads the repository-root `.env` when present, then reads `GITHUB_TOKEN`,
+`GITHUB_REPOSITORY`, `PIPELINE_MAX_OPEN_PRS`,
 `TRUSTED_REVIEWERS` and `AGENT_PROVIDER` when present. Otherwise it obtains the GitHub token and
-repository from `gh`, uses repository defaults, and defaults to Codex.
+repository from `gh`, uses repository defaults, and defaults to Codex. The checked-in and local
+default is `PIPELINE_MAX_OPEN_PRS=1`; increasing it explicitly re-enables stacked delivery.
 
 Run `pnpm --filter @gp/pr-pipeline test` for the decision and local-command unit tests.

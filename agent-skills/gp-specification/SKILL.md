@@ -1,6 +1,7 @@
 ---
 name: gp-specification
 description: Audit, consolidate, shape, or revise GP Clinic product behaviour in the authoritative Markdown specification, Gherkin acceptance examples, and review evidence. Use to improve specification signal-to-noise or before implementing a new feature or any material behaviour, permission, safety, domain, contract, or screen change; do not use for application-code-only maintenance.
+compatibility: Requires the GP Clinic repository with SPEC.md and spec/.
 ---
 
 # Shape a product change

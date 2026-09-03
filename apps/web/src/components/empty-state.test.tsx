@@ -9,4 +9,12 @@ describe('EmptyState', () => {
     expect(screen.getByText('Try another identifier.')).toBeVisible();
     expect(screen.getByRole('button', { name: 'Clear search' })).toBeEnabled();
   });
+
+  it('keeps the same guidance readable when it is compacted', () => {
+    render(
+      <EmptyState density="compact" title="No patients found" description="Try another identifier." />,
+    );
+    expect(screen.getByText('No patients found')).toBeVisible();
+    expect(screen.getByText('Try another identifier.')).toBeVisible();
+  });
 });

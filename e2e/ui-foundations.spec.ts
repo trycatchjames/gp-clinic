@@ -27,6 +27,20 @@ test('[keyboard-foundations] demonstrates the theme and operates foundations by 
     animations: 'disabled',
   });
 
+  const firstRecord = page.getByRole('button', { name: /^Amelia Hart(?!e)/ });
+  const secondRecord = page.getByRole('button', { name: /^Amelia Harte/ });
+  await firstRecord.focus();
+  await page.keyboard.press('ArrowDown');
+  await expect(secondRecord).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(secondRecord).toHaveAttribute('aria-pressed', 'true');
+  await page.screenshot({
+    path: path.join(evidenceDirectory, 'list-patterns.png'),
+    fullPage: true,
+    animations: 'disabled',
+  });
+
+  await page.reload();
   await page.keyboard.press('Tab');
   await expect(page.getByRole('link', { name: 'Skip to component gallery' })).toBeFocused();
   await page.keyboard.press('Enter');

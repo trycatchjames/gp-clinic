@@ -6,6 +6,7 @@ import {
   pgTable,
   text,
   timestamp,
+  uniqueIndex,
   uuid,
 } from 'drizzle-orm/pg-core';
 import { id, timestamps, version } from './_shared';
@@ -28,6 +29,13 @@ export const patients = pgTable(
     practiceId: uuid('practice_id')
       .notNull()
       .references(() => practices.id, { onDelete: 'cascade' }),
+
+    /**
+     * Human-readable identifier shown on every screen a receptionist searches
+     * from — the internal `id` above is never displayed. Assigned once, unique
+     * within the practice, never reused. See spec/domain/patient/invariants.md.
+     */
+    localRecordNumber: text('local_record_number').notNull(),
 
     title: text('title'),
     familyName: text('family_name').notNull(),
@@ -74,6 +82,7 @@ export const patients = pgTable(
   (t) => [
     index('patients_practice_idx').on(t.practiceId),
     index('patients_name_dob_idx').on(t.practiceId, t.familyName, t.dateOfBirth),
+    uniqueIndex('patients_practice_record_number_idx').on(t.practiceId, t.localRecordNumber),
   ],
 );
 

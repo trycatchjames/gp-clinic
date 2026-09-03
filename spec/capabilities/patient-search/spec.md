@@ -52,7 +52,7 @@ Global search, appointment editor, result/document matching, patient picker and 
 
 #### Required information
 
-Query accepts canonical keys in [`../../cross-cutting/search/requirements.md`](../../cross-cutting/search/requirements.md). Each candidate shows name used/official and prior-name cue where needed, DOB/precision, suburb/postcode, masked contact, local record number, lifecycle state, similar-candidate marker and restricted stub state. Results explain which safe fields matched. Medicare is masked and never labelled “identity verified”.
+Query accepts canonical keys in [`../../cross-cutting/search/requirements.md`](../../cross-cutting/search/requirements.md). Each candidate shows name used/official and prior-name cue where needed, DOB/precision, suburb/postcode, masked contact, local record number, lifecycle state, similar-candidate marker and restricted stub state. Name and distinguishing locality/contact facts lead the row; record and external identifiers are secondary. Results explain which safe fields matched. Medicare appears only when relevant to the match, is masked and is never labelled “identity verified”.
 
 #### Actions and behaviour
 

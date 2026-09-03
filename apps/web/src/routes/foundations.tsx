@@ -12,6 +12,7 @@ import {
   MoreHorizontal,
   RotateCcw,
   Save,
+  Search,
   ShieldCheck,
   Sparkles,
   Trash2,
@@ -64,6 +65,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { ContextBanner } from '@/components/patterns/context-banner';
 import { Field } from '@/components/patterns/form-field';
+import { FilterBar, FilterField } from '@/components/patterns/filter-bar';
+import { ListView, ListViewRow } from '@/components/patterns/list-view';
 import { StatePanel } from '@/components/patterns/state-panel';
 import { SummaryList } from '@/components/patterns/summary-list';
 
@@ -125,6 +128,11 @@ export function FoundationsRoute() {
   const [density, setDensity] = React.useState('comfortable');
   const [announceChanges, setAnnounceChanges] = React.useState(true);
   const [saved, setSaved] = React.useState(false);
+  const [listQuery, setListQuery] = React.useState('');
+  const [selectedListId, setSelectedListId] = React.useState<string | null>(null);
+  const listRows = fixture.list.filter((item) =>
+    `${item.name} ${item.facts.join(' ')}`.toLowerCase().includes(listQuery.toLowerCase()),
+  );
 
   function savePreferences(event: React.FormEvent) {
     event.preventDefault();
@@ -202,6 +210,7 @@ export function FoundationsRoute() {
         <div className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 py-2 sm:px-8">
           {[
             ['#foundation-controls', 'Controls'],
+            ['#list-patterns', 'Lists'],
             ['#interactive-primitives', 'Interactions'],
             ['#workflow-patterns', 'Workflow patterns'],
             ['#form-states', 'Forms'],
@@ -286,6 +295,82 @@ export function FoundationsRoute() {
                 Check the highlighted fields, then try again. Your entered values remain available.
               </AlertDescription>
             </Alert>
+          </div>
+        </section>
+
+        <section
+          id="list-patterns"
+          data-evidence="list-patterns"
+          aria-labelledby="list-patterns-heading"
+          className="space-y-4"
+        >
+          <div className="max-w-3xl space-y-1">
+            <h2 id="list-patterns-heading" className="text-xl font-semibold">
+              Search and list patterns
+            </h2>
+            <p className="text-muted-foreground text-sm">
+              Keep filters compact and lead each row with the facts used to choose it.
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            <FilterBar label="Example record search" summary={`${listRows.length} results`}>
+              <FilterField
+                label="Name or location"
+                htmlFor="pattern-search"
+                hint="Filter the synthetic records by name, suburb or postcode."
+                hideLabel
+                grow
+              >
+                {(controlProps) => (
+                  <div className="relative">
+                    <Search
+                      className="text-muted-foreground pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2"
+                      aria-hidden="true"
+                    />
+                    <Input
+                      {...controlProps}
+                      value={listQuery}
+                      onChange={(event) => {
+                        setListQuery(event.target.value);
+                        setSelectedListId(null);
+                      }}
+                      placeholder="Name, suburb or postcode"
+                      className="pl-8"
+                    />
+                  </div>
+                )}
+              </FilterField>
+              <FilterField label="Status" htmlFor="pattern-status">
+                {(controlProps) => (
+                  <Select defaultValue="active">
+                    <SelectTrigger {...controlProps} className="w-36">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="active">Active</SelectItem>
+                      <SelectItem value="all">All records</SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
+              </FilterField>
+            </FilterBar>
+
+            <ListView
+              label="Example records"
+              items={listRows}
+              getKey={(item) => item.id}
+              selectedKey={selectedListId}
+              onSelect={(item) => setSelectedListId(item.id)}
+              renderItem={(item) => (
+                <ListViewRow
+                  title={item.name}
+                  badges={item.similar ? <Badge variant="warning">Similar details</Badge> : null}
+                  meta={item.facts}
+                  trailing={item.reference}
+                />
+              )}
+            />
           </div>
         </section>
 

@@ -12,8 +12,13 @@ export default defineConfig({
   reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],
   use: {
     baseURL,
+    // Traces stay on everywhere: they are small and are the first thing a
+    // reviewer opens when CI fails. Video is recorded locally only, where the
+    // pipeline collects it as slice evidence and attaches it to the PR. CI would
+    // otherwise spend the encode on every run to produce an artifact nobody
+    // downloads.
     trace: 'on',
-    video: 'on',
+    video: process.env.CI ? 'off' : 'on',
     screenshot: 'only-on-failure',
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],

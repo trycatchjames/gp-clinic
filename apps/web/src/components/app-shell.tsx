@@ -9,6 +9,7 @@ import {
   LogOut,
   MapPin,
   Receipt,
+  Search,
   Stethoscope,
   Users,
   Menu,
@@ -44,6 +45,10 @@ const NAV: { heading: string; items: NavItem[] }[] = [
       { to: '/settings/practice', label: 'Practice details', icon: Building2 },
       { to: '/settings/locations', label: 'Locations', icon: MapPin },
     ],
+  },
+  {
+    heading: 'Patients',
+    items: [{ to: '/patients/search', label: 'Find a patient', icon: Search }],
   },
   {
     heading: 'People',
