@@ -30,5 +30,13 @@
     "source": "apps/web/src/components/ui/table.tsx",
     "storyFile": "apps/web/src/components/ui/table.stories.tsx",
     "evidence": ["storybook-table-comparison", "storybook-table-narrow"]
+  },
+  "dataTable": {
+    "contractId": "DS-PAT-007",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-007-data-table",
+    "source": "apps/web/src/components/patterns/data-table.tsx",
+    "storyFile": "apps/web/src/components/patterns/data-table.stories.tsx",
+    "evidence": ["storybook-data-table", "storybook-data-table-hierarchy", "storybook-data-table-narrow", "storybook-data-table-controls"]
   }
 }

@@ -14,6 +14,7 @@ interaction coordination. Global state, responsive, and content rules apply to e
 | `DS-PAT-004` | Context Banner | context | `apps/web/src/components/patterns/context-banner.tsx` |
 | `DS-PAT-005` | State Panel | feedback | `apps/web/src/components/patterns/state-panel.tsx` |
 | `DS-PAT-006` | Summary List | data display | `apps/web/src/components/patterns/summary-list.tsx` |
+| `DS-PAT-007` | Data Table | data display | `apps/web/src/components/patterns/data-table.tsx` |
 
 ## Forms
 
@@ -144,6 +145,40 @@ interaction coordination. Global state, responsive, and content rules apply to e
   [practitioner profile](../../capabilities/practitioner-management/spec.md#screen-contract-practitioner-profile-and-offboarding),
   and [care-plan workspace](../../capabilities/chronic-disease-care/spec.md#screen-contract-care-plan-workspace).
 - **Excludes:** Data formatting authority, masking, permission, calculation, and record history.
+
+### DS-PAT-007 Data Table
+
+- **Need:** Let staff scan, compare, sort, page through, and progressively disclose structured
+  records without turning each row into a card or losing row/column relationships.
+- **Owner:** `apps/web/src/components/patterns/data-table.tsx`.
+- **Semantics:** Composes the native Table atom with a required caption, scoped column headers,
+  `aria-sort` on the active sortable header, a named pagination region, and optional disclosure
+  buttons. An expanded detail is a full-width row whose cell may contain a separately captioned
+  semantic table; a table is never placed directly inside another table row.
+- **Public contract:** Receives rows, stable row keys, column definitions and rendered values.
+  Sorting, pagination, page size, and expanded row keys are controlled values with callbacks. A
+  sortable column supplies its accessible sort label. Numeric/currency columns request end
+  alignment. The caller supplies empty/loading/failure content outside the table body.
+- **States:** Sort direction is visible and announced. First/previous/next/last controls reflect
+  page boundaries. Expansion uses `aria-expanded`, `aria-controls`, a non-colour chevron cue, and
+  a caller-supplied row label. Changing sort or page MUST NOT imply row selection or domain action.
+- **Keyboard and focus:** Sort, pagination, and disclosure controls use native button behaviour.
+  Activation retains a useful focus target and does not move focus into newly disclosed content.
+  Interactive cell content remains in logical row order.
+- **Responsive/content:** The table remains compact and horizontally contained. Pagination wraps
+  below it without causing page overflow. A capability supplies an equivalent list or grouped-row
+  strategy when its narrow screen cannot preserve required meaning through horizontal scrolling.
+  Expanded content remains visually subordinate to its parent row and exposes its own caption and
+  headers when it is another table.
+- **Required stories:** `SortablePaginated`, `Hierarchy`, `Empty`, `ContentStress`, `Narrow`, and
+  `KeyboardFlow`.
+- **Evidence:** `storybook-data-table`, `storybook-data-table-hierarchy`,
+  `storybook-data-table-narrow`, and `storybook-data-table-controls`.
+- **Used by:** [Patient account](../../capabilities/billing/spec.md#screen-contract-patient-account),
+  [task worklist](../../capabilities/tasks/spec.md#screen-contract-task-worklist), and
+  [waiting room](../../capabilities/calendar/spec.md#screen-contract-waiting-room).
+- **Excludes:** Fetching, query construction, permission filtering, domain ordering, clinical
+  priority, financial calculation, virtualisation, bulk actions, and row-action availability.
 
 ## Data and operation states
 
