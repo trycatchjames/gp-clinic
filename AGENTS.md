@@ -100,7 +100,9 @@ integrity or domain invariants.
 
 ## Repository skills
 
-Reusable workflows live canonically in `agent-skills/` using the open Agent Skills format.
-`.agents/skills` and `.claude/skills` are checked-in discovery symlinks to that one source. Use the
-relevant skill when a task matches it, especially for delivery slicing, PR evidence, feedback
-handling and the consolidated slice review.
+Reusable workflows live canonically in `agent-skills/` using the open Agent Skills format. Add a
+skill there and both supported harnesses find it with no further wiring: Claude Code discovers it
+through the checked-in `.claude/skills` symlink and Codex through `.agents/skills`. Both symlinks
+resolve to that one directory. Never add a second copy, a harness-specific variant or a third
+discovery path. Use the relevant skill when a task matches it, especially for delivery slicing, PR
+evidence, feedback handling and the consolidated slice review.
