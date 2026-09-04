@@ -1,0 +1,41 @@
+id: DS-009
+title: Complete the compact semantic badge atom
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Practice staff
+  goal: recognise concise statuses and categories without losing their textual meaning
+  benefit: dense clinical and operational views can communicate state consistently without relying on colour
+spec_refs:
+  - spec/product/design-system/README.md
+  - spec/product/design-system/principles-and-foundations.md
+  - spec/product/design-system/atoms.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+acceptance:
+  scenarios: []
+  criteria:
+    - Badge stories demonstrate every approved semantic variant with explicit text
+    - Familiar icons supplement rather than replace status labels
+    - Long meaningful labels wrap without clipping or horizontal overflow
+    - Static badges remain outside the keyboard focus order and add no interactive role
+    - Quiet and strong coloured surfaces retain readable badge treatments
+evidence:
+  screenshots:
+    - badge-semantic-variants
+  flows: []
+  fixtures:
+    - storybook-badge-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-002
+out_of_scope:
+  - Computing lifecycle, urgency, permission, verification or priority
+  - Capability-specific status labels and disclosure rules
+  - Interactive filters, toggles or navigation disguised as badges
+  - API-connected capability organisms, templates or pages

@@ -11,6 +11,7 @@ export type FoundationContract = {
 
 export const foundationContracts = contractRegistry as Readonly<{
   button: FoundationContract;
+  badge: FoundationContract;
   field: FoundationContract;
   statePanel: FoundationContract;
   table: FoundationContract;

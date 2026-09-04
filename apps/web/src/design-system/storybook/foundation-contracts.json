@@ -7,6 +7,14 @@
     "storyFile": "apps/web/src/components/ui/button.stories.tsx",
     "evidence": ["storybook-button-states", "storybook-foundation-keyboard"]
   },
+  "badge": {
+    "contractId": "DS-DSP-001",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-dsp-001-badge",
+    "source": "apps/web/src/components/ui/badge.tsx",
+    "storyFile": "apps/web/src/components/ui/badge.stories.tsx",
+    "evidence": ["badge-semantic-variants"]
+  },
   "field": {
     "contractId": "DS-PAT-001",
     "layer": "molecule",
