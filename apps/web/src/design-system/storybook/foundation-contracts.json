@@ -22,5 +22,13 @@
     "source": "apps/web/src/components/patterns/state-panel.tsx",
     "storyFile": "apps/web/src/components/patterns/state-panel.stories.tsx",
     "evidence": ["storybook-state-panel-states", "storybook-narrow-reflow"]
+  },
+  "table": {
+    "contractId": "DS-DSP-004",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-dsp-004-table",
+    "source": "apps/web/src/components/ui/table.tsx",
+    "storyFile": "apps/web/src/components/ui/table.stories.tsx",
+    "evidence": ["storybook-table-comparison", "storybook-table-narrow"]
   }
 }

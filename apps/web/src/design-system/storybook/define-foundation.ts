@@ -13,6 +13,7 @@ export const foundationContracts = contractRegistry as Readonly<{
   button: FoundationContract;
   field: FoundationContract;
   statePanel: FoundationContract;
+  table: FoundationContract;
 }>;
 
 const repositoryUrl = 'https://github.com/trycatchjames/gp-clinic/blob/main';

@@ -304,8 +304,10 @@ native attributes required for composition but MUST NOT expose raw visual-token 
 - **Owner:** `apps/web/src/components/ui/table.tsx`.
 - **Semantics:** Native table, caption, header, body, row, and cell elements. Headers and scope are
   explicit; layout-only tables are prohibited.
-- **Public contract:** Neutral responsive container plus token-based row hover and selected hooks.
-  Sorting, pagination, selection, and responsive list alternatives belong to a molecule.
+- **Public contract:** Neutral responsive container, compact header/body/footer primitives,
+  token-based row hover and selected hooks, and start/centre/end cell alignment. End-aligned cells
+  use tabular figures. Sorting, pagination, selection, and responsive list alternatives belong to
+  a molecule.
 - **States:** Hover and selected state do not rely on colour. Empty, loading, partial, and failure
   presentation is composed outside the table body rather than represented as ordinary data.
 - **Keyboard and focus:** Static cells are not tab stops. Interactive cell content follows logical
@@ -314,7 +316,7 @@ native attributes required for composition but MUST NOT expose raw visual-token 
   is acceptable only when the screen contract preserves all actions and offers the required narrow
   strategy.
 - **Required stories:** `Default`, `NumericComparison`, `SelectedRow`, `DenseContent`, and `Narrow`.
-- **Evidence:** `table-semantics` and `table-content-stress`.
+- **Evidence:** `storybook-table-comparison` and `storybook-table-narrow`.
 - **Used by:** [Waiting room](../../capabilities/calendar/spec.md#screen-contract-waiting-room)
   and [patient account](../../capabilities/billing/spec.md#screen-contract-patient-account).
 - **Excludes:** Data fetching, sorting state, virtualisation, domain selection, and bulk action.
