@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/empty-state';
 import { Separator } from '@/components/ui/separator';
+import { formatPhoneNumber } from '@/lib/formatters';
 
 export function LocationsSettingsRoute() {
   const practiceId = usePracticeId();
@@ -82,8 +83,8 @@ function LocationCard({
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid gap-x-8 gap-y-3 text-sm sm:grid-cols-3">
-          <Detail label="Phone" value={location.phone ?? '—'} />
-          <Detail label="Fax" value={location.fax ?? '—'} />
+          <Detail label="Phone" value={formatPhoneNumber(location.phone)} />
+          <Detail label="Fax" value={formatPhoneNumber(location.fax)} />
           <Detail label="HPI-O" value={location.hpiO ?? 'Not recorded'} mono />
           <Detail label="Medicare Minor ID" value={location.medicareMinorId ?? 'Not recorded'} mono />
         </div>

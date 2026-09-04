@@ -5,7 +5,7 @@ const baseURL = process.env.STORYBOOK_BASE_URL ?? `http://127.0.0.1:${port}`;
 
 export default defineConfig({
   testDir: './e2e',
-  testMatch: 'storybook-foundations.spec.ts',
+  testMatch: 'storybook-*.spec.ts',
   outputDir: 'test-results/playwright-storybook',
   fullyParallel: false,
   forbidOnly: Boolean(process.env.CI),

@@ -85,6 +85,29 @@ states what was preserved and what the user can safely do next.
 - Mask protected identifiers according to the owning capability; a shared component does not decide
   the masking rule.
 
+### Shared display formatters
+
+`apps/web/src/lib/formatters.ts` is the canonical web display-formatting boundary. Components and
+capability screens MUST use it instead of creating local `Intl` instances or manual spacing for the
+same value type.
+
+- Currency accepts integer minor units and displays Australian dollars with two decimal places.
+- Calendar dates use `DD/MM/YYYY` by default and may use an unambiguous written Australian
+  day-month-year form where the task warrants it. A date-only value is formatted without converting
+  it through a timezone that could change the calendar day.
+- Instants and times require the caller to supply the relevant IANA timezone, support the
+  practice-configured 12/24-hour cycle, and may include the short timezone label when location
+  context is not otherwise clear.
+- Australian mobile, geographic, `13`, `1300`, and `1800` numbers use consistent readable grouping.
+  An unrecognised number is preserved rather than rewritten into a plausible different number.
+- Comparable numbers use Australian grouping and tabular figures in the consuming layout.
+- A missing-value fallback is presentational only. The capability still distinguishes missing,
+  unknown, unavailable, withheld, and restricted meanings in accompanying content.
+
+These functions format already accepted values for display. They MUST NOT parse user input,
+validate identity/contact details, calculate money, infer a timezone, choose identifier masking, or
+change the stored value.
+
 ## Tables, charts, and visual data
 
 Use a semantic table when row/column relationships are meaningful. Headers, captions, selection,

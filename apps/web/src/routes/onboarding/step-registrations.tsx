@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { formatDate } from '@/lib/formatters';
 import { toast } from 'sonner';
 import { Loader2, ShieldCheck, TriangleAlert } from 'lucide-react';
 import { BBPIP } from '@gp/contracts';
@@ -165,7 +166,7 @@ export function StepRegistrations({
         <div>
           <h3 className="font-medium">Bulk Billing Practice Incentive Program</h3>
           <p className="text-muted-foreground text-sm">
-            From {new Date(BBPIP.commencedOn).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })},
+            From {formatDate(BBPIP.commencedOn, { style: 'long' })},
             participating practices receive an additional {BBPIP.loadingPercent}% on every
             dollar of MBS benefit earned from eligible services, split{' '}
             {BBPIP.practitionerSharePercent}/{100 - BBPIP.practitionerSharePercent} between the
