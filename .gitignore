@@ -8,6 +8,7 @@ build/
 coverage/
 playwright-report/
 test-results/
+storybook-static/
 tools/pr-pipeline/runtime/*
 !tools/pr-pipeline/runtime/.gitkeep
 apps/web/dev-dist/

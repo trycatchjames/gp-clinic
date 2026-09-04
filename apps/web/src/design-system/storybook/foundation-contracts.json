@@ -1,0 +1,26 @@
+{
+  "button": {
+    "contractId": "DS-ACT-001",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-act-001-button",
+    "source": "apps/web/src/components/ui/button.tsx",
+    "storyFile": "apps/web/src/components/ui/button.stories.tsx",
+    "evidence": ["storybook-button-states", "storybook-foundation-keyboard"]
+  },
+  "field": {
+    "contractId": "DS-PAT-001",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-001-field-and-field-group",
+    "source": "apps/web/src/components/patterns/form-field.tsx",
+    "storyFile": "apps/web/src/components/patterns/form-field.stories.tsx",
+    "evidence": ["storybook-field-states", "storybook-narrow-reflow", "storybook-foundation-keyboard"]
+  },
+  "statePanel": {
+    "contractId": "DS-PAT-005",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-005-state-panel",
+    "source": "apps/web/src/components/patterns/state-panel.tsx",
+    "storyFile": "apps/web/src/components/patterns/state-panel.stories.tsx",
+    "evidence": ["storybook-state-panel-states", "storybook-narrow-reflow"]
+  }
+}

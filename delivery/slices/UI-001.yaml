@@ -8,7 +8,7 @@ story:
   goal: use a coherent and accessible visual language across core workflows
   benefit: each product slice can focus on task validity without rebuilding interaction or state patterns
 spec_refs:
-  - spec/product/design-system.md
+  - spec/product/design-system/README.md
   - spec/product/principles.md
   - spec/product/non-functional-requirements.md
   - spec/cross-cutting/accessibility/requirements.md

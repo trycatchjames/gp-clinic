@@ -1,0 +1,47 @@
+id: DS-002
+title: Review traced design-system foundations in Storybook
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Product owner
+  goal: review the visual foundations and representative atoms and molecules in Storybook
+  benefit: reusable UI contracts can be approved before capability screens adopt them
+spec_refs:
+  - spec/product/design-system/README.md
+  - spec/product/design-system/principles-and-foundations.md
+  - spec/product/design-system/atoms.md
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/storybook-and-evidence.md
+acceptance:
+  scenarios: []
+  criteria:
+    - Storybook opens with the approved light-only Compact Clinical palette, colour-usage guardrails and viewport review controls
+    - Button, Field and State Panel stories link to their stable design-system contract identifiers and source references
+    - The representative components demonstrate their required semantic, interaction, content-stress and narrow states
+    - Automated Storybook rendering, interaction and accessibility checks fail when the demonstrated contract regresses
+    - A deterministic static Storybook build can be reviewed without starting the application or API
+evidence:
+  screenshots:
+    - storybook-theme-foundations
+    - storybook-button-states
+    - storybook-field-states
+    - storybook-state-panel-states
+    - storybook-narrow-reflow
+  flows:
+    - storybook-foundation-keyboard
+  fixtures:
+    - storybook-foundation-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - UI-001
+out_of_scope:
+  - Stories and evidence for every maintained atom and molecule
+  - New primitive or pattern public contracts
+  - API-connected capability organisms, templates or pages
+  - External Storybook preview hosting
+  - Removal of the existing foundations route before full gallery parity
