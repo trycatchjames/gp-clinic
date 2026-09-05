@@ -178,7 +178,7 @@ export function ComboboxField({
               id={listboxId}
               role="listbox"
               aria-label={`${label} options`}
-              className="relative z-50 mt-1 max-h-64 w-full min-w-0 overflow-y-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md md:absolute"
+              className="relative z-50 mt-1 max-h-64 w-full min-w-0 overflow-y-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
             >
               {status === 'loading' && (
                 <p role="option" aria-selected="false" aria-disabled="true" className="px-3 py-2 text-sm text-muted-foreground">
