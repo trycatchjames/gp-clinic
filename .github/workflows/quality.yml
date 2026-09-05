@@ -32,10 +32,10 @@ jobs:
     needs: context
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
           ref: ${{ needs.context.outputs.sha }}
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           version: 10.18.2
       - uses: actions/setup-node@v7
@@ -43,6 +43,10 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # `pnpm gate` ends with `pnpm test:storybook`, which runs Vitest in browser
+      # mode against real Chromium. Without the browser binary the gate fails on any
+      # branch that actually has stories, even though every story passes.
+      - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm gate
 
   api-integration:
@@ -67,10 +71,10 @@ jobs:
       JWT_ACCESS_SECRET: ci-access-secret
       JWT_REFRESH_SECRET: ci-refresh-secret
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
           ref: ${{ needs.context.outputs.sha }}
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           version: 10.18.2
       - uses: actions/setup-node@v7
@@ -126,10 +130,10 @@ jobs:
       JWT_ACCESS_SECRET: ci-access-secret
       JWT_REFRESH_SECRET: ci-refresh-secret
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
           ref: ${{ needs.context.outputs.sha }}
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           version: 10.18.2
       - uses: actions/setup-node@v7
