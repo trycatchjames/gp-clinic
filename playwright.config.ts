@@ -5,6 +5,7 @@ const baseURL = process.env.E2E_BASE_URL ?? `http://127.0.0.1:${port}`;
 
 export default defineConfig({
   testDir: './e2e',
+  testIgnore: 'storybook-*.spec.ts',
   outputDir: 'test-results/playwright',
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
