@@ -257,7 +257,7 @@ export function DateField({
               role="dialog"
               aria-modal="false"
               aria-labelledby={calendarLabelId}
-              className="relative z-50 mt-2 w-full min-w-72 max-w-80 rounded-md border bg-popover p-3 text-popover-foreground shadow-md md:absolute"
+              className="relative z-50 mt-2 w-full min-w-0 max-w-80 rounded-md border bg-popover p-3 text-popover-foreground shadow-md md:absolute md:min-w-72"
             >
               <div className="mb-3 flex items-center justify-between gap-2">
                 <Button
@@ -302,7 +302,14 @@ export function DateField({
                   const iso = format(date, 'yyyy-MM-dd');
                   const inMonth = format(date, 'yyyy-MM') === monthValue;
                   if (!inMonth) {
-                    return <div key={iso} role="gridcell" aria-disabled="true" className="size-9" />;
+                    return (
+                      <div
+                        key={iso}
+                        role="gridcell"
+                        aria-disabled="true"
+                        className="size-7 md:size-9"
+                      />
+                    );
                   }
                   const available = isAvailable(iso, minDate, maxDate);
                   const selected = iso === selectedDate;
@@ -314,7 +321,7 @@ export function DateField({
                       role="gridcell"
                       aria-selected={selected}
                       aria-disabled={!available || undefined}
-                      className="size-9"
+                      className="size-7 md:size-9"
                     >
                       <button
                         ref={(element) => {
@@ -329,7 +336,7 @@ export function DateField({
                         data-selected={selected || undefined}
                         data-today={isToday || undefined}
                         className={cn(
-                          'relative flex size-9 items-center justify-center rounded-md border border-transparent text-sm outline-none',
+                          'relative flex size-7 items-center justify-center rounded-md border border-transparent text-sm outline-none md:size-9',
                           'hover:bg-accent focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
                           'disabled:cursor-not-allowed disabled:text-muted-foreground disabled:line-through disabled:opacity-55',
                           'data-[today=true]:border-muted-foreground data-[today=true]:font-semibold',
