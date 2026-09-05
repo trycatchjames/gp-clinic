@@ -257,7 +257,7 @@ export function DateField({
               role="dialog"
               aria-modal="false"
               aria-labelledby={calendarLabelId}
-              className="relative z-50 mt-2 w-full min-w-0 max-w-80 rounded-md border bg-popover p-3 text-popover-foreground shadow-md md:absolute md:min-w-72"
+              className="relative z-50 mt-2 w-full min-w-0 max-w-80 rounded-md border bg-popover p-3 text-popover-foreground shadow-md md:min-w-72"
             >
               <div className="mb-3 flex items-center justify-between gap-2">
                 <Button
