@@ -8,7 +8,7 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   optimizeDeps: {
-    include: ['react/jsx-dev-runtime', '@radix-ui/react-select'],
+    include: ['react/jsx-dev-runtime', '@radix-ui/react-select', 'date-fns', 'date-fns/locale'],
   },
   resolve: {
     alias: {

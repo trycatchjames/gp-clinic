@@ -1,0 +1,15 @@
+export const storybookDateFieldStates = {
+  id: 'storybook-australian-date-field-states',
+  label: 'Appointment date',
+  longLabel: 'Date the patient would prefer this longer care-planning appointment to occur',
+  hint: 'Use DD/MM/YYYY or choose a date.',
+  today: '2027-04-02',
+  selected: '2027-04-03',
+  selectedText: '03/04/2027',
+  incompleteText: '3/4/',
+  invalidText: '31/02/27',
+  error: 'Enter a complete date with a four-digit year.',
+  month: '2027-04',
+  minDate: '2027-04-01',
+  maxDate: '2027-05-31',
+} as const;

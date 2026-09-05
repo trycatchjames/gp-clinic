@@ -16,6 +16,7 @@ interaction coordination. Global state, responsive, and content rules apply to e
 | `DS-PAT-006` | Summary List | data display | `apps/web/src/components/patterns/summary-list.tsx` |
 | `DS-PAT-007` | Data Table | data display | `apps/web/src/components/patterns/data-table.tsx` |
 | `DS-PAT-008` | Combobox Field | forms | `apps/web/src/components/patterns/combobox-field.tsx` |
+| `DS-PAT-009` | Australian Date Field | forms | `apps/web/src/components/patterns/date-field.tsx` |
 
 ## Forms
 
@@ -77,6 +78,41 @@ interaction coordination. Global state, responsive, and content rules apply to e
 - **Used by:** [Referral editor](../../capabilities/referrals/spec.md#screen-contract-referral-editor).
 - **Excludes:** Fetching, debounce, query syntax, filtering, ranking, result permissions, directory
   ownership, recipient snapshotting, free-text values, multiple selection, and persistence.
+
+### DS-PAT-009 Australian Date Field
+
+- **Need:** Let staff enter or choose an exact calendar date in unmistakable Australian order
+  without converting a date-only fact into an instant or discarding incomplete text during entry.
+- **Owner:** `apps/web/src/components/patterns/date-field.tsx`.
+- **Semantics:** A visible `Field` label names a text input whose hint identifies `DD/MM/YYYY`; an
+  adjacent named button opens a dialog-like calendar region with month navigation, weekday
+  headers, gridcell selection, and one roving focus target. The selected day is programmatic and
+  visibly distinct from keyboard focus.
+- **Public contract:** Receives controlled raw text, selected ISO date-only value, open state,
+  visible `YYYY-MM` month, deterministic today value, optional minimum/maximum dates, and callbacks.
+  Text edits are preserved and clear a mismatched calendar selection. Calendar selection returns
+  the ISO date-only value and writes its `DD/MM/YYYY` display form. The caller supplies validation
+  and invalid copy.
+- **States:** Empty, incomplete text, selected, open, invalid, disabled, and read-only are distinct.
+  The component never fabricates a missing component, accepts a two-digit year as complete, or
+  implies that syntactically entered text is valid. Today, focused day, selected day, unavailable
+  day, and adjacent-month blank cells remain distinguishable without colour alone.
+- **Keyboard and focus:** Tab reaches the text input then calendar button. Alt+Arrow Down or the
+  button opens the calendar and focuses the selected day, today when visible, or first available
+  day. Arrow keys move by day/week; Home/End move within the week; Page Up/Down changes month;
+  Enter/Space selects; Escape closes and returns focus to the text input. Month buttons retain
+  focus. Unavailable dates are skipped and cannot be selected.
+- **Responsive/content:** Text input and calendar action wrap without separating their label,
+  format hint, or error. The calendar fits 360 pixels and 200% reflow without horizontal page
+  overflow; weekday and day targets remain legible and focus-visible.
+- **Required stories:** `Default`, `Selected`, `Incomplete`, `Invalid`, `Disabled`, `ReadOnly`,
+  `LongLabel`, `Narrow`, and `KeyboardFlow`.
+- **Evidence:** `storybook-australian-date-field`, `storybook-australian-date-field-states`,
+  `storybook-australian-date-field-narrow`, and `storybook-australian-date-field-keyboard`.
+- **Used by:** [Appointment editor](../../capabilities/calendar/spec.md#screen-contract-appointment-editor).
+- **Excludes:** Calendar-validity authority, partial/estimated date precision, two-digit-year
+  interpretation, timezone/instant conversion, recurrence, availability, parsed-date confirmation,
+  and persistence.
 
 ## Search and lists
 
