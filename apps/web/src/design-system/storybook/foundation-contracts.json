@@ -54,5 +54,13 @@
     "source": "apps/web/src/components/patterns/combobox-field.tsx",
     "storyFile": "apps/web/src/components/patterns/combobox-field.stories.tsx",
     "evidence": ["storybook-combobox-field", "storybook-combobox-field-states", "storybook-combobox-field-narrow", "storybook-combobox-field-keyboard"]
+  },
+  "dateField": {
+    "contractId": "DS-PAT-009",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-009-australian-date-field",
+    "source": "apps/web/src/components/patterns/date-field.tsx",
+    "storyFile": "apps/web/src/components/patterns/date-field.stories.tsx",
+    "evidence": ["storybook-australian-date-field", "storybook-australian-date-field-states", "storybook-australian-date-field-narrow", "storybook-australian-date-field-keyboard"]
   }
 }

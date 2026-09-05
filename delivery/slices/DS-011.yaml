@@ -1,0 +1,46 @@
+id: DS-011
+title: Enter or choose an exact Australian calendar date
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Practice staff
+  goal: enter or choose an exact date in unambiguous Australian order
+  benefit: incomplete text is preserved and date-only values cannot silently become instants or US-formatted dates
+spec_refs:
+  - spec/product/design-system/README.md
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/cross-cutting/dates-and-times/requirements.md
+  - spec/capabilities/calendar/spec.md
+acceptance:
+  scenarios: []
+  criteria:
+    - A labelled text field preserves controlled incomplete DD/MM/YYYY input and exposes associated invalid feedback
+    - A keyboard-operable calendar alternative returns an ISO date-only value and Australian display text
+    - Calendar focus, today, selected and unavailable dates remain semantically and visually distinct
+    - Arrow, week-boundary, month, selection and Escape keys follow the documented calendar focus model
+    - Disabled, read-only, long-label and 360 pixel layouts preserve the complete field contract
+evidence:
+  screenshots:
+    - storybook-australian-date-field
+    - storybook-australian-date-field-states
+    - storybook-australian-date-field-narrow
+  flows:
+    - storybook-australian-date-field-keyboard
+  fixtures:
+    - storybook-australian-date-field-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-002
+out_of_scope:
+  - Calendar-validity authority or two-digit-year interpretation
+  - Partial, estimated or unknown date precision
+  - Timezone conversion, recurrence or appointment availability
+  - Parsed-date confirmation, capability save and persistence
