@@ -1,0 +1,45 @@
+id: DS-012
+title: Enter or choose an Australian date range
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Practice staff
+  goal: enter or choose the start and end of one date range
+  benefit: incomplete boundaries and precise validation remain visible without reversing Australian date order
+spec_refs:
+  - spec/product/design-system/README.md
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/cross-cutting/dates-and-times/requirements.md
+  - spec/capabilities/calendar/spec.md
+acceptance:
+  scenarios: []
+  criteria:
+    - A fieldset and visible legend group controlled start and end Australian date fields in task order
+    - Incomplete text and calendar selection affect only the edited boundary
+    - Boundary and group validation remain precise, associated and non-destructive
+    - Complete, start-only, invalid-order, disabled and read-only states remain distinct
+    - Long content and open calendars fit at 360 pixels without horizontal page overflow
+evidence:
+  screenshots:
+    - storybook-australian-date-range
+    - storybook-australian-date-range-states
+    - storybook-australian-date-range-narrow
+  flows:
+    - storybook-australian-date-range-keyboard
+  fixtures:
+    - storybook-australian-date-range-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-011
+out_of_scope:
+  - Parsing, range-order, maximum-span or open/closed interval policy
+  - Partial or estimated date precision and timezone conversion
+  - Presets, query execution, appointment availability and persistence

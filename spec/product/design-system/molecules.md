@@ -17,6 +17,7 @@ interaction coordination. Global state, responsive, and content rules apply to e
 | `DS-PAT-007` | Data Table | data display | `apps/web/src/components/patterns/data-table.tsx` |
 | `DS-PAT-008` | Combobox Field | forms | `apps/web/src/components/patterns/combobox-field.tsx` |
 | `DS-PAT-009` | Australian Date Field | forms | `apps/web/src/components/patterns/date-field.tsx` |
+| `DS-PAT-010` | Australian Date Range Field | forms | `apps/web/src/components/patterns/date-range-field.tsx` |
 
 ## Forms
 
@@ -113,6 +114,35 @@ interaction coordination. Global state, responsive, and content rules apply to e
 - **Excludes:** Calendar-validity authority, partial/estimated date precision, two-digit-year
   interpretation, timezone/instant conversion, recurrence, availability, parsed-date confirmation,
   and persistence.
+
+### DS-PAT-010 Australian Date Range Field
+
+- **Need:** Let staff enter or choose an inclusive start and end date as one named filter or
+  scheduling range without losing incomplete text or obscuring which boundary is invalid.
+- **Owner:** `apps/web/src/components/patterns/date-range-field.tsx`.
+- **Semantics:** A `fieldset` and visible `legend` name the range. It composes two
+  `DS-PAT-009` date fields labelled “Start date” and “End date”, with group guidance and errors
+  programmatically associated with the fieldset. Each boundary keeps its own field error.
+- **Public contract:** Receives controlled start/end date-field state and callbacks, deterministic
+  today, optional shared minimum/maximum bounds, disabled/read-only state, group hint/error, and
+  boundary errors. A calendar selection changes only that boundary. The caller owns range meaning,
+  inclusivity, ordering validation, maximum span, query execution, and persistence.
+- **States:** Empty, one boundary entered, complete, invalid boundary, invalid ordering, disabled,
+  and read-only remain distinct. A group error does not clear either boundary or replace a precise
+  boundary error.
+- **Keyboard and focus:** Native task order reaches start text/calendar before end text/calendar.
+  Opening, navigating, selecting, or escaping one calendar does not move focus into or mutate the
+  other boundary. Group feedback never steals focus.
+- **Responsive/content:** Boundaries align in two columns when space permits and stack in start/end
+  order at 360 pixels and 200% reflow. Long legend, guidance, values, and errors wrap without page
+  overflow or calendar clipping.
+- **Required stories:** `Default`, `Complete`, `StartOnly`, `InvalidBoundary`, `InvalidOrder`,
+  `Disabled`, `ReadOnly`, `LongLegend`, `Narrow`, and `KeyboardFlow`.
+- **Evidence:** `storybook-australian-date-range`, `storybook-australian-date-range-states`,
+  `storybook-australian-date-range-narrow`, and `storybook-australian-date-range-keyboard`.
+- **Used by:** [Find next available](../../capabilities/calendar/spec.md#screen-contract-find-next-available).
+- **Excludes:** Parsing or validation authority, open/closed interval policy, partial dates,
+  timezone conversion, presets, query execution, appointment availability, and persistence.
 
 ## Search and lists
 
