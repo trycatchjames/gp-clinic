@@ -1,0 +1,15 @@
+export const storybookDateRangeFieldStates = {
+  id: 'storybook-australian-date-range-states',
+  label: 'Availability search dates',
+  longLabel: 'Inclusive date range to search for suitable appointments across selected locations',
+  hint: 'Enter both boundaries in DD/MM/YYYY order.',
+  today: '2027-04-02',
+  month: '2027-04',
+  start: { text: '03/04/2027', date: '2027-04-03' },
+  end: { text: '16/04/2027', date: '2027-04-16' },
+  reversedStart: { text: '16/04/2027', date: '2027-04-16' },
+  reversedEnd: { text: '03/04/2027', date: '2027-04-03' },
+  incompleteEnd: '16/04/',
+  boundaryError: 'Enter a complete end date with a four-digit year.',
+  orderError: 'End date must be on or after start date.',
+} as const;

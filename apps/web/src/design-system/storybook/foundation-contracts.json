@@ -62,5 +62,13 @@
     "source": "apps/web/src/components/patterns/date-field.tsx",
     "storyFile": "apps/web/src/components/patterns/date-field.stories.tsx",
     "evidence": ["storybook-australian-date-field", "storybook-australian-date-field-states", "storybook-australian-date-field-narrow", "storybook-australian-date-field-keyboard"]
+  },
+  "dateRangeField": {
+    "contractId": "DS-PAT-010",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-010-australian-date-range-field",
+    "source": "apps/web/src/components/patterns/date-range-field.tsx",
+    "storyFile": "apps/web/src/components/patterns/date-range-field.stories.tsx",
+    "evidence": ["storybook-australian-date-range", "storybook-australian-date-range-states", "storybook-australian-date-range-narrow", "storybook-australian-date-range-keyboard"]
   }
 }
