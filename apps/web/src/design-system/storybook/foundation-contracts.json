@@ -46,5 +46,13 @@
     "source": "apps/web/src/components/patterns/data-table.tsx",
     "storyFile": "apps/web/src/components/patterns/data-table.stories.tsx",
     "evidence": ["storybook-data-table", "storybook-data-table-hierarchy", "storybook-data-table-narrow", "storybook-data-table-controls"]
+  },
+  "comboboxField": {
+    "contractId": "DS-PAT-008",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-008-combobox-field",
+    "source": "apps/web/src/components/patterns/combobox-field.tsx",
+    "storyFile": "apps/web/src/components/patterns/combobox-field.stories.tsx",
+    "evidence": ["storybook-combobox-field", "storybook-combobox-field-states", "storybook-combobox-field-narrow", "storybook-combobox-field-keyboard"]
   }
 }

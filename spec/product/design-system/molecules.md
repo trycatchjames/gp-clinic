@@ -15,6 +15,7 @@ interaction coordination. Global state, responsive, and content rules apply to e
 | `DS-PAT-005` | State Panel | feedback | `apps/web/src/components/patterns/state-panel.tsx` |
 | `DS-PAT-006` | Summary List | data display | `apps/web/src/components/patterns/summary-list.tsx` |
 | `DS-PAT-007` | Data Table | data display | `apps/web/src/components/patterns/data-table.tsx` |
+| `DS-PAT-008` | Combobox Field | forms | `apps/web/src/components/patterns/combobox-field.tsx` |
 
 ## Forms
 
@@ -43,6 +44,39 @@ interaction coordination. Global state, responsive, and content rules apply to e
   and [appointment editor](../../capabilities/calendar/spec.md#screen-contract-appointment-editor).
 - **Excludes:** Validation authority, data conversion, form submission, permission, save state, and
   cross-field business rules.
+
+### DS-PAT-008 Combobox Field
+
+- **Need:** Let staff refine and deliberately choose one option from a long or asynchronously
+  supplied set without confusing keyboard focus, a search match, or the active option with the
+  selected value.
+- **Owner:** `apps/web/src/components/patterns/combobox-field.tsx`.
+- **Semantics:** A visible `Field` label and description/error relationship contain an editable
+  combobox whose popup is a named single-select listbox. The input retains DOM focus while
+  `aria-activedescendant` identifies the active option; the selected option uses `aria-selected`.
+- **Public contract:** Receives controlled query, selected value, open state, options, and their
+  callbacks. Each option supplies a stable value, primary label, optional distinguishing detail,
+  and disabled state. The caller supplies ready, loading, empty, or failure state and concise state
+  text. Changing text clears a mismatched selected value; only explicit option activation selects.
+- **States:** Closed, open, selected, disabled, invalid, loading, empty, and failure remain
+  distinct. Active and selected options have different programmatic and non-colour cues. Newly
+  loaded or reordered options never become selected automatically. Failure is announced and MUST
+  NOT look or sound like an empty successful result.
+- **Keyboard and focus:** Arrow Down/Up opens and moves the active option without selecting;
+  Home/End reach the first/last enabled option; Enter selects the active enabled option; Escape
+  closes without selecting or clearing the query; Tab closes and continues normal focus order.
+  Disabled options are skipped. Pointer selection preserves the same deliberate selection
+  callback and focus returns to the input.
+- **Responsive/content:** The control and popup fit their available width at 360 pixels and 200%
+  reflow. Long labels and distinguishing details wrap without clipping; the popup scrolls when its
+  bounded height is exceeded.
+- **Required stories:** `Default`, `Selected`, `Loading`, `Empty`, `Failure`, `Disabled`, `Invalid`,
+  `LongOptions`, `Narrow`, and `KeyboardFlow`.
+- **Evidence:** `storybook-combobox-field`, `storybook-combobox-field-states`,
+  `storybook-combobox-field-narrow`, and `storybook-combobox-field-keyboard`.
+- **Used by:** [Referral editor](../../capabilities/referrals/spec.md#screen-contract-referral-editor).
+- **Excludes:** Fetching, debounce, query syntax, filtering, ranking, result permissions, directory
+  ownership, recipient snapshotting, free-text values, multiple selection, and persistence.
 
 ## Search and lists
 
