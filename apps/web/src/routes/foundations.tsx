@@ -183,7 +183,7 @@ export function FoundationsRoute() {
           <div className="grid gap-8 pt-16 pb-8 lg:grid-cols-[1.3fr_0.7fr] lg:items-end lg:pt-24">
             <div className="max-w-3xl space-y-5">
               <p className="text-accent text-xs font-semibold tracking-[0.2em] uppercase">
-                Eucalyptus &amp; Wattle
+                Visual foundations
               </p>
               <h1 className="text-4xl leading-[1.05] font-semibold tracking-[-0.035em] text-balance sm:text-6xl">
                 Quiet confidence for busy care.

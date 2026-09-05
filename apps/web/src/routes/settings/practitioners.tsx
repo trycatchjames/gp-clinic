@@ -14,7 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { formatDate } from '@/lib/utils';
+import { formatDate } from '@/lib/formatters';
 
 export function PractitionersSettingsRoute() {
   const practiceId = usePracticeId();

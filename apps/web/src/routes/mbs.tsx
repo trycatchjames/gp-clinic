@@ -15,7 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { formatCurrency } from '@/lib/utils';
+import { formatCurrency } from '@/lib/formatters';
 
 /** The MBS catalogue, with the rules that gate each item made visible. */
 export function MbsRoute() {

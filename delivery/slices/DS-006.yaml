@@ -1,0 +1,37 @@
+id: DS-006
+title: Standardise Australian display formatting
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Practice staff
+  goal: read dates, times, phone numbers, currency and quantities in one consistent format
+  benefit: repeated values remain predictable and comparable across dense clinical workflows
+spec_refs:
+  - spec/product/design-system/README.md
+  - spec/product/design-system/responsive-and-content.md
+acceptance:
+  scenarios: []
+  criteria:
+    - One tested web formatter module owns Australian currency, date, time, phone and number display
+    - Date-only values cannot move to another calendar day through timezone conversion
+    - Existing web consumers use the shared date and currency formatters instead of local duplicates
+    - The Storybook foundation demonstrates normal, missing and unrecognised synthetic values
+evidence:
+  screenshots:
+    - storybook-display-formatters
+  flows: []
+  fixtures:
+    - storybook-display-formatters
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-002
+out_of_scope:
+  - Input parsing, validation or masking policy
+  - Financial calculation or rounding business rules
+  - Inferring practice or location timezone
+  - Capability-specific missing, unknown, unavailable or restricted meaning

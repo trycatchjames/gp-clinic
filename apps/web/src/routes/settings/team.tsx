@@ -27,7 +27,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { formatDate } from '@/lib/utils';
+import { formatDate } from '@/lib/formatters';
 
 export function TeamSettingsRoute() {
   const practiceId = usePracticeId();

@@ -1,0 +1,43 @@
+id: DS-008
+title: Navigate sortable paginated hierarchical data tables
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Practice staff
+  goal: sort, page through and disclose supporting rows in a dense data table
+  benefit: large clinical, operational and financial datasets remain efficient and understandable
+spec_refs:
+  - spec/product/design-system/README.md
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/states-and-interaction.md
+acceptance:
+  scenarios: []
+  criteria:
+    - Sortable headers expose and update their sort direction without selecting a row
+    - Pagination supports page size and first, previous, next and last navigation with boundary states
+    - A parent row can disclose a separately captioned nested table through an accessible controlled button
+    - Sorting, pagination and expansion are controlled callbacks independent of fetching and domain rules
+    - The complete pattern remains usable by keyboard and at a 360 pixel viewport
+evidence:
+  screenshots:
+    - storybook-data-table
+    - storybook-data-table-hierarchy
+    - storybook-data-table-narrow
+  flows:
+    - storybook-data-table-controls
+  fixtures:
+    - storybook-data-table-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-006
+  - DS-007
+out_of_scope:
+  - Data fetching, server query syntax, caching or virtualisation
+  - Permission filtering, clinical priority or financial calculation
+  - Bulk selection and capability-owned row actions

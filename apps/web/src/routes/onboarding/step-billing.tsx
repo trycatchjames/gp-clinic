@@ -7,7 +7,6 @@ import {
   BILLING_POLICIES,
   BILLING_POLICY_DESCRIPTIONS,
   BILLING_POLICY_LABELS,
-  formatCurrency,
   type BillingPolicy,
 } from '@gp/contracts';
 import { useQueryClient } from '@tanstack/react-query';
@@ -22,6 +21,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
+import { formatCurrency } from '@/lib/formatters';
 
 /** Step 7. Billing policy and the generated fee schedules. */
 export function StepBilling({ practiceId, onDone }: { practiceId: string; onDone: () => void }) {

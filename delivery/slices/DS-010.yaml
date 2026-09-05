@@ -1,0 +1,45 @@
+id: DS-010
+title: Deliberately select from a controlled combobox field
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Practice staff
+  goal: refine and deliberately choose one option from a long or asynchronous list
+  benefit: keyboard focus, search matches and loaded results cannot silently become the selected value
+spec_refs:
+  - spec/product/design-system/README.md
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/referrals/spec.md
+acceptance:
+  scenarios: []
+  criteria:
+    - The labelled editable combobox exposes controlled query, open and selected-value state
+    - Arrow navigation moves the active option without selecting and skips disabled options
+    - Enter or pointer activation deliberately selects one option and returns focus to the input
+    - Loading, empty and failure results remain semantically and visually distinct
+    - Invalid, disabled, long-option and 360 pixel layouts preserve labels, details and focus indication
+evidence:
+  screenshots:
+    - storybook-combobox-field
+    - storybook-combobox-field-states
+    - storybook-combobox-field-narrow
+  flows:
+    - storybook-combobox-field-keyboard
+  fixtures:
+    - storybook-combobox-field-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-002
+out_of_scope:
+  - Fetching, debounce, query syntax, filtering or ranking
+  - Permission filtering, directory ownership or recipient snapshotting
+  - Free-text values, multiple selection and form persistence
+  - Referral issue, dispatch or capability-connected behaviour

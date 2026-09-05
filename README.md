@@ -88,7 +88,7 @@ apps/api     NestJS 11 · Drizzle · Postgres 17
 apps/web     React 19 · Vite · TanStack Router + Query · Tailwind v4 · shadcn/ui · PWA
 packages/contracts   Shared enums, MBS catalogue, validation (dual ESM/CJS)
 packages/sdk         Generated TypeScript client — never edited by hand
-agent-skills         Repository workflows shared by Codex, Pi and Claude
+agent-skills         Repository workflows shared by Claude Code and Codex
 delivery             Bounded slices and review evidence
 spec                 Authoritative product and system specification
 scripts              Deterministic generation and validation

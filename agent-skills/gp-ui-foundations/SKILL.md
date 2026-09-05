@@ -11,7 +11,8 @@ dense, high-throughput Australian general-practice workflow; visual polish must 
 clarity, and state recognition rather than compete with the task.
 
 Before editing, read `SPEC.md`, `AGENTS.md`, `apps/web/AGENTS.md`,
-`spec/product/design-system.md`, the relevant capability screen contract and `review.yaml`, and
+`spec/product/design-system/README.md`, the relevant design-system catalogue/contract files, the
+capability screen contract and `review.yaml`, and
 [the foundation contract](references/foundation-contract.md).
 
 ## Choose the owning layer
@@ -33,8 +34,8 @@ state, and domain mutation out of primitives and patterns.
 Use atomic design as a composition vocabulary, not another directory tree: primitives are atoms,
 pure patterns are molecules, capability-connected components are organisms, and routes supply
 templates/pages. Keep the authoritative inventory and visual decisions in
-`spec/product/design-system.md`; do not create per-component Markdown unless a complex public
-contract genuinely cannot be expressed there and in the component API.
+`spec/product/design-system/`; do not create per-component Markdown unless a complex public
+contract genuinely cannot be expressed in the grouped catalogue and component API.
 ## Define the contract before styling
 
 Identify:
