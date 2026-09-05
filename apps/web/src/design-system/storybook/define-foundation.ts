@@ -19,6 +19,7 @@ export const foundationContracts = contractRegistry as Readonly<{
   comboboxField: FoundationContract;
   dateField: FoundationContract;
   dateRangeField: FoundationContract;
+  timeField: FoundationContract;
 }>;
 
 const repositoryUrl = 'https://github.com/trycatchjames/gp-clinic/blob/main';

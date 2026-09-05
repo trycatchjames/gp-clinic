@@ -18,6 +18,7 @@ interaction coordination. Global state, responsive, and content rules apply to e
 | `DS-PAT-008` | Combobox Field | forms | `apps/web/src/components/patterns/combobox-field.tsx` |
 | `DS-PAT-009` | Australian Date Field | forms | `apps/web/src/components/patterns/date-field.tsx` |
 | `DS-PAT-010` | Australian Date Range Field | forms | `apps/web/src/components/patterns/date-range-field.tsx` |
+| `DS-PAT-011` | Local Time Field | forms | `apps/web/src/components/patterns/time-field.tsx` |
 
 ## Forms
 
@@ -143,6 +144,35 @@ interaction coordination. Global state, responsive, and content rules apply to e
 - **Used by:** [Find next available](../../capabilities/calendar/spec.md#screen-contract-find-next-available).
 - **Excludes:** Parsing or validation authority, open/closed interval policy, partial dates,
   timezone conversion, presets, query execution, appointment availability, and persistence.
+
+### DS-PAT-011 Local Time Field
+
+- **Need:** Let staff type or deliberately choose a local appointment time while keeping the
+  configured clock convention and location timezone visible.
+- **Owner:** `apps/web/src/components/patterns/time-field.tsx`.
+- **Semantics:** An editable `DS-PAT-008` combobox is labelled for the time fact. Supporting text
+  visibly and programmatically identifies 12-hour or 24-hour entry and the caller-supplied location
+  timezone label. Results are time choices, not evidence of availability or a saved booking.
+- **Public contract:** Receives controlled raw query, selected canonical local-time value, open
+  state, configured hour cycle, timezone label, and caller-supplied options already labelled for
+  that cycle. It emits changes and explicit selection through the combobox contract. The caller
+  owns parsing, option construction, timezone authority, daylight-saving resolution, validation,
+  availability, and persistence.
+- **States:** Empty, incomplete text, selected, open, unavailable option, invalid, disabled,
+  loading, empty results, and failure remain distinct. Editing selected text clears the canonical
+  selection without discarding the authored query.
+- **Keyboard and focus:** Arrow keys move active focus and skip unavailable choices without
+  selecting; Enter selects explicitly; Escape closes; Tab follows task order. Selection returns
+  focus to the input. Result arrival never chooses a time.
+- **Responsive/content:** The complete label, typed value, result details, clock convention,
+  timezone, hint, and error fit at 360 pixels and 200% reflow without horizontal page overflow.
+- **Required stories:** `Default`, `Selected12Hour`, `Selected24Hour`, `Incomplete`, `Loading`,
+  `Empty`, `Failure`, `Invalid`, `Disabled`, `LongTimezone`, `Narrow`, and `KeyboardFlow`.
+- **Evidence:** `storybook-local-time-field`, `storybook-local-time-field-states`,
+  `storybook-local-time-field-narrow`, and `storybook-local-time-field-keyboard`.
+- **Used by:** [Appointment editor](../../capabilities/calendar/spec.md#screen-contract-appointment-editor).
+- **Excludes:** Time parsing, clock-label formatting, timezone inference/conversion, DST resolution,
+  availability, duration/end calculation, appointment validation, and persistence.
 
 ## Search and lists
 

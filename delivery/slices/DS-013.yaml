@@ -1,0 +1,45 @@
+id: DS-013
+title: Type or choose a timezone-contextual local time
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Practice staff
+  goal: type or deliberately choose a local appointment time
+  benefit: the clock convention and location timezone remain explicit without focus implying selection
+spec_refs:
+  - spec/product/design-system/README.md
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/cross-cutting/dates-and-times/requirements.md
+  - spec/capabilities/calendar/spec.md
+acceptance:
+  scenarios: []
+  criteria:
+    - The labelled editable time combobox exposes configured 12-hour or 24-hour entry and visible timezone context
+    - Incomplete typed text is preserved and clears a mismatched canonical selection
+    - Keyboard focus skips unavailable choices and never selects before explicit Enter activation
+    - Loading, empty, failure, invalid, disabled and selected states remain distinct
+    - Long timezone context and options fit at 360 pixels without horizontal page overflow
+evidence:
+  screenshots:
+    - storybook-local-time-field
+    - storybook-local-time-field-states
+    - storybook-local-time-field-narrow
+  flows:
+    - storybook-local-time-field-keyboard
+  fixtures:
+    - storybook-local-time-field-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-010
+out_of_scope:
+  - Time parsing and clock-label formatting
+  - Timezone inference, conversion and daylight-saving resolution
+  - Availability, duration/end calculation, appointment validation and persistence
