@@ -1,0 +1,50 @@
+{
+  "button": {
+    "contractId": "DS-ACT-001",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-act-001-button",
+    "source": "apps/web/src/components/ui/button.tsx",
+    "storyFile": "apps/web/src/components/ui/button.stories.tsx",
+    "evidence": ["storybook-button-states", "storybook-foundation-keyboard"]
+  },
+  "badge": {
+    "contractId": "DS-DSP-001",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-dsp-001-badge",
+    "source": "apps/web/src/components/ui/badge.tsx",
+    "storyFile": "apps/web/src/components/ui/badge.stories.tsx",
+    "evidence": ["badge-semantic-variants"]
+  },
+  "field": {
+    "contractId": "DS-PAT-001",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-001-field-and-field-group",
+    "source": "apps/web/src/components/patterns/form-field.tsx",
+    "storyFile": "apps/web/src/components/patterns/form-field.stories.tsx",
+    "evidence": ["storybook-field-states", "storybook-narrow-reflow", "storybook-foundation-keyboard"]
+  },
+  "statePanel": {
+    "contractId": "DS-PAT-005",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-005-state-panel",
+    "source": "apps/web/src/components/patterns/state-panel.tsx",
+    "storyFile": "apps/web/src/components/patterns/state-panel.stories.tsx",
+    "evidence": ["storybook-state-panel-states", "storybook-narrow-reflow"]
+  },
+  "table": {
+    "contractId": "DS-DSP-004",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-dsp-004-table",
+    "source": "apps/web/src/components/ui/table.tsx",
+    "storyFile": "apps/web/src/components/ui/table.stories.tsx",
+    "evidence": ["storybook-table-comparison", "storybook-table-narrow"]
+  },
+  "dataTable": {
+    "contractId": "DS-PAT-007",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-007-data-table",
+    "source": "apps/web/src/components/patterns/data-table.tsx",
+    "storyFile": "apps/web/src/components/patterns/data-table.stories.tsx",
+    "evidence": ["storybook-data-table", "storybook-data-table-hierarchy", "storybook-data-table-narrow", "storybook-data-table-controls"]
+  }
+}

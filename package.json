@@ -19,19 +19,24 @@
     "api:generate": "pnpm build:contracts && pnpm openapi && pnpm sdk",
     "dev:api": "pnpm --filter @gp/api dev",
     "dev:web": "pnpm --filter @gp/web dev",
+    "storybook": "pnpm --filter @gp/web storybook",
+    "storybook:build": "pnpm --filter @gp/web storybook:build",
     "dev": "pnpm build:contracts && concurrently -n api,web -c cyan,magenta \"pnpm dev:api\" \"pnpm dev:web\"",
     "build": "pnpm build:contracts && pnpm --filter @gp/api build && pnpm --filter @gp/web build",
     "typecheck": "pnpm -r typecheck",
     "lint": "eslint apps packages tests e2e tools --max-warnings 0",
     "lint:spec": "node scripts/lint-spec.mjs",
     "lint:slices": "pnpm --filter @gp/pr-pipeline validate",
+    "lint:design-system": "node scripts/lint-design-system.mjs",
     "lint:architecture": "pnpm --filter @gp/pr-pipeline architecture",
     "test": "vitest run && pnpm --filter @gp/pr-pipeline test",
+    "test:storybook": "pnpm --filter @gp/web test:storybook",
+    "test:e2e:storybook": "playwright test --config playwright.storybook.config.ts",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "pipeline:run": "pnpm --filter @gp/pr-pipeline local",
     "pipeline:status": "pnpm --filter @gp/pr-pipeline local -- --dry-run",
-    "gate": "pnpm api:generate && pnpm lint && pnpm typecheck && pnpm lint:spec && pnpm lint:slices && pnpm lint:architecture && pnpm test && pnpm build",
+    "gate": "pnpm api:generate && pnpm lint && pnpm typecheck && pnpm lint:spec && pnpm lint:slices && pnpm lint:design-system && pnpm lint:architecture && pnpm test && pnpm test:storybook && pnpm storybook:build && pnpm build",
     "gate:full": "pnpm gate && pnpm db:migrate && pnpm db:seed && pnpm smoke && pnpm test:e2e",
     "bootstrap": "pnpm install && pnpm db:up && sleep 4 && pnpm build:contracts && pnpm db:migrate && pnpm db:seed && pnpm api:generate",
     "smoke": "node scripts/smoke-test.mjs"
@@ -42,6 +47,8 @@
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "^16.3.0",
     "@types/node": "^22.10.0",
+    "@vitest/browser": "4.1.11",
+    "@vitest/browser-playwright": "4.1.11",
     "concurrently": "^9.1.2",
     "eslint": "^9.35.0",
     "eslint-plugin-react-hooks": "^5.2.0",
@@ -49,6 +56,6 @@
     "jsdom": "^26.1.0",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.42.0",
-    "vitest": "^3.2.4"
+    "vitest": "^4.1.11"
   }
 }

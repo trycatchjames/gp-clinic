@@ -1,7 +1,8 @@
 # Web component ownership
 
 The authoritative visual language, atomic model, state contract, and maintained foundation
-inventory live in [`spec/product/design-system.md`](../../../../../spec/product/design-system.md).
+inventory live in the
+[`spec/product/design-system/`](../../../../../spec/product/design-system/README.md) contract.
 The `/foundations` route is the executable gallery.
 
 Choose the lowest layer that can express the component without taking ownership of data or rules.

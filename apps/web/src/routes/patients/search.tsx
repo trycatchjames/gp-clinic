@@ -12,7 +12,7 @@ import { ListView, ListViewRow } from '@/components/patterns/list-view';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
-import { formatDate } from '@/lib/utils';
+import { formatDate } from '@/lib/formatters';
 import type { PatientSearchResultDto } from '@gp/sdk';
 import { PATIENT_STATUS_LABELS, type PatientStatus } from '@gp/contracts';
 

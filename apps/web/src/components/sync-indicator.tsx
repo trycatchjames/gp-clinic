@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { formatTime } from '@/lib/formatters';
 import { CloudOff, RefreshCw, Cloud, AlertTriangle } from 'lucide-react';
 import { subscribeSync, type SyncStatus } from '@/lib/offline';
 import { Badge } from '@/components/ui/badge';
@@ -80,7 +81,10 @@ function describe(status: SyncStatus) {
     label: 'Online',
     variant: 'secondary' as const,
     detail: status.lastSyncedAt
-      ? `Everything is saved. Last synced ${new Date(status.lastSyncedAt).toLocaleTimeString('en-AU')}.`
+      ? `Everything is saved. Last synced ${formatTime(
+          status.lastSyncedAt,
+          Intl.DateTimeFormat().resolvedOptions().timeZone,
+        )}.`
       : 'Everything is saved.',
   };
 }

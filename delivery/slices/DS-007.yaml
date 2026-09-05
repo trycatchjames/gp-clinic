@@ -1,0 +1,39 @@
+id: DS-007
+title: Complete the compact semantic table atom
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Practice staff
+  goal: scan and compare dense row and column information with consistent alignment
+  benefit: clinical and operational screens can reuse an accessible compact table foundation
+spec_refs:
+  - spec/product/design-system/README.md
+  - spec/product/design-system/atoms.md
+  - spec/product/design-system/responsive-and-content.md
+acceptance:
+  scenarios: []
+  criteria:
+    - Table stories expose a caption, scoped headers, compact rows and subtle separators
+    - Comparable numeric and currency cells are right aligned with tabular figures
+    - Selected rows have a programmatic state and a non-colour visual cue
+    - Narrow rendering contains horizontal overflow without overflowing the Storybook page
+evidence:
+  screenshots:
+    - storybook-table-comparison
+    - storybook-table-narrow
+  flows: []
+  fixtures:
+    - storybook-table-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-002
+  - DS-006
+out_of_scope:
+  - Sorting, pagination, expansion or row selection coordination
+  - Data fetching, permission filtering or domain actions
+  - Capability-specific narrow list alternatives

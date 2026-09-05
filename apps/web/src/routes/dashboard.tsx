@@ -29,7 +29,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
-import { formatDate } from '@/lib/utils';
+import { formatDate } from '@/lib/formatters';
 
 export function DashboardRoute() {
   const { user } = useAuth();
