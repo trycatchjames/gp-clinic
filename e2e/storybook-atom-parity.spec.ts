@@ -12,8 +12,14 @@ async function openStory(page: Page, id: string) {
   // A story's own play function may have left focus part-way through its flow. Click the empty
   // margin to reset it, so the tab order asserted below is the one a fresh operator would meet and
   // the first Tab counts as keyboard focus.
-  await page.mouse.click(2, 2);
-  await expect(page.locator('body')).toBeFocused();
+  //
+  // The reset is retried rather than asserted once: a play function that is still running can take
+  // focus back after the click, and a single attempt then races it. Retrying converges as soon as
+  // the play has finished.
+  await expect(async () => {
+    await page.mouse.click(2, 2);
+    await expect(page.locator('body')).toBeFocused();
+  }).toPass({ timeout: 10_000 });
 }
 
 /**
