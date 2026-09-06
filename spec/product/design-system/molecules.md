@@ -26,6 +26,7 @@ interaction coordination. Global state, responsive, and content rules apply to e
 | `DS-PAT-016` | Form Error Summary | forms | `apps/web/src/components/patterns/form-error-summary.tsx` |
 | `DS-PAT-017` | Form Section | forms | `apps/web/src/components/patterns/form-section.tsx` |
 | `DS-PAT-018` | Collapsible Section | context | `apps/web/src/components/patterns/collapsible-section.tsx` |
+| `DS-PAT-019` | Action Bar | operation states | `apps/web/src/components/patterns/action-bar.tsx` |
 
 ## Forms
 
@@ -568,6 +569,39 @@ interaction coordination. Global state, responsive, and content rules apply to e
   and [patient record workspace](../../capabilities/patient-record/spec.md#screen-contract-patient-record-workspace).
 - **Excludes:** Deciding which facts are safety indicators, allergy and warning meaning, what the
   summary counts, remembering the open state across visits, and permission.
+
+### DS-PAT-019 Action Bar
+
+- **Need:** End a form, a checkout or a completion area with one unmistakable primary action, its
+  supporting choices still discoverable, and a plain reason when it cannot be taken.
+- **Owner:** `apps/web/src/components/patterns/action-bar.tsx`.
+- **Semantics:** A named region holding an optional status, visible secondary actions, an optional
+  overflow menu composing the Dropdown Menu atom, and exactly one primary action. The primary is a
+  single value rather than a list, so a region cannot acquire two filled actions by accident.
+- **Public contract:** Requires the primary action and its callback, and accepts secondary actions,
+  overflow actions, a blocking reason, a status slot and a region label. The caller owns
+  availability, permission, whether an action is destructive, and every word.
+- **States:** Ready, busy and blocked. A busy primary is disabled, keeps its accessible name and
+  does not hide the other actions. A blocked primary names the failed precondition beside it and is
+  described by that reason, rather than presenting an unexplained disabled control. Presence in the
+  bar never implies the action is permitted.
+- **Keyboard and focus:** Actions follow task order, with the primary last so a supporting choice is
+  reached before the consequential one. The overflow trigger is a named control that returns focus
+  to itself. Changing status does not move focus.
+- **Responsive/content:** The actions wrap as one group so the primary is never stranded on a line
+  away from the choice that avoids it, and the primary stays visible at narrow widths. A long status
+  wraps above the actions rather than compressing them. The blocking reason is placed before the row
+  so it is read before the control it explains.
+- **Required stories:** `Default`, `WithStatus`, `Busy`, `Blocked`, `Destructive`, `WithOverflow`,
+  `ContentStress`, `Narrow`, and `KeyboardFlow`.
+- **Evidence:** `action-bar-states`, `action-bar-blocked`, `action-bar-narrow`, and
+  `action-bar-keyboard`.
+- **Used by:** [Billing checkout](../../capabilities/billing/spec.md#screen-contract-billing-checkout),
+  [patient registration](../../capabilities/patient-registration/spec.md#screen-contract-patient-registration),
+  and [consultation workspace](../../capabilities/consultations/spec.md#screen-contract-consultation-workspace).
+- **Excludes:** Deciding availability, permission and elevation, whether an action is destructive,
+  the consequence and its confirmation, the mutation and its retry safety, and keeping a frequent or
+  safety-critical action out of the overflow, which remains the caller's duty.
 
 ## Superseded or overlapping foundations
 

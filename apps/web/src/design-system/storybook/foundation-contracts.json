@@ -451,5 +451,18 @@
       "collapsible-narrow",
       "collapsible-keyboard"
     ]
+  },
+  "actionBar": {
+    "contractId": "DS-PAT-019",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-019-action-bar",
+    "source": "apps/web/src/components/patterns/action-bar.tsx",
+    "storyFile": "apps/web/src/components/patterns/action-bar.stories.tsx",
+    "evidence": [
+      "action-bar-states",
+      "action-bar-blocked",
+      "action-bar-narrow",
+      "action-bar-keyboard"
+    ]
   }
 }
