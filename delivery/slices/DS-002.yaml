@@ -1,7 +1,7 @@
 id: DS-002
 title: Review traced design-system foundations in Storybook
 kind: enablement
-status: in_review
+status: delivered
 capability: null
 story:
   actor: Product owner

@@ -1,7 +1,7 @@
 id: DS-008
 title: Navigate sortable paginated hierarchical data tables
 kind: enablement
-status: in_review
+status: delivered
 capability: null
 story:
   actor: Practice staff

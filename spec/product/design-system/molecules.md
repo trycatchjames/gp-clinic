@@ -19,6 +19,7 @@ interaction coordination. Global state, responsive, and content rules apply to e
 | `DS-PAT-009` | Australian Date Field | forms | `apps/web/src/components/patterns/date-field.tsx` |
 | `DS-PAT-010` | Australian Date Range Field | forms | `apps/web/src/components/patterns/date-range-field.tsx` |
 | `DS-PAT-011` | Local Time Field | forms | `apps/web/src/components/patterns/time-field.tsx` |
+| `DS-PAT-012` | File Input Field | forms | `apps/web/src/components/patterns/file-input-field.tsx` |
 
 ## Forms
 
@@ -173,6 +174,41 @@ interaction coordination. Global state, responsive, and content rules apply to e
 - **Used by:** [Appointment editor](../../capabilities/calendar/spec.md#screen-contract-appointment-editor).
 - **Excludes:** Time parsing, clock-label formatting, timezone inference/conversion, DST resolution,
   availability, duration/end calculation, appointment validation, and persistence.
+
+### DS-PAT-012 File Input Field
+
+- **Need:** Let staff choose or drop one or more files, review exactly what was accepted or
+  rejected, and recover from item-specific failure without treating local selection as upload,
+  scanning, filing, or review.
+- **Owner:** `apps/web/src/components/patterns/file-input-field.tsx`.
+- **Semantics:** A visible `Field` label names a native file input and its keyboard-operable
+  “Choose file(s)” button. A drop target is a pointer convenience for the same action, never the
+  only path. A named list exposes caller-supplied file items, sizes, states, and item actions.
+- **Public contract:** Receives native accept/multiple/capture attributes, controlled item
+  descriptors, disabled state, and callbacks for selected browser `File` objects, removal, and
+  optional retry. Each descriptor supplies stable ID, safe display name, size label, state
+  (`selected`, `uploading`, `failed`, `complete`, or `rejected`), status text, and whether removal
+  or retry is currently allowed. The caller owns validation, deduplication, limits, upload,
+  cancellation, malware scanning, quarantine, persistence, and safe naming.
+- **States:** Empty, drag-over, selected locally, uploading, failed, complete, rejected, and
+  disabled are distinct. Complete is rendered only from caller-confirmed state and never implies
+  scanning, filing, matching, legibility, or clinical review. Failed/rejected items remain visible
+  with their reason and available recovery.
+- **Keyboard and focus:** Tab reaches the choose button and then available per-item actions. Enter
+  or Space opens the native picker. Removing or retrying one item does not move focus
+  unpredictably. Dropping files invokes the same selection callback and does not bypass caller
+  validation.
+- **Responsive/content:** Long safe filenames, type/size/status copy, constraints, and actions wrap
+  inside 360 pixels and 200% reflow. Filename extensions and failure reasons are not truncated when
+  needed to distinguish the file.
+- **Required stories:** `Empty`, `Selected`, `Uploading`, `Failed`, `Complete`, `Rejected`,
+  `Disabled`, `LongFilename`, `Multiple`, `Narrow`, and `KeyboardFlow`.
+- **Evidence:** `storybook-file-input-field`, `storybook-file-input-field-states`,
+  `storybook-file-input-field-narrow`, and `storybook-file-input-field-keyboard`.
+- **Used by:** [Document inbox](../../capabilities/documents/spec.md#screen-contract-document-inbox).
+- **Excludes:** File acceptance/size authority, deduplication, uploading/cancellation, malware or
+  quality checks, quarantine, safe rendering, patient matching, classification, filing, review,
+  persistence, and permissions.
 
 ## Search and lists
 

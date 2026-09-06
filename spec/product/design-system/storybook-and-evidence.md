@@ -7,10 +7,11 @@ capability compositions. It demonstrates the implementation; the Markdown contra
 normative. Component tests, browser tests, accessibility checks, screenshots, and traces provide
 evidence. GitHub pull-request approval and merge record acceptance.
 
-Until the Storybook harness and current-component parity are delivered, `/foundations` remains the
-executable gallery and its existing `data-evidence` targets remain valid. Storybook replaces that
-route only after every maintained atom and molecule has equivalent stories, checks, and evidence.
-The migration MUST NOT discard delivered `UI-001` evidence or weaken a component contract.
+Every maintained atom and molecule now has stories, component and browser checks, and named
+evidence in Storybook, so Storybook is the executable gallery for the reusable contract. The
+`/foundations` route remains in place as the delivered `UI-001` evidence surface and its existing
+`data-evidence` targets remain valid; retiring it is a separate delivery decision that MUST NOT
+discard that evidence or weaken a component contract.
 
 ## Storybook structure
 
@@ -53,10 +54,9 @@ The implementation bridge MUST remain small:
 4. If contract prose is shown inside Storybook, it is read from the Markdown source rather than
    copied into independently maintained MDX.
 5. Traceability lint fails for duplicate or unknown IDs, broken source references, missing required
-   catalogue fields, or a public foundation story without a catalogue entry. During the migration
-   it reports the number of maintained catalogue entries still awaiting stories. The full-gallery
-   parity slice turns any remaining catalogue entry without a story into a failure before
-   Storybook replaces `/foundations`.
+   catalogue fields, a public foundation story without a catalogue entry, or a catalogue entry
+   without a registered story. A new atom or molecule therefore arrives with its story, checks and
+   evidence, or it does not arrive.
 
 Markdown does not compile directly into production UI. It constrains implementation and enables
 traceability; a human still reviews the component contract and rendered result.

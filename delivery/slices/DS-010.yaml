@@ -1,7 +1,7 @@
 id: DS-010
 title: Deliberately select from a controlled combobox field
 kind: enablement
-status: in_review
+status: delivered
 capability: null
 story:
   actor: Practice staff

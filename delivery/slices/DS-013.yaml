@@ -1,7 +1,7 @@
 id: DS-013
 title: Type or choose a timezone-contextual local time
 kind: enablement
-status: in_review
+status: delivered
 capability: null
 story:
   actor: Practice staff

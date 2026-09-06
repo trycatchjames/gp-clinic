@@ -12,14 +12,36 @@ export type FoundationContract = {
 export const foundationContracts = contractRegistry as Readonly<{
   button: FoundationContract;
   badge: FoundationContract;
-  field: FoundationContract;
-  statePanel: FoundationContract;
+  card: FoundationContract;
+  avatar: FoundationContract;
   table: FoundationContract;
+  separator: FoundationContract;
+  alert: FoundationContract;
+  progress: FoundationContract;
+  skeleton: FoundationContract;
+  input: FoundationContract;
+  textarea: FoundationContract;
+  label: FoundationContract;
+  checkbox: FoundationContract;
+  radioGroup: FoundationContract;
+  switchControl: FoundationContract;
+  select: FoundationContract;
+  tabs: FoundationContract;
+  dialog: FoundationContract;
+  dropdownMenu: FoundationContract;
+  tooltip: FoundationContract;
+  field: FoundationContract;
+  filterBar: FoundationContract;
+  listView: FoundationContract;
+  contextBanner: FoundationContract;
+  statePanel: FoundationContract;
+  summaryList: FoundationContract;
   dataTable: FoundationContract;
   comboboxField: FoundationContract;
   dateField: FoundationContract;
   dateRangeField: FoundationContract;
   timeField: FoundationContract;
+  fileInputField: FoundationContract;
 }>;
 
 const repositoryUrl = 'https://github.com/trycatchjames/gp-clinic/blob/main';
