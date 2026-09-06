@@ -1,0 +1,53 @@
+id: DS-020
+title: Say whether the operator's work is durably on the record
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Practitioner or reception staff member composing a note or a registration
+  goal: see at a glance whether what I have typed is on the record, only on this device, or lost
+  benefit: pending, locally recovered, failed and overtaken work is never mistaken for saved
+spec_refs:
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/README.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/clinical-notes/spec.md
+  - spec/capabilities/consultations/spec.md
+  - spec/capabilities/patient-registration/spec.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - Unsaved, saving, saved, held locally, failed and changed elsewhere are visibly distinct
+    - Only a durable commit uses the word saved
+    - Locally held work states in its visible text that it is not on the record
+    - A failed save states what happened and never implies the entered text was lost
+    - A newer version by another author is reported rather than merged
+    - The state never moves focus, so autosave cannot take the cursor out of a note
+    - The announced form of the state is not abbreviated the way the visible text may be
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - save-state-kinds
+    - save-state-local
+    - save-state-failure
+    - save-state-narrow
+  flows:
+    - save-state-editor
+  fixtures:
+    - storybook-molecule-states
+risk:
+  permissions: false
+  clinical_safety: true
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-004
+out_of_scope:
+  - Performing or scheduling the save, and the autosave cadence
+  - Draft storage and its binding to patient, encounter and author
+  - Conflict comparison and merge
+  - Completion rules and permission
+  - Adopting the state in a capability route

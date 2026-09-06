@@ -1,0 +1,51 @@
+id: DS-021
+title: Gather every field that needs correcting into one list the operator can act from
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Staff member saving a long registration or completing a consultation
+  goal: see everything that blocked the save and move straight to each field
+  benefit: an error in a scrolled-out section cannot hide behind a save that quietly did nothing
+spec_refs:
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/patient-registration/spec.md
+  - spec/capabilities/consultations/spec.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - The summary lists one entry per affected field and never replaces the per-field error
+    - Each entry names its section and field label so it is a place to go
+    - Activating an entry moves focus to its control and brings it into view
+    - A reported submit attempt moves focus to the summary rather than to the first field
+    - A repeated failing submit under a new attempt is reported again
+    - The summary is announced exactly once, by focus or by a live region, never both
+    - One problem is counted in the singular
+    - Long section, label and message text wraps in full at 360 pixels
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - error-summary-list
+    - error-summary-single
+    - error-summary-narrow
+  flows:
+    - error-summary-keyboard
+  fixtures:
+    - storybook-molecule-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-004
+out_of_scope:
+  - Validation rules, authority and message wording
+  - Deciding when a form may be submitted
+  - Clearing or preserving other sections on a failed save
+  - Permission and role-dependent field visibility
+  - Adopting the summary in a capability route

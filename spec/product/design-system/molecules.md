@@ -22,6 +22,8 @@ interaction coordination. Global state, responsive, and content rules apply to e
 | `DS-PAT-012` | File Input Field | forms | `apps/web/src/components/patterns/file-input-field.tsx` |
 | `DS-PAT-013` | Consequence Confirmation | operation states | `apps/web/src/components/patterns/consequence-confirmation.tsx` |
 | `DS-PAT-014` | Toast Region | feedback | `apps/web/src/components/patterns/toast-region.tsx` |
+| `DS-PAT-015` | Save State | operation states | `apps/web/src/components/patterns/save-state.tsx` |
+| `DS-PAT-016` | Form Error Summary | forms | `apps/web/src/components/patterns/form-error-summary.tsx` |
 
 ## Forms
 
@@ -449,6 +451,66 @@ interaction coordination. Global state, responsive, and content rules apply to e
 - **Excludes:** Deciding that an operation succeeded, retry and idempotency, wording, how long a
   message should remain, persistent or reviewable notification history, and any message that carries
   required instructions or a decision the operator must not miss.
+
+### DS-PAT-015 Save State
+
+- **Need:** Say whether the operator's work is durably on the record, beside the editor that
+  produced it, so pending, locally held, failed and overtaken work are never mistaken for saved.
+- **Owner:** `apps/web/src/components/patterns/save-state.tsx`.
+- **Semantics:** A compact status line composing an icon, its own wording and an optional recovery
+  action. The visible text may be abbreviated for a dense header; the announced form is a separate
+  hidden line and is not abbreviated.
+- **Public contract:** Requires the state and the IANA timezone any instant is shown in, and accepts
+  a subject label and the recovery or reconciliation action the state offers. The caller owns the
+  save, the autosave cadence, the draft's binding to patient, encounter and author, and the conflict
+  resolution itself.
+- **States:** Unsaved, saving, saved, held locally, failed and changed elsewhere. These MUST remain
+  visibly distinct. Only a durable commit may use the word saved; locally recovered work states in
+  its visible text that it is not on the record. A failure states what happened and never implies
+  the entered text was lost. A newer version by another author is reported rather than merged.
+- **Keyboard and focus:** The line never moves focus, because autosave that pulls the cursor out of
+  a clinical note costs more than the message is worth. It announces politely. Any recovery action
+  is a normal control in reading order after the state.
+- **Responsive/content:** The state wraps rather than truncating, and stays legible beside a long
+  subject label. Motion on the saving state is supplemental and honours reduced motion.
+- **Required stories:** `Default`, `Saving`, `Saved`, `LocalOnly`, `FailedSave`, `Conflict`,
+  `AllStates`, `Narrow`, and `InEditor`.
+- **Evidence:** `save-state-kinds`, `save-state-local`, `save-state-failure`, `save-state-narrow`,
+  and `save-state-editor`.
+- **Used by:** [Clinical note editor](../../capabilities/clinical-notes/spec.md#component-contract-clinical-note-editor),
+  [consultation workspace](../../capabilities/consultations/spec.md#screen-contract-consultation-workspace),
+  and [patient registration](../../capabilities/patient-registration/spec.md#screen-contract-patient-registration).
+- **Excludes:** Performing or scheduling the save, autosave cadence, draft storage and its binding to
+  patient, encounter and author, conflict comparison and merge, completion rules, and permission.
+
+### DS-PAT-016 Form Error Summary
+
+- **Need:** Gather every field that needs correcting into one list the operator can act from, once
+  more than one field or region is affected and an error can sit in a section that is scrolled out
+  of view.
+- **Owner:** `apps/web/src/components/patterns/form-error-summary.tsx`.
+- **Semantics:** A labelled group listing one entry per affected field. Each entry names its section
+  and field label, carries the same message the field carries, and links to that control. It
+  supplements the per-field error required by the Field contract and never replaces it.
+- **Public contract:** Requires the ordered errors, each with the target control's id, its label and
+  its message, and accepts a section name per error, a title and the submit attempt being reported.
+  The caller owns validation, the wording and which attempt failed.
+- **States:** Absent when there is nothing to correct. Present with one or many entries. A repeated
+  failing submit under a new attempt is reported again rather than silently ignored.
+- **Keyboard and focus:** Announced exactly once: a caller that supplies the attempt has focus moved
+  to the summary, which reads it; a caller that does not gets a live region instead. Focus lands on
+  the summary rather than the first field, so the operator sees the whole list before being dropped
+  into one control. Activating an entry moves focus to its control and brings it into view.
+- **Responsive/content:** Long section, label and message text wraps in full. The list stays in the
+  form's own order so the operator can work down it.
+- **Required stories:** `Default`, `SingleError`, `Grouped`, `ContentStress`, `Narrow`, and
+  `KeyboardFlow`.
+- **Evidence:** `error-summary-list`, `error-summary-single`, `error-summary-narrow`, and
+  `error-summary-keyboard`.
+- **Used by:** [Patient registration](../../capabilities/patient-registration/spec.md#screen-contract-patient-registration)
+  and [consultation workspace](../../capabilities/consultations/spec.md#screen-contract-consultation-workspace).
+- **Excludes:** Validation rules and authority, message wording, deciding when a form may be
+  submitted, clearing or preserving other sections, and permission.
 
 ## Superseded or overlapping foundations
 

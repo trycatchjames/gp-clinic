@@ -229,6 +229,62 @@ export const storybookMoleculeStates = {
     },
   },
 
+  saveState: {
+    label: 'Consultation note',
+    timeZone: 'Australia/Sydney',
+    savedAt: '2026-09-04T01:42:00.000Z',
+    localAt: '2026-09-04T01:39:00.000Z',
+    failureReason: 'The connection dropped while the note was being sent. Your text is still here.',
+    retryLabel: 'Save again',
+    conflictReason:
+      'Dr Rowena Aspinall saved a newer version at 11:44 am. Both versions are kept until you choose.',
+    reconcileLabel: 'Compare both versions',
+    noteValue:
+      'Persistent dry cough for eleven days, worse overnight. No fever, no haemoptysis, no chest pain. Ex-smoker, ceased 2011.',
+  },
+
+  errorSummary: {
+    title: 'There are 4 problems to correct before this can be saved',
+    errors: [
+      {
+        fieldId: 'registration-family-name',
+        section: 'Identity',
+        label: 'Family name',
+        message: 'Enter the family name as it appears on the identity document you checked.',
+      },
+      {
+        fieldId: 'registration-date-of-birth',
+        section: 'Identity',
+        label: 'Date of birth',
+        message: 'Enter a date of birth, or record the precision you were given.',
+      },
+      {
+        fieldId: 'registration-contact',
+        section: 'Contact and address',
+        label: 'Contact number or address',
+        message: 'Record at least one way to reach this patient.',
+      },
+      {
+        fieldId: 'registration-consent',
+        section: 'Communication safety and consent',
+        label: 'Reminder consent',
+        message:
+          'Record whether the patient agreed to reminders, or that they were not asked. Leaving it blank is not the same as declining.',
+      },
+    ],
+    singleError: {
+      fieldId: 'registration-family-name',
+      label: 'Family name',
+      message: 'Enter the family name as it appears on the identity document you checked.',
+    },
+    contentStressError: {
+      fieldId: 'registration-representative',
+      section: 'Next of kin, emergency contact and representative authority',
+      label: 'Representative authority evidence',
+      message:
+        'A representative with decision-making authority was recorded for Hamish Okonkwo-Delacroix without the evidence that establishes it. Record the document sighted, who sighted it and the date, or remove the representative. The rest of this registration has been kept.',
+    },
+  },
   toasts: {
     success: {
       id: 'appointment-moved',

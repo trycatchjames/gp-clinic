@@ -400,5 +400,32 @@
       "toast-announcement",
       "toast-keyboard"
     ]
+  },
+  "saveState": {
+    "contractId": "DS-PAT-015",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-015-save-state",
+    "source": "apps/web/src/components/patterns/save-state.tsx",
+    "storyFile": "apps/web/src/components/patterns/save-state.stories.tsx",
+    "evidence": [
+      "save-state-kinds",
+      "save-state-local",
+      "save-state-failure",
+      "save-state-narrow",
+      "save-state-editor"
+    ]
+  },
+  "formErrorSummary": {
+    "contractId": "DS-PAT-016",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-016-form-error-summary",
+    "source": "apps/web/src/components/patterns/form-error-summary.tsx",
+    "storyFile": "apps/web/src/components/patterns/form-error-summary.stories.tsx",
+    "evidence": [
+      "error-summary-list",
+      "error-summary-single",
+      "error-summary-narrow",
+      "error-summary-keyboard"
+    ]
   }
 }
