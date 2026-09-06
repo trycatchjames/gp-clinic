@@ -83,7 +83,9 @@ test('[empty-outcome-locations] a practice with no sites reads the same way', as
   });
 
   await signIn(page, /Michelle Barnes/);
-  await page.getByRole('link', { name: 'Locations', exact: true }).click();
+  // The settings landing page links to Locations as well, and its accessible name varies with the
+  // counts it shows, so reach the screen through the sidebar rather than by text alone.
+  await page.getByRole('navigation').getByRole('link', { name: 'Locations', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Locations', level: 1 })).toBeVisible();
 
   await expectOneEmptyMark(page, 'No locations yet');
