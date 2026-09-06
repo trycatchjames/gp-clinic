@@ -1,0 +1,50 @@
+id: DS-023
+title: Close a dense summary without closing away its safety indicators
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Practitioner working in a consultation or a patient record
+  goal: collapse a long summary to make room for the task
+  benefit: the allergy, alert and interpreter facts I must not miss stay on screen either way
+spec_refs:
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/consultations/spec.md
+  - spec/capabilities/patient-record/spec.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - A closed section still exposes its safety indicators
+    - A short summary keeps the size of what is inside visible while closed
+    - The body is unmounted while closed, so nothing inside stays in the tab order
+    - The disclosure is a native button inside the heading and carries aria-expanded
+    - aria-controls points at the body only while that body exists
+    - Toggling never moves focus off the disclosure control
+    - A long indicator wraps in full rather than truncating
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - collapsible-open
+    - collapsible-closed
+    - collapsible-narrow
+  flows:
+    - collapsible-keyboard
+  fixtures:
+    - storybook-molecule-states
+risk:
+  permissions: false
+  clinical_safety: true
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-004
+out_of_scope:
+  - Deciding which facts are safety indicators
+  - Allergy and warning meaning, and what the summary counts
+  - Remembering the open state across visits
+  - Permission and role-dependent content
+  - Adopting the section in a capability route

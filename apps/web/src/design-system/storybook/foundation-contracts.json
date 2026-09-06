@@ -427,5 +427,29 @@
       "error-summary-narrow",
       "error-summary-keyboard"
     ]
+  },
+  "formSection": {
+    "contractId": "DS-PAT-017",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-017-form-section",
+    "source": "apps/web/src/components/patterns/form-section.tsx",
+    "storyFile": "apps/web/src/components/patterns/form-section.stories.tsx",
+    "evidence": [
+      "form-section-states",
+      "form-section-narrow"
+    ]
+  },
+  "collapsibleSection": {
+    "contractId": "DS-PAT-018",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-018-collapsible-section",
+    "source": "apps/web/src/components/patterns/collapsible-section.tsx",
+    "storyFile": "apps/web/src/components/patterns/collapsible-section.stories.tsx",
+    "evidence": [
+      "collapsible-open",
+      "collapsible-closed",
+      "collapsible-narrow",
+      "collapsible-keyboard"
+    ]
   }
 }

@@ -24,6 +24,8 @@ interaction coordination. Global state, responsive, and content rules apply to e
 | `DS-PAT-014` | Toast Region | feedback | `apps/web/src/components/patterns/toast-region.tsx` |
 | `DS-PAT-015` | Save State | operation states | `apps/web/src/components/patterns/save-state.tsx` |
 | `DS-PAT-016` | Form Error Summary | forms | `apps/web/src/components/patterns/form-error-summary.tsx` |
+| `DS-PAT-017` | Form Section | forms | `apps/web/src/components/patterns/form-section.tsx` |
+| `DS-PAT-018` | Collapsible Section | context | `apps/web/src/components/patterns/collapsible-section.tsx` |
 
 ## Forms
 
@@ -511,6 +513,61 @@ interaction coordination. Global state, responsive, and content rules apply to e
   and [consultation workspace](../../capabilities/consultations/spec.md#screen-contract-consultation-workspace).
 - **Excludes:** Validation rules and authority, message wording, deciding when a form may be
   submitted, clearing or preserving other sections, and permission.
+
+### DS-PAT-017 Form Section
+
+- **Need:** Make one labelled region of a long form a real, navigable group rather than a visual gap,
+  so an operator can tell which part of a registration or consultation they are in.
+- **Owner:** `apps/web/src/components/patterns/form-section.tsx`.
+- **Semantics:** A labelled group whose heading names the region and whose description is associated
+  with the group rather than floating beside it. It carries no fields of its own; the Field contract
+  still owns every label, hint and error inside it.
+- **Public contract:** Requires the title and the section's content, and accepts a description, the
+  heading level, an outstanding problem count, an optional marker and an id. The caller owns
+  validation, which fields belong to the region, and which roles may see it.
+- **States:** Ordinary, optional and carrying outstanding problems. An optional section MUST read as
+  one a role may fill in later rather than one they failed to complete. A problem count appears only
+  when it is above zero, and one problem is counted in the singular.
+- **Keyboard and focus:** The group is not focusable and takes no focus of its own. Its heading level
+  is supplied rather than assumed, because a form that jumps a level cannot be navigated by heading.
+- **Responsive/content:** A long title, description and optional marker wrap without truncation, and
+  the marker stays beside the title rather than below it while there is room.
+- **Required stories:** `Default`, `Optional`, `WithProblems`, `Nested`, `ContentStress`, and
+  `Narrow`.
+- **Evidence:** `form-section-states` and `form-section-narrow`.
+- **Used by:** [Patient registration](../../capabilities/patient-registration/spec.md#screen-contract-patient-registration)
+  and [consultation workspace](../../capabilities/consultations/spec.md#screen-contract-consultation-workspace).
+- **Excludes:** Validation and its authority, which fields belong to a region, permission and
+  role-dependent visibility, save behaviour, and progressive-disclosure policy.
+
+### DS-PAT-018 Collapsible Section
+
+- **Need:** Let a dense summary be closed to make room for the task without closing away the facts
+  the operator must not miss.
+- **Owner:** `apps/web/src/components/patterns/collapsible-section.tsx`.
+- **Semantics:** A labelled section whose heading contains the disclosure control, with an indicator
+  region that renders outside the collapsible body and therefore stays visible in both states.
+- **Public contract:** Requires the title, the controlled open state, its change callback and the
+  body, and accepts the safety indicators, a short summary of what is inside, the heading level and
+  an id. The caller decides which facts are indicators.
+- **States:** Open and closed. A closed section MUST continue to expose its safety indicators, and
+  the summary keeps the size of what is inside visible so closing does not hide that there is
+  anything there. The body is unmounted while closed rather than hidden, so nothing inside it stays
+  in the tab order or is read while it is not visible.
+- **Keyboard and focus:** The disclosure is a native button inside the heading, carries
+  `aria-expanded`, and points at the body with `aria-controls` while that body exists. Toggling
+  never moves focus off the control. Rotation of the chevron is supplemental and honours reduced
+  motion.
+- **Responsive/content:** Indicators wrap below the title when the row runs out of room and are
+  never truncated, because a shortened allergy is a clinical risk. A long title wraps.
+- **Required stories:** `Default`, `Closed`, `WithIndicators`, `ContentStress`, `Narrow`, and
+  `KeyboardFlow`.
+- **Evidence:** `collapsible-open`, `collapsible-closed`, `collapsible-narrow`, and
+  `collapsible-keyboard`.
+- **Used by:** [Consultation workspace](../../capabilities/consultations/spec.md#screen-contract-consultation-workspace)
+  and [patient record workspace](../../capabilities/patient-record/spec.md#screen-contract-patient-record-workspace).
+- **Excludes:** Deciding which facts are safety indicators, allergy and warning meaning, what the
+  summary counts, remembering the open state across visits, and permission.
 
 ## Superseded or overlapping foundations
 

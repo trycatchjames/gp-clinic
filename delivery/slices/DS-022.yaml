@@ -1,0 +1,47 @@
+id: DS-022
+title: Make each region of a long form a navigable, labelled group
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Staff member working through a registration or a consultation
+  goal: know which region of a long form I am in and what it still needs
+  benefit: a section is a real place to navigate to rather than a gap between fields
+spec_refs:
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/patient-registration/spec.md
+  - spec/capabilities/consultations/spec.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - The section is a labelled group whose description is associated with the group
+    - The heading level is supplied rather than assumed, so a nested section takes the next level
+    - An optional section reads as one a role may fill in later, not one they failed to complete
+    - An outstanding problem count appears only above zero and counts one problem in the singular
+    - The group takes no focus of its own
+    - A long title, description and optional marker wrap without truncation at 360 pixels
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - form-section-states
+    - form-section-narrow
+  flows: []
+  fixtures:
+    - storybook-molecule-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-021
+out_of_scope:
+  - Validation and its authority
+  - Which fields belong to a region
+  - Permission and role-dependent field visibility
+  - Save behaviour and progressive-disclosure policy
+  - Adopting the section in a capability route
