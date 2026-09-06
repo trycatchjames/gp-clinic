@@ -27,6 +27,8 @@ interaction coordination. Global state, responsive, and content rules apply to e
 | `DS-PAT-017` | Form Section | forms | `apps/web/src/components/patterns/form-section.tsx` |
 | `DS-PAT-018` | Collapsible Section | context | `apps/web/src/components/patterns/collapsible-section.tsx` |
 | `DS-PAT-019` | Action Bar | operation states | `apps/web/src/components/patterns/action-bar.tsx` |
+| `DS-PAT-020` | Bulk Selection | lists | `apps/web/src/components/patterns/bulk-selection.tsx` |
+| `DS-PAT-021` | Itemised Outcome | operation states | `apps/web/src/components/patterns/itemised-outcome.tsx` |
 
 ## Forms
 
@@ -271,6 +273,51 @@ interaction coordination. Global state, responsive, and content rules apply to e
 - **Excludes:** Result order/rank, record disclosure, domain selection consequence, pagination,
   virtualisation, and API refresh.
 
+### DS-PAT-020 Bulk Selection
+
+- **Need:** Let staff choose many records in a queue and act on them once, while keeping what is
+  selected, what is not, and what cannot be included visible before anything is committed.
+- **Owner:** `apps/web/src/components/patterns/bulk-selection.tsx`.
+- **Semantics:** A selection control names the record it selects rather than relying on its position
+  in a row. The control for a group reports that group as checked, unchecked, or `mixed`, and a
+  mixed control is visually distinct from a checked one rather than sharing its tick. The bar is a
+  labelled region holding the count, the scope of the selection, and the available actions; the
+  count is announced politely and its arrival moves no focus.
+- **Public contract:** Selection is a controlled set of stable record keys owned by the caller. A
+  selection control requires a name identifying its record or group and a change callback, and
+  accepts a blocked reason that both disables it and describes it. The bar requires the selected
+  count, the singular and plural noun for what is counted, and a clear callback; it accepts the
+  number of selected records that are not on the current page, an escalation to the whole matching
+  set, and actions that each may carry their own blocked reason.
+- **States:** Nothing selected, part of the page selected, every selectable row on the page selected,
+  and a selection reaching beyond the current page. A row that cannot take the pending action is
+  disabled, carries a non-colour mark, and takes its reason as its accessible description; the bar
+  counts those rows and states the reason once, so an excluded row is never silently absent or
+  silently unchecked. With nothing selected the bar keeps its shape and offers no action over the
+  records, so the first selection does not shift the rows beneath it and nothing offers to act on an
+  empty set. Clearing remains present throughout, because a control that unmounts with the last
+  selection takes the operator's focus with it.
+  Changing sort, page, or page size MUST NOT add, remove, or clear a selection, and a selection
+  extending past the visible page MUST say so rather than appearing to be only what is on screen.
+- **Keyboard and focus:** Space toggles a selection control. Focus movement, opening a record, and
+  scrolling MUST NOT select. The bar precedes the records it acts on in reading order, and its
+  arrival moves no focus. Focus survives clearing, so a keyboard operator is not returned to the top
+  of the document by the act of changing their mind.
+- **Responsive/content:** The bar stays in normal flow rather than floating over the records, so no
+  row is hidden beneath it at a narrow width. The count, the scope sentence, and the actions wrap
+  without page overflow. The selection target stays at least 24 pixels at every density.
+- **Required stories:** `Default`, `PartialPage`, `PageSelected`, `BeyondPage`, `BlockedRows`,
+  `InTable`, `ContentStress`, `Narrow`, and `KeyboardFlow`.
+- **Evidence:** `bulk-selection-states`, `bulk-selection-beyond-page`, `bulk-selection-blocked`,
+  `bulk-selection-narrow`, and `bulk-selection-keyboard`.
+- **Used by:** [Results inbox](../../capabilities/results/spec.md#screen-contract-results-inbox),
+  [task worklist](../../capabilities/tasks/spec.md#screen-contract-task-worklist), and
+  [document inbox](../../capabilities/documents/spec.md#screen-contract-document-inbox).
+- **Excludes:** Which records exist or may be selected, whether an action is permitted in bulk, the
+  preview of what an action would do and the itemised result of having done it, which are
+  `DS-PAT-021`, the mutation and its atomicity, and any bulk clinical disposition, which the results
+  contract forbids outright.
+
 ## Context and data display
 
 ### DS-PAT-004 Context Banner
@@ -327,14 +374,17 @@ interaction coordination. Global state, responsive, and content rules apply to e
 - **Semantics:** Composes the native Table atom with a required caption, scoped column headers,
   `aria-sort` on the active sortable header, a named pagination region, and optional disclosure
   buttons. An expanded detail is a full-width row whose cell may contain a separately captioned
-  semantic table; a table is never placed directly inside another table row.
+  semantic table; a table is never placed directly inside another table row. When the caller
+  supplies a selection, the table hosts the `DS-PAT-020` selection control as a leading column whose
+  header control covers only the rows currently rendered.
 - **Public contract:** Receives rows, stable row keys, column definitions and rendered values.
-  Sorting, pagination, page size, and expanded row keys are controlled values with callbacks. A
-  sortable column supplies its accessible sort label. Numeric/currency columns request end
-  alignment. The caller supplies empty/loading/failure content outside the table body.
+  Sorting, pagination, page size, expanded row keys, and any selection are controlled values with
+  callbacks. A sortable column supplies its accessible sort label. Numeric/currency columns request
+  end alignment. The caller supplies empty/loading/failure content outside the table body.
 - **States:** Sort direction is visible and announced. First/previous/next/last controls reflect
   page boundaries. Expansion uses `aria-expanded`, `aria-controls`, a non-colour chevron cue, and
-  a caller-supplied row label. Changing sort or page MUST NOT imply row selection or domain action.
+  a caller-supplied row label. Changing sort or page MUST NOT imply row selection or domain action,
+  and MUST NOT add to, remove from, or clear an existing selection.
 - **Keyboard and focus:** Sort, pagination, and disclosure controls use native button behaviour.
   Activation retains a useful focus target and does not move focus into newly disclosed content.
   Interactive cell content remains in logical row order.
@@ -351,7 +401,8 @@ interaction coordination. Global state, responsive, and content rules apply to e
   [task worklist](../../capabilities/tasks/spec.md#screen-contract-task-worklist), and
   [waiting room](../../capabilities/calendar/spec.md#screen-contract-waiting-room).
 - **Excludes:** Fetching, query construction, permission filtering, domain ordering, clinical
-  priority, financial calculation, virtualisation, bulk actions, and row-action availability.
+  priority, financial calculation, virtualisation, which records may be selected, what a selection
+  may then be used for, and row-action availability.
 
 ## Data and operation states
 
@@ -602,6 +653,45 @@ interaction coordination. Global state, responsive, and content rules apply to e
 - **Excludes:** Deciding availability, permission and elevation, whether an action is destructive,
   the consequence and its confirmation, the mutation and its retry safety, and keeping a frequent or
   safety-critical action out of the overflow, which remains the caller's duty.
+
+### DS-PAT-021 Itemised Outcome
+
+- **Need:** Show what an operation across many records would do, and then what it actually did, so a
+  partial result cannot read as complete success and every record that did not change keeps its
+  identity and its reason.
+- **Owner:** `apps/web/src/components/patterns/itemised-outcome.tsx`.
+- **Semantics:** A labelled region whose summary counts each outcome, followed by the records
+  grouped by outcome with the ones needing attention first. The same structure serves the preview
+  before commit and the result afterwards, so an operator reads the record list in one shape twice.
+  A result containing a failure carries alert semantics; a preview never does, because nothing has
+  happened yet.
+- **Public contract:** Requires the phase, a heading, the singular and plural noun for what is
+  counted, and the items, each with a stable key, the record's name, and an outcome. The phase
+  constrains the permitted outcomes by type: a preview may only say `ready` or `blocked`, and a
+  result may only say `applied`, `failed`, or `skipped`. Each item accepts a reason and a single
+  recovery action. The caller owns the operation, whether a retry is safe, and every word.
+- **States:** Preview with every record ready; preview with blocked records; complete success;
+  partial success; nothing applied; and an operation still running, which claims no outcome for a
+  record it has not reached. Records that succeeded MAY be collapsed through `DS-PAT-018` because
+  they need no further work; records that failed, were skipped, or are blocked MUST remain visible.
+  A summary MUST NOT state a total that its items do not account for.
+- **Keyboard and focus:** Arrival does not move focus. Every recovery action is a control in
+  reading order beside the record it belongs to. Expanding the applied records does not move focus
+  into them, and the records needing attention stay above the disclosure.
+- **Responsive/content:** A long record name or reason wraps in full rather than truncating, because
+  a hidden clause can turn a partial result into an apparent success. Counts use tabular figures.
+  Outcome is carried by an icon and a word as well as by colour, and the region stacks without
+  overflow at a narrow width.
+- **Required stories:** `Preview`, `PreviewBlocked`, `Applied`, `PartialFailure`, `NothingApplied`,
+  `InProgress`, `ContentStress`, `Narrow`, and `KeyboardFlow`.
+- **Evidence:** `itemised-preview`, `itemised-partial-failure`, `itemised-narrow`, and
+  `itemised-keyboard`.
+- **Used by:** [Task worklist](../../capabilities/tasks/spec.md#screen-contract-task-worklist),
+  [results inbox](../../capabilities/results/spec.md#screen-contract-results-inbox), and
+  [practitioner offboarding](../../capabilities/practitioner-management/spec.md#screen-contract-practitioner-profile-and-offboarding).
+- **Excludes:** Performing the operation, deciding that a record is blocked or that a retry is safe,
+  the wording of any reason, atomicity and idempotency, audit, and reporting a single-record outcome,
+  which stays with `DS-PAT-014`.
 
 ## Superseded or overlapping foundations
 
