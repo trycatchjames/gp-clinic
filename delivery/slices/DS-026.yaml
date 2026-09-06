@@ -1,0 +1,53 @@
+id: DS-026
+title: Say what a bulk operation would do, and then what it actually did
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Clinician, team manager or practice manager committing an operation across many records
+  goal: see every affected record before committing, and every record's own outcome afterwards
+  benefit: a partial result can never be read as complete success, and no record fails silently
+spec_refs:
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/tasks/spec.md
+  - spec/capabilities/results/spec.md
+  - spec/capabilities/practitioner-management/spec.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - A preview lists every affected record and the type refuses to let it claim an applied outcome
+    - A result lists every record's own outcome and the type refuses to let it claim a record is still ready
+    - The summary counts every record its items account for, including those the operation has not reached
+    - A result containing a failure carries alert semantics; a preview never does
+    - Failed, skipped and blocked records stay on screen while succeeded records may be collapsed
+    - Records needing a decision are listed above the ones that are finished
+    - Each recovery step is a control beside the record it belongs to
+    - An outcome is carried by a word and an icon as well as by colour
+    - A long reason wraps in full at 360 pixels rather than hiding a clause
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - itemised-preview
+    - itemised-partial-failure
+    - itemised-narrow
+  flows:
+    - itemised-keyboard
+  fixtures:
+    - storybook-molecule-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-025
+out_of_scope:
+  - Performing the operation, its atomicity, idempotency and audit
+  - Deciding that a record is blocked, skipped, or that a retry is safe
+  - The wording of any reason
+  - Reporting a single record's outcome, which stays with DS-PAT-014
+  - Adopting the report in a capability route

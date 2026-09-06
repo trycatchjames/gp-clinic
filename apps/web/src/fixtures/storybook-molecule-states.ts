@@ -519,4 +519,26 @@ export const storybookMoleculeStates = {
     ],
   },
 
+  itemised: {
+    previewHeading: 'Reassign 6 results to Dr Aroha Duong',
+    resultHeading: 'Reassignment of 6 results to Dr Aroha Duong',
+    runningHeading: 'Reassigning 6 results to Dr Aroha Duong',
+    nothingHeading: 'Reassignment of 3 results to Dr Aroha Duong',
+    noun: ['result', 'results'],
+    retryLabel: 'Try again',
+    openLabel: 'Open result',
+    blockedDetail: 'Sensitive result. Dr Aroha Duong does not hold access to this source.',
+    failedDetail: 'The result moved back to Dr Rowena Aspinall. Nothing about its review changed.',
+    skippedDetail: 'Already reassigned by Jules Ferreira-Whitcombe while this list was open.',
+    longDetail:
+      'The reassignment was refused because Dr Aroha Duong is recorded as absent from 2 September to 20 September and no covering clinician has been nominated for the Wongaburra catchment. The result stays with Dr Rowena Aspinall and remains unreviewed, and the follow-up due date has not moved.',
+    names: [
+      'Marlee Tran · full blood count',
+      'Marley Tranh · iron studies',
+      'Joseph Okafor · chest x-ray',
+      'Unmatched · cervical screening',
+      'Wilhelmina Papadopoulos-Ashworth · vitamin D, thyroid function and extended electrolytes',
+      'Hamish Okonkwo-Delacroix · urine culture',
+    ],
+  },
 } as const;

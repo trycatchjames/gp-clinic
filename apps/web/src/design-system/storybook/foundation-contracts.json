@@ -478,5 +478,18 @@
       "bulk-selection-narrow",
       "bulk-selection-keyboard"
     ]
+  },
+  "itemisedOutcome": {
+    "contractId": "DS-PAT-021",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-021-itemised-outcome",
+    "source": "apps/web/src/components/patterns/itemised-outcome.tsx",
+    "storyFile": "apps/web/src/components/patterns/itemised-outcome.stories.tsx",
+    "evidence": [
+      "itemised-preview",
+      "itemised-partial-failure",
+      "itemised-narrow",
+      "itemised-keyboard"
+    ]
   }
 }
