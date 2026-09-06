@@ -9,6 +9,11 @@ type FallbackOptions = {
 
 type DateFormatOptions = FallbackOptions & {
   style?: 'numeric' | 'short' | 'long';
+  /**
+   * Required to take the calendar date of an instant. An instant is a different day in different
+   * places, so reading one without saying where would silently use the viewer's own zone.
+   */
+  timeZone?: string;
 };
 
 type TimeFormatOptions = FallbackOptions & {
@@ -55,7 +60,7 @@ export function formatCurrency(
 /** Formats a calendar date without allowing an ISO date-only value to cross a timezone boundary. */
 export function formatDate(
   value: NullableValue<string | number | Date>,
-  { fallback = DEFAULT_FALLBACK, style = 'numeric' }: DateFormatOptions = {},
+  { fallback = DEFAULT_FALLBACK, style = 'numeric', timeZone }: DateFormatOptions = {},
 ): string {
   if (value == null || value === '') return fallback;
   const isCalendarDate = typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value);
@@ -66,7 +71,9 @@ export function formatDate(
     day: style === 'numeric' ? '2-digit' : 'numeric',
     month: style === 'numeric' ? '2-digit' : style,
     year: 'numeric',
-    ...(isCalendarDate ? { timeZone: 'UTC' } : {}),
+    // A date-only value is already a calendar date and is read in UTC so it cannot shift a day. An
+    // instant is only a date once somewhere is named, which is why the caller supplies the zone.
+    ...(isCalendarDate ? { timeZone: 'UTC' } : timeZone ? { timeZone } : {}),
   }).format(parsed);
 }
 
