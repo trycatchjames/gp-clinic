@@ -707,4 +707,22 @@ export const storybookMoleculeStates = {
       'Mine, covering Dr Rowena Aspinall and Dr Aroha Duong, plus the unmatched and follow-up queues for the Wongaburra catchment',
   },
 
+  sectionNav: {
+    label: 'Patient record sections',
+    countLabel: 'items',
+    currentKey: 'timeline',
+    sections: [
+      { key: 'overview', label: 'Overview', href: '#overview' },
+      { key: 'timeline', label: 'Timeline', href: '#timeline' },
+      { key: 'problems', label: 'Problems', href: '#problems', count: 4 },
+      { key: 'medicines', label: 'Medicines', href: '#medicines', count: 7 },
+      { key: 'observations', label: 'Observations', href: '#observations', count: 0 },
+      { key: 'immunisations', label: 'Immunisations', href: '#immunisations', count: 0 },
+      { key: 'results', label: 'Investigations and results', href: '#results', count: 3, attention: true },
+      { key: 'documents', label: 'Referrals and documents', href: '#documents', count: 12 },
+      { key: 'recalls', label: 'Recalls and tasks', href: '#recalls', count: 2, attention: true },
+      { key: 'accounts', label: 'Accounts', href: '#accounts', count: 1 },
+    ],
+    longLabel: 'Investigations, results and outstanding follow-up for the Wongaburra catchment',
+  },
 } as const;

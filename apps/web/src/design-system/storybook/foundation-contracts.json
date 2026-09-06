@@ -542,5 +542,17 @@
       "page-header-narrow",
       "page-header-keyboard"
     ]
+  },
+  "sectionNavigation": {
+    "contractId": "DS-PAT-026",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-026-section-navigation",
+    "source": "apps/web/src/components/patterns/section-navigation.tsx",
+    "storyFile": "apps/web/src/components/patterns/section-navigation.stories.tsx",
+    "evidence": [
+      "section-nav-states",
+      "section-nav-narrow",
+      "section-nav-keyboard"
+    ]
   }
 }

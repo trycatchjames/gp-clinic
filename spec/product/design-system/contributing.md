@@ -112,26 +112,37 @@ informative delivery order, not approval for an API or atomic layer.
 
 ### Wave 2: forms, actions, and save safety
 
-Candidate needs include combobox/autocomplete, search input, Australian date/time input, date range,
-numeric/currency input, file input, Form Section, Form Error Summary, Save State, Action Bar,
-Confirmation, unsaved/recovery presentation, Popover, Sheet/Drawer, Collapsible/Accordion,
-Toast/Live Announcement, and Pagination. Add only the subset proven by the first accepted screen.
+Delivered: combobox/autocomplete, Australian date/time input, date range, numeric/currency input,
+file input, Form Section, Form Error Summary, Save State, Action Bar, Confirmation, Sheet, and
+Collapsible Section. Toast and live announcement are delivered as `DS-PAT-014`; pagination is a
+named region of `DS-PAT-007` rather than its own contract, and the primary query belongs to
+`DS-PAT-002`.
+
+Not delivered, and deliberately so: Popover, because no accepted screen contract needs an anchored
+*interactive* surface — `DS-OVR-003` excludes them and `DS-OVR-002` covers contextual actions. Add
+only the subset proven by the first accepted screen.
 
 ### Wave 3: dense search, lists, and queues
 
-Candidate needs include Active Filters, Result Count, sortable/paginated Data Table, responsive list
-alternative, controlled bulk selection/action, List/Detail Workspace, queue scope/freshness header,
-stable refresh behaviour, Timeline/History, source metadata, and before/after comparison.
+Delivered: active filters and result count as `DS-PAT-002`, sortable/paginated Data Table,
+controlled bulk selection and action, queue scope and freshness header, Timeline/History, and
+before/after comparison.
+
+Remaining candidate needs: a responsive list alternative to the table at narrow widths, and a
+List/Detail Workspace. Each stays capability-owned until an accepted screen contract proves the
+shared shape.
 
 Patterns own density, hierarchy, keyboard coordination, and responsive layout. Capabilities supply
 protected content, permission, priority, state transitions, and mutations.
 
 ### Wave 4: record and workflow composition
 
-Candidate needs include Page Header, persistent context/action region, Section Navigation,
-Summary/Metadata groups, Side-by-side Comparison, version/amendment chain, linked-action status,
-preview/review shell, bounded Step/Progress navigation, Recoverable Editor shell, and
-document/attachment presentation.
+Delivered: Page Header, Section Navigation, Summary/Metadata groups as `DS-PAT-006`, the persistent
+context region as `DS-PAT-004`, side-by-side comparison and the version/amendment chain, and the
+preview/review shell as `DS-PAT-021`.
+
+Remaining candidate needs: linked-action status, bounded Step/Progress navigation, a Recoverable
+Editor shell, and document/attachment presentation.
 
 Patient identity, allergy meaning, clinical warnings, billing totals, and record lifecycle remain
 capability-owned even when rendered through shared patterns.
