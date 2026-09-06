@@ -1,0 +1,43 @@
+id: DS-032
+title: Read one empty outcome per screen instead of two competing marks
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Receptionist searching for a patient, and a practice manager opening location settings
+  goal: see an empty result explained once, by the mark the state itself means
+  benefit: no screen shows two icons for one outcome, and no second empty-state foundation survives
+spec_refs:
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/patient-search/spec.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - A search that matches nothing renders one State Panel with an empty state and no second icon
+    - Location settings with no sites renders the same contract, at comfortable density
+    - Each empty outcome keeps its title, description and recovery guidance unchanged
+    - The compact search panel stays quieter than the records it sits beside
+    - The superseded EmptyState wrapper and its test are deleted, and nothing imports them
+    - The design system records the assessment outcome rather than leaving it open
+    - Named evidence for both changed screens is captured from the reviewed commit with seeded data
+evidence:
+  screenshots:
+    - empty-outcome-search
+    - empty-outcome-locations
+  flows:
+    - empty-outcome-search
+  fixtures:
+    - api-seed
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on: []
+out_of_scope:
+  - Detecting the state, retry safety and cached-data policy, which stay with the caller
+  - Adding a recovery action to either screen
+  - Any other capability route, none of which used the wrapper
