@@ -1,0 +1,53 @@
+id: DS-030
+title: Say what a screen is showing and how fresh it is before anyone acts on it
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Clinician or staff member arriving at a queue, a day view or a worklist
+  goal: see the screen's name, the exact scope it is showing and how current that is
+  benefit: nobody acts on a stale queue, or on the wrong location or date, without noticing
+spec_refs:
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/calendar/spec.md
+  - spec/capabilities/results/spec.md
+  - spec/capabilities/tasks/spec.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - The screen's scope is a list of named facts, so an unsupplied fact is visibly absent
+    - Freshness carries an as-of instant read in the timezone the caller names
+    - A refreshing header keeps the previous scope and as-of on screen rather than blanking them
+    - A view known to be behind the record says so with a mark as well as a tint
+    - Freshness that is not known says so and is never rendered as current
+    - A repeated refresh that changes nothing does not announce again
+    - Refreshing moves no focus and does not reorder the actions
+    - The header claims no landmark, so two on one screen stay distinguishable
+    - The title wraps at 360 pixels rather than truncating, and the refresh stays reachable
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - page-header-states
+    - page-header-stale
+    - page-header-narrow
+  flows:
+    - page-header-keyboard
+  fixtures:
+    - storybook-molecule-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-029
+out_of_scope:
+  - Routing, fetching and refresh scheduling
+  - Deciding that a view is stale
+  - Permission for any action in the header
+  - Breadcrumbs, and the record identity that DS-PAT-004 carries
+  - Adopting the header in a capability route

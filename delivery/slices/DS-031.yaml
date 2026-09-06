@@ -1,0 +1,53 @@
+id: DS-031
+title: Move between the sections of a workspace without implying anything was reviewed
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Clinician moving between the sections of a patient record or a work queue
+  goal: see which section is current and how much work each holds, and move between them
+  benefit: arriving at a section never marks anything read, and the current location is never hidden
+spec_refs:
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/atoms.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/patient-record/spec.md
+  - spec/capabilities/results/spec.md
+  - spec/capabilities/tasks/spec.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - Sections are links marked with aria-current, not tabs, because moving changes location
+    - A count belongs to its section's accessible name rather than sitting beside it unspoken
+    - A zero count is shown as zero, because nothing there and not counted are different claims
+    - A section needing attention carries a mark and says so in its name as well as a tint
+    - Tab reaches each section and Enter follows it
+    - Arrow keys do not move between sections, because they are not a composite widget
+    - Arriving at a section marks nothing read or reviewed
+    - A section the caller does not supply is absent, and the server still decides what may be reached
+    - The list scrolls at 360 pixels without clipping and the current section is brought into view
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - section-nav-states
+    - section-nav-narrow
+  flows:
+    - section-nav-keyboard
+  fixtures:
+    - storybook-molecule-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-030
+out_of_scope:
+  - Routing and permission filtering
+  - Deriving any count
+  - Section order and freshness
+  - Whether a section may be reached at all, which is a server decision
+  - Adopting the navigation in a capability route
