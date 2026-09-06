@@ -229,6 +229,41 @@ export const storybookMoleculeStates = {
     },
   },
 
+  toasts: {
+    success: {
+      id: 'appointment-moved',
+      title: 'Appointment moved',
+      description:
+        'Marlee Tran is now booked with Dr Aroha Duong at 2:30 pm on Friday 4 September 2026.',
+    },
+    status: {
+      id: 'book-refreshed',
+      title: 'Appointment book refreshed',
+      description: 'Showing changes up to 11:42 am.',
+    },
+    failure: {
+      id: 'referral-send-failed',
+      title: 'Referral letter was not sent',
+      description:
+        'The secure messaging service rejected the delivery. The letter is still a draft on the patient record and nothing has been sent.',
+      actionLabel: 'Retry sending',
+    },
+    withAction: {
+      id: 'appointment-cancelled',
+      title: 'Appointment cancelled',
+      description: 'The 11:15 am consultation for Marlee Tran was cancelled.',
+      actionLabel: 'Undo',
+    },
+    contentStress: {
+      id: 'claim-partially-transmitted',
+      title:
+        'Two of five items on the Wongaburra Community Health bulk-billing batch were not accepted',
+      description:
+        'Items 23 and 36 for Hamish Okonkwo-Delacroix were accepted. Items 10990 and 10991 were rejected because the concession card number recorded on 2 July 2026 has expired, and item 721 could not be assessed. Nothing has been resubmitted and the account still shows the full balance.',
+      actionLabel: 'Open the account for this patient',
+    },
+    dismiss: 'Dismiss',
+  },
   confirmation: {
     cancelAppointment: {
       title: 'Cancel this appointment',

@@ -1,0 +1,47 @@
+id: DS-018
+title: Review a record's detail and actions in an edge-anchored modal panel
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Reception or clinical staff member
+  goal: open the full detail and actions for one record without losing the list behind it
+  benefit: a detail region stays usable where a permanent side region does not fit
+spec_refs:
+  - spec/product/design-system/atoms.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/calendar/spec.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - The panel anchors to the right or the bottom edge and carries a labelled title and description
+    - A body long enough to scroll never displaces the title or the final actions
+    - The scrolling body is reachable by keyboard so overflowed content can be read without a pointer
+    - Focus enters the panel, stays trapped while it is modal and returns to the trigger on close
+    - Dismissal never implies confirmation or a completed save
+    - A long compound title wraps rather than truncating
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - sheet-layout
+    - sheet-narrow
+  flows:
+    - sheet-keyboard
+  fixtures:
+    - storybook-atom-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-003
+out_of_scope:
+  - A persistently docked non-modal side region, which is a screen layout decision
+  - Deciding when a record's detail warrants an overlay rather than a route
+  - Unsaved-work, dirty-state and recovery policy
+  - Permission, mutation and the content of the detail itself
+  - Adopting the panel in a capability route

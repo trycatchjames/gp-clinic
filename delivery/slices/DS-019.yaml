@@ -1,0 +1,52 @@
+id: DS-019
+title: Report an operation's outcome without taking focus from the task in hand
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Reception or clinical staff member
+  goal: learn that an action succeeded or failed while staying where I was working
+  benefit: an outcome is never missed, never repeated and never mistaken for a completed save
+spec_refs:
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/calendar/spec.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - Routine confirmation and status are announced politely and a failed operation assertively
+    - A message arriving never moves focus away from the control the operator was using
+    - Both live regions exist before the first message so the announcement is not lost
+    - The visible stack is a labelled landmark rather than a live region, so a message is announced once
+    - Re-supplying an unchanged message under its existing identity does not announce it again
+    - A failure states what did not happen and offers the safe next step as a control
+    - Tone is carried by an icon and a leading word as well as by colour
+    - A long partial-failure description wraps in full rather than truncating
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - toast-tones
+    - toast-failure
+    - toast-content-stress
+    - toast-narrow
+  flows:
+    - toast-announcement
+    - toast-keyboard
+  fixtures:
+    - storybook-molecule-states
+risk:
+  permissions: false
+  clinical_safety: true
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-004
+out_of_scope:
+  - Deciding that an operation succeeded, and retry or idempotency behaviour
+  - How long a message should remain on screen, which stays with the caller
+  - A persistent or reviewable notification history
+  - Carrying required instructions or a decision the operator must not miss
+  - Adopting the region in a capability route
