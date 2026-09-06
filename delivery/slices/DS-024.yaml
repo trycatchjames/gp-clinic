@@ -1,0 +1,52 @@
+id: DS-024
+title: End a form or checkout with one unmistakable primary action
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Staff member finishing a registration, a consultation or a billing checkout
+  goal: see which action completes the task, what the supporting choices are, and why it is blocked
+  benefit: no region offers several competing primary actions or an unexplained disabled control
+spec_refs:
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/billing/spec.md
+  - spec/capabilities/patient-registration/spec.md
+  - spec/capabilities/consultations/spec.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - The primary action is a single value rather than a list, so a region cannot acquire two
+    - Secondary actions stay visible, named and quieter than the primary
+    - A busy primary is disabled, keeps its accessible name and does not hide the other actions
+    - A blocked primary names the failed precondition and is described by it
+    - The primary is last in task order, so a supporting choice is reached before the consequential one
+    - The overflow trigger is named and returns focus to itself
+    - The actions wrap as one group and the primary stays visible at 360 pixels
+    - A long status wraps above the actions rather than compressing them
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - action-bar-states
+    - action-bar-blocked
+    - action-bar-narrow
+  flows:
+    - action-bar-keyboard
+  fixtures:
+    - storybook-molecule-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-022
+out_of_scope:
+  - Deciding availability, permission and elevation
+  - Whether an action is destructive, and its consequence and confirmation
+  - The mutation and its retry safety
+  - Keeping a frequent or safety-critical action out of the overflow, which stays with the caller
+  - Adopting the bar in a capability route

@@ -229,6 +229,25 @@ export const storybookMoleculeStates = {
     },
   },
 
+  actionBar: {
+    label: 'Invoice actions',
+    primary: 'Issue invoice',
+    busyLabel: 'Issuing invoice',
+    secondary: [
+      { id: 'preview', label: 'Preview account' },
+      { id: 'save-draft', label: 'Save as draft' },
+    ],
+    overflow: [
+      { id: 'copy', label: 'Copy the itemised account to a new invoice' },
+      { id: 'discard', label: 'Discard this draft invoice', destructive: true },
+    ],
+    blockedReason:
+      'Item 10990 has no fee for 4 September 2026. Resolve the fee or remove the item before issuing.',
+    status: 'Total $148.90 · patient pays $59.75 · bulk-billed items $89.15',
+    longStatus:
+      'Total $1,284.55 · patient pays $412.30 after the concession adjustment · bulk-billed items $872.25 · informed financial consent recorded 4 September 2026 by Jules Ferreira-Whitcombe',
+    destructivePrimary: 'Void this invoice',
+  },
   formSection: {
     identity: {
       title: 'Identity',
