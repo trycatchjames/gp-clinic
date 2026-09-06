@@ -115,8 +115,12 @@ assistive-technology review. A known exception needs an explicit, time-bounded r
 ## Owner QA
 
 The pull request provides a candidate Storybook URL when preview hosting is available and a
-downloadable static build as the no-vendor fallback. It embeds the named screenshots and links the
-trace/video generated from the reviewed head.
+downloadable static build as the no-vendor fallback. Preview hosting has not been chosen, so the
+fallback is the delivered mechanism: the deterministic gate publishes its Storybook build as the
+`storybook-candidate-<head sha>` workflow artifact and the pipeline links it from the marked
+`Storybook candidate` section of the description, replaced on every head. A head whose gate stopped
+before the Storybook build reports no candidate rather than linking a stale one. The pull request
+also embeds the named screenshots and links the trace/video generated from the reviewed head.
 
 The owner reviews only the contract in the delivery slice:
 

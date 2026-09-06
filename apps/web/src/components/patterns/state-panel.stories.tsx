@@ -62,11 +62,13 @@ export const Failure: Story = {
 export const WithRecovery: Story = {
   render: function RecoveryStory() {
     return (
-      <StatePanel
-        kind="failure"
-        {...fixture.failure}
-        action={<Button onClick={retry}>Try again</Button>}
-      />
+      <div data-evidence="state-panel-recovery">
+        <StatePanel
+          kind="failure"
+          {...fixture.failure}
+          action={<Button onClick={retry}>Try again</Button>}
+        />
+      </div>
     );
   },
   play: async ({ canvasElement }) => {
@@ -96,7 +98,7 @@ const allKinds = Object.entries(fixture) as Array<
 
 export const AllStates: Story = {
   render: () => (
-    <div data-evidence="storybook-state-panel-states" className="grid max-w-5xl gap-4 md:grid-cols-2">
+    <div data-evidence="state-panel-kinds" className="grid max-w-5xl gap-4 md:grid-cols-2">
       {allKinds.map(([kind, state]) => (
         <StatePanel key={kind} kind={kind} compact {...state} />
       ))}
@@ -106,6 +108,11 @@ export const AllStates: Story = {
 
 export const Narrow: Story = {
   ...ContentStress,
+  render: (args) => (
+    <div data-evidence="state-panel-narrow">
+      <StatePanel {...args} />
+    </div>
+  ),
   globals: {
     viewport: { value: 'clinicalNarrow', isRotated: false },
   },

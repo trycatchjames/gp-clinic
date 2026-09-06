@@ -1,7 +1,7 @@
 id: DS-014
 title: Choose or drop files with explicit per-item state
 kind: enablement
-status: in_review
+status: delivered
 capability: null
 story:
   actor: Authorised practice staff

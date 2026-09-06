@@ -54,10 +54,12 @@ for (const relativePath of cataloguePaths) {
     if (catalogues.has(contractId)) fail(`duplicate catalogue ID ${contractId}`);
     const nextStart = headings[index + 1]?.index ?? markdown.length;
     const block = markdown.slice(match.index, nextStart);
+    const evidenceLine = block.match(/- \*\*Evidence:\*\*([\s\S]*?)(?=\n- \*\*|$)/);
     catalogues.set(contractId, {
       block,
       relativePath,
       slug: headingSlug(match[0].replace(/^###\s+/, '')),
+      evidence: new Set([...(evidenceLine?.[1] ?? '').matchAll(/`([a-z0-9][a-z0-9-]*)`/g)].map((m) => m[1])),
     });
   }
 }
@@ -91,6 +93,16 @@ for (const [key, contract] of Object.entries(registry)) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(evidenceId)) {
       fail(`${contract.contractId} has invalid evidence ID ${evidenceId}`);
     }
+  }
+  // The catalogue names the evidence a contract owes. A registry that invents its own names lets a
+  // component claim proof the contract never asked for, so the two sets must be identical.
+  const declared = [...catalogue.evidence].sort();
+  const registered = [...contract.evidence].sort();
+  if (declared.length === 0) fail(`${contract.contractId} declares no evidence in its catalogue entry`);
+  if (declared.join(',') !== registered.join(',')) {
+    fail(
+      `${contract.contractId} registers evidence ${registered.join(', ')} but its catalogue entry declares ${declared.join(', ')}`,
+    );
   }
 
   const story = await readFile(path.join(root, contract.storyFile), 'utf8');

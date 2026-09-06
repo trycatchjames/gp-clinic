@@ -62,3 +62,35 @@ export function updatePipelineState(body, state, detail, hiddenMarkers = []) {
   if (hiddenMarkers.length > 0) lines.push('', ...hiddenMarkers);
   return replaceMarkedSection(body, 'state', lines.join('\n'));
 }
+
+/**
+ * A design-system pull request has to hand the owner something they can open. Preview hosting is a
+ * separate delivery decision, so the reviewable candidate is the static build the gate already
+ * produced, linked from its own marked section and replaced on every head.
+ */
+export function updateStorybookCandidate(body, { sha, artifactUrl, artifactName }) {
+  // The URL reaches this from workflow output, so it is treated as untrusted: anything that is not
+  // an https GitHub address is reported as no candidate rather than rendered as a link.
+  let href = '';
+  try {
+    const parsed = new URL(String(artifactUrl ?? ''));
+    if (parsed.protocol === 'https:' && /(^|\.)github\.com$/.test(parsed.hostname)) {
+      href = parsed.toString();
+    }
+  } catch {
+    href = '';
+  }
+
+  const lines = ['## Storybook candidate', ''];
+  if (href) {
+    lines.push(
+      `- **Build:** [${cleanSummary(artifactName) || 'storybook-candidate'}](${href}) from \`${cleanSummary(sha)}\``,
+      '- Download, unzip and serve the folder — for example `npx serve storybook-static`. Opening `index.html` from disk will not work.',
+    );
+  } else {
+    lines.push(
+      `- **Build:** unavailable for \`${cleanSummary(sha)}\` — the gate did not reach the Storybook build.`,
+    );
+  }
+  return replaceMarkedSection(body, 'storybook', lines.join('\n'));
+}

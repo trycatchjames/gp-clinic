@@ -54,7 +54,7 @@ export const Required: Story = {
 
 export const Invalid: Story = {
   render: () => (
-    <div data-evidence="storybook-field-states" className="max-w-md">
+    <div data-evidence="field-states" className="max-w-md">
       <Field
         label={fixture.label}
         htmlFor="field-invalid"
@@ -117,7 +117,18 @@ export const LongMessages: Story = {
 };
 
 export const Narrow: Story = {
-  ...Grouped,
+  render: () => (
+    <div data-evidence="field-group-reflow" className="max-w-3xl">
+      <FieldGroup>
+        <Field label="Workspace name" htmlFor="workspace-name-narrow" required>
+          <Input defaultValue="Front desk workspace" />
+        </Field>
+        <Field label={fixture.label} htmlFor="workspace-email-narrow" hint={fixture.hint}>
+          <Input defaultValue={fixture.value} />
+        </Field>
+      </FieldGroup>
+    </div>
+  ),
   globals: {
     viewport: { value: 'clinicalNarrow', isRotated: false },
   },
@@ -125,7 +136,7 @@ export const Narrow: Story = {
 
 export const KeyboardFlow: Story = {
   render: () => (
-    <div className="max-w-md">
+    <div data-evidence="field-keyboard" className="max-w-md">
       <Field label={fixture.label} htmlFor="field-keyboard" hint={fixture.hint}>
         <Input />
       </Field>

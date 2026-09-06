@@ -25,7 +25,7 @@ export const Default: Story = {};
 
 export const Hierarchy: Story = {
   render: () => (
-    <div data-evidence="storybook-button-states" className="flex flex-wrap items-center gap-3">
+    <div data-evidence="button-hierarchy" className="flex flex-wrap items-center gap-3">
       <Button>{fixture.primary}</Button>
       <Button variant="secondary">{fixture.secondary}</Button>
       <Button variant="outline">Cancel</Button>
@@ -40,6 +40,24 @@ export const Destructive: Story = {
     children: fixture.destructive,
     variant: 'destructive',
   },
+};
+
+/**
+ * The states the catalogue names, side by side. Comparing them in one frame is the only way to see
+ * that a busy button still reads as named and consequential rather than merely dimmed.
+ */
+export const States: Story = {
+  render: () => (
+    <div data-evidence="button-states" className="flex flex-wrap items-center gap-3">
+      <Button>{fixture.primary}</Button>
+      <Button variant="destructive">{fixture.destructive}</Button>
+      <Button disabled>Save unavailable</Button>
+      <Button disabled aria-busy="true">
+        <LoaderCircle aria-hidden="true" className="motion-safe:animate-spin" />
+        Saving changes
+      </Button>
+    </div>
+  ),
 };
 
 export const Disabled: Story = {
@@ -74,6 +92,11 @@ export const KeyboardFlow: Story = {
     children: fixture.primary,
     onClick: fn(),
   },
+  render: (args) => (
+    <div data-evidence="button-keyboard" className="p-2">
+      <Button {...args} />
+    </div>
+  ),
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button', { name: fixture.primary });

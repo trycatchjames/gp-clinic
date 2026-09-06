@@ -1,0 +1,48 @@
+id: DS-017
+title: Make the catalogue the single authority for named evidence
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Product owner
+  goal: find the evidence a component contract asked for under the name the contract used
+  benefit: a component cannot quietly satisfy its contract with proof the contract never requested
+spec_refs:
+  - spec/product/design-system/atoms.md
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/design-system/contributing.md
+acceptance:
+  scenarios: []
+  criteria:
+    - Traceability lint fails when a registered contract names evidence its catalogue entry does not declare
+    - Button, Field and State Panel register the evidence identifiers their catalogue entries declare
+    - Every declared identifier has a story target and a capture, including the ones that had none
+    - Superseded foundation-wide evidence is removed rather than kept beside the catalogue-named files
+evidence:
+  screenshots:
+    - button-hierarchy
+    - button-states
+    - button-keyboard
+    - field-states
+    - field-group-reflow
+    - field-keyboard
+    - state-panel-kinds
+    - state-panel-recovery
+    - state-panel-narrow
+  flows: []
+  fixtures:
+    - storybook-foundation-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-002
+  - DS-003
+  - DS-004
+out_of_scope:
+  - New component behaviour or public contract changes
+  - Evidence identifiers for contracts that already agree with their catalogue entry
+  - Checking that a captured screenshot shows what its identifier claims

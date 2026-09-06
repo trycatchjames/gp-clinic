@@ -6,6 +6,7 @@ import {
   reviewReportSummary,
   updatePipelineState,
   updateReviewBody,
+  updateStorybookCandidate,
 } from '../src/lib/body.mjs';
 
 test('marked description sections update in place instead of appending activity', () => {
@@ -59,4 +60,37 @@ test('generic marked sections preserve surrounding prose', () => {
   const updated = replaceMarkedSection(body, 'test', 'Second');
   assert.equal(markedSection(updated, 'test'), 'Second');
   assert.equal((updated.match(/pr-pipeline:test:start/g) ?? []).length, 1);
+});
+
+test('the Storybook candidate section replaces itself for each head', () => {
+  let body = updateStorybookCandidate('## Outcome\n\nKeep this.', {
+    sha: 'aaa1111',
+    artifactUrl: 'https://github.com/owner/repo/actions/runs/1/artifacts/10',
+    artifactName: 'storybook-candidate-aaa1111',
+  });
+  body = updateStorybookCandidate(body, {
+    sha: 'bbb2222',
+    artifactUrl: 'https://github.com/owner/repo/actions/runs/2/artifacts/20',
+    artifactName: 'storybook-candidate-bbb2222',
+  });
+
+  assert.equal((body.match(/## Storybook candidate/g) ?? []).length, 1);
+  assert.match(body, /## Outcome\n\nKeep this\./);
+  assert.match(body, /artifacts\/20/);
+  assert.doesNotMatch(body, /artifacts\/10/);
+});
+
+test('a missing or untrusted candidate URL is reported rather than linked', () => {
+  const missing = updateStorybookCandidate('', { sha: 'ccc3333' });
+  assert.match(missing, /unavailable for `ccc3333`/);
+
+  for (const artifactUrl of [
+    'javascript:alert(1)',
+    'http://github.com/owner/repo/artifacts/1',
+    'https://github.com.example.invalid/owner/repo/artifacts/1',
+  ]) {
+    const body = updateStorybookCandidate('', { sha: 'ccc3333', artifactUrl });
+    assert.match(body, /unavailable for `ccc3333`/, artifactUrl);
+    assert.doesNotMatch(body, /\]\(/, artifactUrl);
+  }
 });
