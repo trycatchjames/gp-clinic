@@ -75,6 +75,25 @@ for (const { story, evidence } of stills) {
   });
 }
 
+test('[checkbox-states] marks a partly selected group differently from a fully selected one', async ({
+  page,
+}) => {
+  await openStory(page, 'atoms-forms-checkbox--indeterminate');
+  const mixed = page.getByRole('checkbox', { name: 'All preparation steps' });
+  const checked = page.getByRole('checkbox', {
+    name: 'Consent to share the summary with the referred provider',
+  });
+
+  await expect(mixed).toHaveAttribute('aria-checked', 'mixed');
+  await expect(checked).toBeChecked();
+
+  // Radix renders the indicator for both states. Sharing the tick would leave "some of these are
+  // selected" looking exactly like "all of these are selected".
+  await expect(mixed.locator('svg.lucide-minus')).toBeVisible();
+  await expect(mixed.locator('svg.lucide-check')).toBeHidden();
+  await expect(checked.locator('svg.lucide-check')).toBeVisible();
+});
+
 test('[dialog-layout] keeps a failed submit open with the operator’s choices intact', async ({
   page,
 }) => {

@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { SelectionCheckbox } from '@/components/patterns/bulk-selection';
 import {
   Table,
   TableBody,
@@ -55,6 +56,23 @@ type SortableColumn<T> = BaseColumn<T> & {
 
 export type DataTableColumn<T> = StaticColumn<T> | SortableColumn<T>;
 
+export type DataTableSelection<T> = {
+  /** Every selected key, including rows on a page that is not currently rendered. */
+  selectedRowKeys: readonly string[];
+  onRowSelectedChange: (row: T, selected: boolean) => void;
+  /**
+   * The header control covers only the rows now rendered. A control that silently reached the rest
+   * of the result set would make the count mean something different from what is on screen.
+   */
+  onPageSelectedChange: (rows: readonly T[], selected: boolean) => void;
+  /** Names the record a row's control selects. */
+  getRowSelectionLabel: (row: T) => string;
+  /** Names the group the header control covers, such as "all 10 invoices on this page". */
+  pageSelectionLabel: string;
+  /** Why a row cannot be included. A row with a reason is excluded from the header control too. */
+  getBlockedReason?: (row: T) => string | undefined;
+};
+
 export type DataTablePagination = {
   page: number;
   pageSize: number;
@@ -73,6 +91,7 @@ type DataTableBaseProps<T> = {
   onSortChange?: (sort: DataTableSort) => void;
   pagination?: DataTablePagination;
   emptyState?: React.ReactNode;
+  selection?: DataTableSelection<T>;
   density?: 'compact' | 'comfortable';
   className?: string;
 };
@@ -201,11 +220,27 @@ export function DataTable<T>(props: DataTableProps<T>) {
     onSortChange,
     pagination,
     emptyState,
+    selection,
     density = 'compact',
     className,
   } = props;
   const tableId = React.useId();
   const expandable = props.renderExpandedRow !== undefined;
+  // A blocked row is not part of the group the header control covers, so ticking it never claims a
+  // row the caller has already said cannot be included.
+  const selectableRows = selection
+    ? rows.filter((row) => selection.getBlockedReason?.(row) === undefined)
+    : [];
+  const selectedOnPage = selection
+    ? selectableRows.filter((row) => selection.selectedRowKeys.includes(getRowKey(row))).length
+    : 0;
+  const pageChecked =
+    selectedOnPage === 0
+      ? false
+      : selectedOnPage === selectableRows.length
+        ? true
+        : ('indeterminate' as const);
+  const leadingColumns = (expandable ? 1 : 0) + (selection ? 1 : 0);
 
   if (rows.length === 0 && emptyState) {
     return <div className={className}>{emptyState}</div>;
@@ -217,6 +252,15 @@ export function DataTable<T>(props: DataTableProps<T>) {
         <TableCaption className="sr-only">{caption}</TableCaption>
         <TableHeader className="bg-muted/65">
           <TableRow className="hover:bg-transparent">
+            {selection && (
+              <TableHead scope="col" className="w-10 px-3">
+                <SelectionCheckbox
+                  name={selection.pageSelectionLabel}
+                  checked={pageChecked}
+                  onCheckedChange={(next) => selection.onPageSelectedChange(selectableRows, next)}
+                />
+              </TableHead>
+            )}
             {expandable && (
               <TableHead scope="col" className="w-10 px-1">
                 <span className="sr-only">Details</span>
@@ -265,10 +309,28 @@ export function DataTable<T>(props: DataTableProps<T>) {
           {rows.map((row) => {
             const rowKey = getRowKey(row);
             const expanded = expandable && props.expandedRowKeys.includes(rowKey);
+            const selected = selection?.selectedRowKeys.includes(rowKey) ?? false;
             const detailId = `${tableId}-${rowKey.replace(/[^a-zA-Z0-9_-]/g, '-')}-details`;
             return (
               <React.Fragment key={rowKey}>
-                <TableRow data-expanded={expanded || undefined}>
+                {/*
+                  The Table atom already gives a selected row a leading rule as well as a tint, so
+                  selection is not carried by colour alone.
+                */}
+                <TableRow
+                  data-expanded={expanded || undefined}
+                  data-state={selected ? 'selected' : undefined}
+                >
+                  {selection && (
+                    <TableCell className="w-10 px-3">
+                      <SelectionCheckbox
+                        name={selection.getRowSelectionLabel(row)}
+                        checked={selected}
+                        blockedReason={selection.getBlockedReason?.(row)}
+                        onCheckedChange={(next) => selection.onRowSelectedChange(row, next)}
+                      />
+                    </TableCell>
+                  )}
                   {expandable && (
                     <TableCell className="w-10 px-1">
                       <Button
@@ -304,7 +366,11 @@ export function DataTable<T>(props: DataTableProps<T>) {
                 </TableRow>
                 {expandable && expanded && (
                   <TableRow className="bg-muted/30 hover:bg-muted/30">
-                    <TableCell id={detailId} colSpan={columns.length + 1} className="p-0">
+                    <TableCell
+                      id={detailId}
+                      colSpan={columns.length + leadingColumns}
+                      className="p-0"
+                    >
                       <div className="border-primary/45 ml-5 border-l-2 px-4 py-3">
                         {props.renderExpandedRow(row)}
                       </div>

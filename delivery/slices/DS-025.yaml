@@ -1,0 +1,55 @@
+id: DS-025
+title: Select many records in a queue and see exactly what is selected
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Clinician or governed team member working a results, task or document queue
+  goal: choose many records at once and see what is selected, what is not, and what cannot be included
+  benefit: nothing is acted on that the operator did not knowingly choose, and nothing is quietly left out
+spec_refs:
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/atoms.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/results/spec.md
+  - spec/capabilities/tasks/spec.md
+  - spec/capabilities/documents/spec.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - Every selection control names the record or group it selects rather than relying on its row position
+    - A partly selected group is announced as mixed and carries its own mark instead of the tick
+    - A record the caller refuses is disabled, marked without relying on colour, and describes its reason
+    - The group control covers only the rows on screen and never reaches a refused record
+    - A selection that extends past the current page states how much of it is not visible
+    - An action that may never be applied to a selection is refused with the rule that forbids it
+    - Focus movement, opening a record and scrolling do not select; only Space does
+    - Clearing stays present throughout, so it cannot take a keyboard operator's focus with it
+    - The bar stays in normal flow and keeps its shape when nothing is selected
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - bulk-selection-states
+    - bulk-selection-beyond-page
+    - bulk-selection-blocked
+    - bulk-selection-narrow
+  flows:
+    - bulk-selection-keyboard
+  fixtures:
+    - storybook-molecule-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-024
+out_of_scope:
+  - Deciding which records exist, may be selected, or are refused
+  - Whether an action is permitted in bulk, which stays with the capability and the server
+  - The preview of what an action would do and the itemised result of doing it, which are DS-026
+  - The mutation, its atomicity and its audit
+  - Adopting selection in a capability route

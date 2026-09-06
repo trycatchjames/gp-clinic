@@ -27,6 +27,7 @@ interaction coordination. Global state, responsive, and content rules apply to e
 | `DS-PAT-017` | Form Section | forms | `apps/web/src/components/patterns/form-section.tsx` |
 | `DS-PAT-018` | Collapsible Section | context | `apps/web/src/components/patterns/collapsible-section.tsx` |
 | `DS-PAT-019` | Action Bar | operation states | `apps/web/src/components/patterns/action-bar.tsx` |
+| `DS-PAT-020` | Bulk Selection | lists | `apps/web/src/components/patterns/bulk-selection.tsx` |
 
 ## Forms
 
@@ -271,6 +272,51 @@ interaction coordination. Global state, responsive, and content rules apply to e
 - **Excludes:** Result order/rank, record disclosure, domain selection consequence, pagination,
   virtualisation, and API refresh.
 
+### DS-PAT-020 Bulk Selection
+
+- **Need:** Let staff choose many records in a queue and act on them once, while keeping what is
+  selected, what is not, and what cannot be included visible before anything is committed.
+- **Owner:** `apps/web/src/components/patterns/bulk-selection.tsx`.
+- **Semantics:** A selection control names the record it selects rather than relying on its position
+  in a row. The control for a group reports that group as checked, unchecked, or `mixed`, and a
+  mixed control is visually distinct from a checked one rather than sharing its tick. The bar is a
+  labelled region holding the count, the scope of the selection, and the available actions; the
+  count is announced politely and its arrival moves no focus.
+- **Public contract:** Selection is a controlled set of stable record keys owned by the caller. A
+  selection control requires a name identifying its record or group and a change callback, and
+  accepts a blocked reason that both disables it and describes it. The bar requires the selected
+  count, the singular and plural noun for what is counted, and a clear callback; it accepts the
+  number of selected records that are not on the current page, an escalation to the whole matching
+  set, and actions that each may carry their own blocked reason.
+- **States:** Nothing selected, part of the page selected, every selectable row on the page selected,
+  and a selection reaching beyond the current page. A row that cannot take the pending action is
+  disabled, carries a non-colour mark, and takes its reason as its accessible description; the bar
+  counts those rows and states the reason once, so an excluded row is never silently absent or
+  silently unchecked. With nothing selected the bar keeps its shape and offers no action over the
+  records, so the first selection does not shift the rows beneath it and nothing offers to act on an
+  empty set. Clearing remains present throughout, because a control that unmounts with the last
+  selection takes the operator's focus with it.
+  Changing sort, page, or page size MUST NOT add, remove, or clear a selection, and a selection
+  extending past the visible page MUST say so rather than appearing to be only what is on screen.
+- **Keyboard and focus:** Space toggles a selection control. Focus movement, opening a record, and
+  scrolling MUST NOT select. The bar precedes the records it acts on in reading order, and its
+  arrival moves no focus. Focus survives clearing, so a keyboard operator is not returned to the top
+  of the document by the act of changing their mind.
+- **Responsive/content:** The bar stays in normal flow rather than floating over the records, so no
+  row is hidden beneath it at a narrow width. The count, the scope sentence, and the actions wrap
+  without page overflow. The selection target stays at least 24 pixels at every density.
+- **Required stories:** `Default`, `PartialPage`, `PageSelected`, `BeyondPage`, `BlockedRows`,
+  `InTable`, `ContentStress`, `Narrow`, and `KeyboardFlow`.
+- **Evidence:** `bulk-selection-states`, `bulk-selection-beyond-page`, `bulk-selection-blocked`,
+  `bulk-selection-narrow`, and `bulk-selection-keyboard`.
+- **Used by:** [Results inbox](../../capabilities/results/spec.md#screen-contract-results-inbox),
+  [task worklist](../../capabilities/tasks/spec.md#screen-contract-task-worklist), and
+  [document inbox](../../capabilities/documents/spec.md#screen-contract-document-inbox).
+- **Excludes:** Which records exist or may be selected, whether an action is permitted in bulk, the
+  preview of what an action would do and the itemised result of having done it, which are
+  `DS-PAT-021`, the mutation and its atomicity, and any bulk clinical disposition, which the results
+  contract forbids outright.
+
 ## Context and data display
 
 ### DS-PAT-004 Context Banner
@@ -327,14 +373,17 @@ interaction coordination. Global state, responsive, and content rules apply to e
 - **Semantics:** Composes the native Table atom with a required caption, scoped column headers,
   `aria-sort` on the active sortable header, a named pagination region, and optional disclosure
   buttons. An expanded detail is a full-width row whose cell may contain a separately captioned
-  semantic table; a table is never placed directly inside another table row.
+  semantic table; a table is never placed directly inside another table row. When the caller
+  supplies a selection, the table hosts the `DS-PAT-020` selection control as a leading column whose
+  header control covers only the rows currently rendered.
 - **Public contract:** Receives rows, stable row keys, column definitions and rendered values.
-  Sorting, pagination, page size, and expanded row keys are controlled values with callbacks. A
-  sortable column supplies its accessible sort label. Numeric/currency columns request end
-  alignment. The caller supplies empty/loading/failure content outside the table body.
+  Sorting, pagination, page size, expanded row keys, and any selection are controlled values with
+  callbacks. A sortable column supplies its accessible sort label. Numeric/currency columns request
+  end alignment. The caller supplies empty/loading/failure content outside the table body.
 - **States:** Sort direction is visible and announced. First/previous/next/last controls reflect
   page boundaries. Expansion uses `aria-expanded`, `aria-controls`, a non-colour chevron cue, and
-  a caller-supplied row label. Changing sort or page MUST NOT imply row selection or domain action.
+  a caller-supplied row label. Changing sort or page MUST NOT imply row selection or domain action,
+  and MUST NOT add to, remove from, or clear an existing selection.
 - **Keyboard and focus:** Sort, pagination, and disclosure controls use native button behaviour.
   Activation retains a useful focus target and does not move focus into newly disclosed content.
   Interactive cell content remains in logical row order.
@@ -351,7 +400,8 @@ interaction coordination. Global state, responsive, and content rules apply to e
   [task worklist](../../capabilities/tasks/spec.md#screen-contract-task-worklist), and
   [waiting room](../../capabilities/calendar/spec.md#screen-contract-waiting-room).
 - **Excludes:** Fetching, query construction, permission filtering, domain ordering, clinical
-  priority, financial calculation, virtualisation, bulk actions, and row-action availability.
+  priority, financial calculation, virtualisation, which records may be selected, what a selection
+  may then be used for, and row-action availability.
 
 ## Data and operation states
 

@@ -50,6 +50,7 @@ export const foundationContracts = contractRegistry as Readonly<{
   formSection: FoundationContract;
   collapsibleSection: FoundationContract;
   actionBar: FoundationContract;
+  bulkSelection: FoundationContract;
 }>;
 
 const repositoryUrl = 'https://github.com/trycatchjames/gp-clinic/blob/main';

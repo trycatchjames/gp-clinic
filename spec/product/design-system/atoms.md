@@ -199,8 +199,9 @@ native attributes required for composition but MUST NOT expose raw visual-token 
   choices or an immediate on/off system setting.
 - **Public contract:** Unchecked, checked, indeterminate when supported by the caller, focus, and
   disabled mechanics.
-- **States:** Selection uses native/Radix state plus a tick, not colour alone. Required validation
-  is supplied by the form composition.
+- **States:** Selection uses native/Radix state plus a tick, not colour alone. Indeterminate is
+  announced as `mixed` and carries its own mark rather than the tick, so a partly selected group is
+  never mistaken for a fully selected one. Required validation is supplied by the form composition.
 - **Keyboard and focus:** Space toggles; focus is visible; label activation works.
 - **Responsive/content:** Multi-line labels keep the target aligned and remain fully clickable.
 - **Required stories:** `Unchecked`, `Checked`, `Indeterminate`, `Disabled`, `LongLabel`, and

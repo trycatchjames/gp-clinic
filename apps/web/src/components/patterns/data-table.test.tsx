@@ -110,4 +110,57 @@ describe('DataTable', () => {
     expect(screen.getByText('No invoices in this scope')).toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
   });
+
+  it('hosts a selection column whose header control covers only the rows on screen', () => {
+    const onPageSelectedChange = vi.fn();
+    render(
+      <DataTable
+        caption="Patient invoices"
+        rows={rows}
+        columns={columns}
+        getRowKey={(row) => row.id}
+        selection={{
+          selectedRowKeys: ['a'],
+          pageSelectionLabel: 'all 2 invoices on this page',
+          getRowSelectionLabel: (row) => row.name,
+          onRowSelectedChange: vi.fn(),
+          onPageSelectedChange,
+        }}
+      />,
+    );
+
+    const page = screen.getByRole('checkbox', { name: 'Select all 2 invoices on this page' });
+    expect(page).toHaveAttribute('aria-checked', 'mixed');
+    expect(screen.getByRole('checkbox', { name: 'Select Invoice 1042' })).toBeChecked();
+
+    fireEvent.click(page);
+    expect(onPageSelectedChange).toHaveBeenCalledWith(rows, true);
+  });
+
+  it('leaves a blocked row out of the group the header control covers', () => {
+    const onPageSelectedChange = vi.fn();
+    render(
+      <DataTable
+        caption="Patient invoices"
+        rows={rows}
+        columns={columns}
+        getRowKey={(row) => row.id}
+        selection={{
+          selectedRowKeys: ['a'],
+          pageSelectionLabel: 'all invoices on this page',
+          getRowSelectionLabel: (row) => row.name,
+          getBlockedReason: (row) => (row.id === 'b' ? 'Issued invoices cannot be voided in bulk.' : undefined),
+          onRowSelectedChange: vi.fn(),
+          onPageSelectedChange,
+        }}
+      />,
+    );
+
+    // Every row the control can reach is already selected, so it reads as checked rather than mixed.
+    expect(screen.getByRole('checkbox', { name: 'Select all invoices on this page' })).toBeChecked();
+    expect(screen.getByRole('checkbox', { name: 'Select Invoice 1043' })).toBeDisabled();
+
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Select all invoices on this page' }));
+    expect(onPageSelectedChange).toHaveBeenCalledWith([rows[0]], false);
+  });
 });

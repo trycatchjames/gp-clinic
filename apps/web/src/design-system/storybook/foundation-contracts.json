@@ -464,5 +464,19 @@
       "action-bar-narrow",
       "action-bar-keyboard"
     ]
+  },
+  "bulkSelection": {
+    "contractId": "DS-PAT-020",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-020-bulk-selection",
+    "source": "apps/web/src/components/patterns/bulk-selection.tsx",
+    "storyFile": "apps/web/src/components/patterns/bulk-selection.stories.tsx",
+    "evidence": [
+      "bulk-selection-states",
+      "bulk-selection-beyond-page",
+      "bulk-selection-blocked",
+      "bulk-selection-narrow",
+      "bulk-selection-keyboard"
+    ]
   }
 }
