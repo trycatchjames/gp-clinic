@@ -94,7 +94,9 @@ same value type.
 - Currency accepts integer minor units and displays Australian dollars with two decimal places.
 - Calendar dates use `DD/MM/YYYY` by default and may use an unambiguous written Australian
   day-month-year form where the task warrants it. A date-only value is formatted without converting
-  it through a timezone that could change the calendar day.
+  it through a timezone that could change the calendar day. Taking the calendar date of an instant
+  requires the caller to name the timezone, because an instant is a different day in different
+  places.
 - Instants and times require the caller to supply the relevant IANA timezone, support the
   practice-configured 12/24-hour cycle, and may include the short timezone label when location
   context is not otherwise clear.

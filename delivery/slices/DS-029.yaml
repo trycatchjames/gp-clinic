@@ -1,0 +1,53 @@
+id: DS-029
+title: Compare two records fact by fact and resolve each difference deliberately
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Privileged reviewer resolving potential duplicates, or a clinician facing a concurrent edit
+  goal: see which facts agree, which differ and which conflict, and choose between them one at a time
+  benefit: no record is silently preferred and no missing value is mistaken for agreement
+spec_refs:
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/patient-registration/spec.md
+  - spec/capabilities/clinical-notes/spec.md
+  - spec/capabilities/results/spec.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - Every value keeps the name of the side it came from at every width
+    - A fact one side does not hold is named as not recorded rather than left blank
+    - Each difference is stated as a word and a mark as well as a tint
+    - No option is preselected, so the pattern proposes no survivor
+    - Keeping both is offered only where the caller permits it
+    - Choosing a value resolves that fact alone and moves no focus
+    - Arrow keys move within one fact's options without choosing one
+    - The two sides stack in reading order at 360 pixels with their labels intact
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - comparison-differences
+    - comparison-resolving
+    - comparison-narrow
+  flows:
+    - comparison-keyboard
+  fixtures:
+    - storybook-molecule-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-028
+out_of_scope:
+  - Deciding which record survives and which facts are high-risk
+  - Whether a reviewer may see a data class
+  - Merging free text, which the clinical note contract forbids
+  - The merge, its atomicity, lineage and audit
+  - Reauthentication and the second-person confirmation
+  - Adopting the comparison in a capability route

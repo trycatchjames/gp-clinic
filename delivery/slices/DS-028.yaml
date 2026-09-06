@@ -1,0 +1,52 @@
+id: DS-028
+title: Read a record's history and see when each entry was actually written down
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Clinician reading a patient record, a note's history or an observation series
+  goal: see each entry in time order with when it applied, when it was recorded and whether it still stands
+  benefit: a late entry, an amendment and a withdrawn entry are never mistaken for ordinary history
+spec_refs:
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/patient-record/spec.md
+  - spec/capabilities/clinical-notes/spec.md
+  - spec/capabilities/observations/spec.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - Entries are grouped under the day they applied, taken in the timezone the caller names
+    - Recorded time appears only when it differs from effective time and is labelled as recorded
+    - A late entry cannot read as though it happened when it was written down
+    - An amendment names the entry it amends and the amended entry says it has been amended
+    - An entry marked entered in error keeps its place in the sequence
+    - Status is carried by a word and a mark as well as by a tint
+    - An entry is inert unless the caller attaches an action, and reading one changes nothing
+    - The metadata stacks at 360 pixels without losing which time is which or who recorded it
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - timeline-entries
+    - timeline-amendment
+    - timeline-narrow
+  flows:
+    - timeline-keyboard
+  fixtures:
+    - storybook-molecule-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-027
+out_of_scope:
+  - Which entries exist, their ordering authority and any filtering
+  - Permission and sensitivity policy
+  - Clinical meaning and amendment authority
+  - Pagination and virtualisation
+  - Adopting the timeline in a capability route

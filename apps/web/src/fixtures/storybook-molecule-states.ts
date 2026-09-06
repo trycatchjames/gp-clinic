@@ -574,4 +574,114 @@ export const storybookMoleculeStates = {
     longHint:
       'The scheduled fee for item 44 at Wongaburra Community Health and Allied Services is $194.40. An override above the scheduled fee needs a reason and is audited.',
   },
+
+  timeline: {
+    label: 'Record timeline',
+    timeZone: 'Australia/Sydney',
+    entries: [
+      {
+        key: 't-1',
+        effectiveAt: '2026-09-04T09:20:00+10:00',
+        type: 'Consultation note',
+        author: 'Dr Rowena Aspinall',
+        summary: 'Sore throat and fever for three days. Examination unremarkable. Fluids and review if not settling.',
+        status: 'recorded',
+      },
+      {
+        key: 't-2',
+        effectiveAt: '2026-09-04T09:35:00+10:00',
+        type: 'Observation',
+        author: 'Jules Ferreira-Whitcombe',
+        summary: 'Temperature 37.8 °C · Blood pressure 118/74 · Weight 74.6 kg',
+        status: 'recorded',
+      },
+      {
+        key: 't-3',
+        effectiveAt: '2026-08-28T14:05:00+10:00',
+        recordedAt: '2026-09-02T08:12:00+10:00',
+        type: 'Home visit note',
+        author: 'Dr Aroha Duong',
+        summary: 'Reviewed at home after discharge. Dressing changed. District nursing to continue daily.',
+        status: 'recorded',
+      },
+      {
+        key: 't-5',
+        effectiveAt: '2026-08-22T16:40:00+10:00',
+        type: 'Consultation note',
+        author: 'Dr Rowena Aspinall',
+        summary: 'Dose of the second agent was recorded incorrectly. The correct dose is recorded here.',
+        status: 'amendment',
+        chain: 'Amends the consultation note of 20 August 2026. The original text is unchanged.',
+      },
+      {
+        key: 't-4',
+        effectiveAt: '2026-08-20T11:00:00+10:00',
+        type: 'Consultation note',
+        author: 'Dr Rowena Aspinall',
+        summary: 'Medication review. Continue current therapy.',
+        status: 'amended',
+        chain: 'Amended on 22 August 2026 by Dr Rowena Aspinall.',
+      },
+      {
+        key: 't-6',
+        effectiveAt: '2026-08-14T10:15:00+10:00',
+        type: 'Consultation note',
+        author: 'Dr Aroha Duong',
+        summary: 'Entered against the wrong patient. Retained for audit; not part of this record.',
+        status: 'entered-in-error',
+        chain: 'Marked entered in error on 14 August 2026 by Dr Aroha Duong.',
+      },
+    ],
+    actionLabel: 'Open entry',
+    longSummary:
+      'Long telephone consultation covering the discharge summary from Wongaburra Community Health, the two medicines changed on discharge, the district nursing arrangement, the transport booking for the outpatient review, and the agreement that the practice will contact the patient again if the pathology from Tuesday has not arrived by Friday afternoon.',
+  },
+
+  comparison: {
+    label: 'Potential duplicate records',
+    leftLabel: 'Record NRT-4821',
+    rightLabel: 'Record NRT-4822',
+    rows: [
+      { key: 'name', label: 'Name', left: 'Marlee Tran', right: 'Marley Tranh', status: 'differs' },
+      {
+        key: 'dob',
+        label: 'Date of birth',
+        left: '14/03/1988',
+        right: '14/03/1988',
+        status: 'same',
+      },
+      {
+        key: 'allergy',
+        label: 'Recorded allergies',
+        left: 'Penicillin — anaphylaxis',
+        right: 'No known allergies',
+        status: 'conflict',
+      },
+      {
+        key: 'address',
+        label: 'Address',
+        left: '12 Wattle Grove, Northside Demo Suburb NSW 2999',
+        right: null,
+        status: 'differs',
+      },
+      {
+        key: 'medicare',
+        label: 'Medicare number',
+        left: null,
+        right: '0000 00000 0',
+        status: 'differs',
+      },
+      {
+        key: 'contact',
+        label: 'Mobile',
+        left: '0400 000 001',
+        right: '0400 000 002',
+        status: 'differs',
+      },
+    ],
+    conflictNote:
+      'A recorded allergy and a statement of no known allergies cannot both be kept. A clinical reviewer must resolve this before the records are merged.',
+    longValue:
+      'Care of Wongaburra Community Health and Allied Services Demonstration Site, Building 3 Level 2, 480 Wongaburra Road, Wongaburra Demo Township NSW 2999, postal deliveries to Locked Bag 9000',
+  },
 } as const;

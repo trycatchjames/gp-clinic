@@ -503,5 +503,31 @@
       "numeric-field-narrow",
       "numeric-field-keyboard"
     ]
+  },
+  "recordTimeline": {
+    "contractId": "DS-PAT-023",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-023-record-timeline",
+    "source": "apps/web/src/components/patterns/record-timeline.tsx",
+    "storyFile": "apps/web/src/components/patterns/record-timeline.stories.tsx",
+    "evidence": [
+      "timeline-entries",
+      "timeline-amendment",
+      "timeline-narrow",
+      "timeline-keyboard"
+    ]
+  },
+  "recordComparison": {
+    "contractId": "DS-PAT-024",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-024-record-comparison",
+    "source": "apps/web/src/components/patterns/record-comparison.tsx",
+    "storyFile": "apps/web/src/components/patterns/record-comparison.stories.tsx",
+    "evidence": [
+      "comparison-differences",
+      "comparison-resolving",
+      "comparison-narrow",
+      "comparison-keyboard"
+    ]
   }
 }

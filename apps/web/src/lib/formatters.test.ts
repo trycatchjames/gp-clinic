@@ -21,6 +21,20 @@ describe('display formatters', () => {
     expect(formatDate('2026-02-31')).toBe('—');
   });
 
+  it('takes the calendar date of an instant in the zone the caller names', () => {
+    // 11:30 pm in Perth is already the next day in Sydney. Without a zone the viewer's own applies,
+    // which would put one entry under two different days depending on who is looking.
+    const instant = '2026-09-04T23:30:00+08:00';
+    expect(formatDate(instant, { style: 'long', timeZone: 'Australia/Perth' })).toBe(
+      '4 September 2026',
+    );
+    expect(formatDate(instant, { style: 'long', timeZone: 'Australia/Sydney' })).toBe(
+      '5 September 2026',
+    );
+    // A date-only value is already a calendar date and never crosses a boundary.
+    expect(formatDate('2026-09-05', { timeZone: 'Australia/Sydney' })).toBe('05/09/2026');
+  });
+
   it('formats instants and times in the explicit timezone', () => {
     const instant = '2026-09-05T04:30:00.000Z';
     expect(formatDateTime(instant, 'Australia/Brisbane')).toMatch(
