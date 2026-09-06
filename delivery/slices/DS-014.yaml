@@ -1,0 +1,44 @@
+id: DS-014
+title: Choose or drop files with explicit per-item state
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Authorised practice staff
+  goal: choose or drop files and review each caller-confirmed state
+  benefit: local selection cannot be mistaken for upload, scanning, filing or clinical review
+spec_refs:
+  - spec/product/design-system/README.md
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/documents/spec.md
+acceptance:
+  scenarios: []
+  criteria:
+    - A visible label and keyboard-operable button activate the native file input while drop remains an equivalent convenience
+    - Browser-selected and dropped File objects use the same callback without bypassing caller validation
+    - Selected, uploading, failed, complete and rejected items remain textually and semantically distinct
+    - Failed and rejected items retain reasons and caller-authorised removal or retry actions
+    - Long filenames, status reasons and actions fit at 360 pixels without horizontal page overflow
+evidence:
+  screenshots:
+    - storybook-file-input-field
+    - storybook-file-input-field-states
+    - storybook-file-input-field-narrow
+  flows:
+    - storybook-file-input-field-keyboard
+  fixtures:
+    - storybook-molecule-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-002
+out_of_scope:
+  - File acceptance, size and deduplication authority
+  - Upload, cancellation, malware/quality checks, quarantine and safe rendering
+  - Patient matching, classification, filing, clinical review, persistence and permissions

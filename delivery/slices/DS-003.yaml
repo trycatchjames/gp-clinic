@@ -1,0 +1,69 @@
+id: DS-003
+title: Complete traceable stories and evidence for every maintained atom
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Product owner
+  goal: review every approved primitive and its meaningful states in one traced Storybook gallery
+  benefit: capability screens can adopt a primitive knowing its states, keyboard route and evidence were reviewed
+spec_refs:
+  - spec/product/design-system/README.md
+  - spec/product/design-system/atoms.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/design-system/contributing.md
+acceptance:
+  scenarios: []
+  criteria:
+    - Every atom in the catalogue has a story file registered against its stable contract identifier
+    - Each atom demonstrates the states its catalogue entry requires, including invalid, disabled, read-only, pending and failure where relevant
+    - Read-only and disabled presentations are visually and programmatically distinct rather than interchangeable
+    - Keyboard routes are asserted in a real browser for every atom whose contract names one
+    - Overlay motion honours reduced motion without losing information
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - alert-semantics
+    - alert-announcement
+    - progress-values
+    - skeleton-geometry
+    - input-states
+    - textarea-states
+    - textarea-content-stress
+    - label-association
+    - checkbox-states
+    - radio-group-states
+    - switch-states
+    - select-states
+    - card-hierarchy
+    - avatar-fallback
+    - separator-orientation
+    - tabs-states
+    - dialog-layout
+    - menu-states
+    - input-keyboard
+    - checkbox-keyboard
+    - radio-group-keyboard
+    - switch-keyboard
+    - select-keyboard
+    - tabs-keyboard
+  flows:
+    - dialog-keyboard
+    - menu-keyboard
+    - tooltip-keyboard
+  fixtures:
+    - storybook-atom-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-002
+out_of_scope:
+  - New atoms beyond the maintained catalogue
+  - Molecule, organism, template and page composition
+  - Capability screens, API calls, permissions and domain meaning
+  - Removal of the delivered /foundations gallery route

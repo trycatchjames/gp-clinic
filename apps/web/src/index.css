@@ -120,4 +120,19 @@
   .tabular {
     font-variant-numeric: tabular-nums;
   }
+  /*
+   * Motion never carries meaning on its own here, so an operator who has asked their system to
+   * reduce motion loses nothing by switching every transition and keyframe off. This covers the
+   * overlay enter/exit keyframes and the loading pulse, which are otherwise applied unconditionally.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }

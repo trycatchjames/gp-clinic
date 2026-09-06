@@ -2,7 +2,22 @@ import * as React from 'react';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { cn } from '@/lib/utils';
 
-const DropdownMenu = DropdownMenuPrimitive.Root;
+/**
+ * A menu of contextual actions, not a modal task.
+ *
+ * `modal` defaults to false because the modal variant hides the rest of the document with
+ * `aria-hidden` while leaving the trigger — and everything else on the page — focusable, which is
+ * an `aria-hidden-focus` violation and makes the record behind the menu unreadable to a screen
+ * reader for the sake of a three-item action list. Pass `modal` explicitly if a menu ever needs to
+ * take over the page.
+ */
+function DropdownMenu({
+  modal = false,
+  ...props
+}: React.ComponentProps<typeof DropdownMenuPrimitive.Root>) {
+  return <DropdownMenuPrimitive.Root modal={modal} {...props} />;
+}
+
 const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
 const DropdownMenuGroup = DropdownMenuPrimitive.Group;
 
@@ -55,7 +70,12 @@ function DropdownMenuLabel({
   return (
     <DropdownMenuPrimitive.Label
       data-inset={inset}
-      className={cn('px-2 py-1.5 text-sm font-medium data-[inset]:pl-8', className)}
+      className={cn(
+        // Quieter and smaller than an item: a group heading that reads like an action is the
+        // fastest way to make an operator click the wrong thing.
+        'text-muted-foreground px-2 py-1.5 text-xs font-medium data-[inset]:pl-8',
+        className,
+      )}
       {...props}
     />
   );

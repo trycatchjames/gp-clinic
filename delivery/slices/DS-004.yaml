@@ -1,0 +1,53 @@
+id: DS-004
+title: Complete traceable stories and evidence for every maintained molecule
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Product owner
+  goal: review every approved reusable composition and its meaningful states in the same traced gallery
+  benefit: a capability can reuse a search, list, context or summary pattern without re-deciding density, hierarchy or keyboard behaviour
+spec_refs:
+  - spec/product/design-system/README.md
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/design-system/contributing.md
+acceptance:
+  scenarios: []
+  criteria:
+    - Every molecule in the catalogue has a story file registered against its stable contract identifier
+    - Searching, filters applied, no matches and partial results remain distinct in the filter bar
+    - Moving focus through candidate records never changes the selected record
+    - Missing, unknown, zero and unavailable facts are stated rather than blank
+    - Long names, identifiers and safety footnotes wrap instead of truncating
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - filter-bar-states
+    - filter-bar-narrow
+    - list-view-selection
+    - list-view-density
+    - context-banner-states
+    - context-banner-narrow
+    - summary-list-density
+    - summary-list-content-stress
+  flows:
+    - filter-bar-keyboard
+    - list-view-keyboard
+  fixtures:
+    - storybook-molecule-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-002
+  - DS-003
+out_of_scope:
+  - New molecules beyond the maintained catalogue
+  - Organism, template and page composition
+  - Query execution, result ranking, permission filtering and domain meaning
+  - Removal of the delivered /foundations gallery route

@@ -5,7 +5,10 @@
     "specRef": "spec/product/design-system/atoms.md#ds-act-001-button",
     "source": "apps/web/src/components/ui/button.tsx",
     "storyFile": "apps/web/src/components/ui/button.stories.tsx",
-    "evidence": ["storybook-button-states", "storybook-foundation-keyboard"]
+    "evidence": [
+      "storybook-button-states",
+      "storybook-foundation-keyboard"
+    ]
   },
   "badge": {
     "contractId": "DS-DSP-001",
@@ -13,23 +16,29 @@
     "specRef": "spec/product/design-system/atoms.md#ds-dsp-001-badge",
     "source": "apps/web/src/components/ui/badge.tsx",
     "storyFile": "apps/web/src/components/ui/badge.stories.tsx",
-    "evidence": ["badge-semantic-variants"]
+    "evidence": [
+      "badge-semantic-variants"
+    ]
   },
-  "field": {
-    "contractId": "DS-PAT-001",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-001-field-and-field-group",
-    "source": "apps/web/src/components/patterns/form-field.tsx",
-    "storyFile": "apps/web/src/components/patterns/form-field.stories.tsx",
-    "evidence": ["storybook-field-states", "storybook-narrow-reflow", "storybook-foundation-keyboard"]
+  "card": {
+    "contractId": "DS-DSP-002",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-dsp-002-card",
+    "source": "apps/web/src/components/ui/card.tsx",
+    "storyFile": "apps/web/src/components/ui/card.stories.tsx",
+    "evidence": [
+      "card-hierarchy"
+    ]
   },
-  "statePanel": {
-    "contractId": "DS-PAT-005",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-005-state-panel",
-    "source": "apps/web/src/components/patterns/state-panel.tsx",
-    "storyFile": "apps/web/src/components/patterns/state-panel.stories.tsx",
-    "evidence": ["storybook-state-panel-states", "storybook-narrow-reflow"]
+  "avatar": {
+    "contractId": "DS-DSP-003",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-dsp-003-avatar",
+    "source": "apps/web/src/components/ui/avatar.tsx",
+    "storyFile": "apps/web/src/components/ui/avatar.stories.tsx",
+    "evidence": [
+      "avatar-fallback"
+    ]
   },
   "table": {
     "contractId": "DS-DSP-004",
@@ -37,7 +46,239 @@
     "specRef": "spec/product/design-system/atoms.md#ds-dsp-004-table",
     "source": "apps/web/src/components/ui/table.tsx",
     "storyFile": "apps/web/src/components/ui/table.stories.tsx",
-    "evidence": ["storybook-table-comparison", "storybook-table-narrow"]
+    "evidence": [
+      "storybook-table-comparison",
+      "storybook-table-narrow"
+    ]
+  },
+  "separator": {
+    "contractId": "DS-DSP-005",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-dsp-005-separator",
+    "source": "apps/web/src/components/ui/separator.tsx",
+    "storyFile": "apps/web/src/components/ui/separator.stories.tsx",
+    "evidence": [
+      "separator-orientation"
+    ]
+  },
+  "alert": {
+    "contractId": "DS-FBK-001",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-fbk-001-alert",
+    "source": "apps/web/src/components/ui/alert.tsx",
+    "storyFile": "apps/web/src/components/ui/alert.stories.tsx",
+    "evidence": [
+      "alert-semantics",
+      "alert-announcement"
+    ]
+  },
+  "progress": {
+    "contractId": "DS-FBK-002",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-fbk-002-progress",
+    "source": "apps/web/src/components/ui/progress.tsx",
+    "storyFile": "apps/web/src/components/ui/progress.stories.tsx",
+    "evidence": [
+      "progress-values"
+    ]
+  },
+  "skeleton": {
+    "contractId": "DS-FBK-003",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-fbk-003-skeleton",
+    "source": "apps/web/src/components/ui/skeleton.tsx",
+    "storyFile": "apps/web/src/components/ui/skeleton.stories.tsx",
+    "evidence": [
+      "skeleton-geometry"
+    ]
+  },
+  "input": {
+    "contractId": "DS-FRM-001",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-frm-001-input",
+    "source": "apps/web/src/components/ui/input.tsx",
+    "storyFile": "apps/web/src/components/ui/input.stories.tsx",
+    "evidence": [
+      "input-states",
+      "input-keyboard"
+    ]
+  },
+  "textarea": {
+    "contractId": "DS-FRM-002",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-frm-002-textarea",
+    "source": "apps/web/src/components/ui/textarea.tsx",
+    "storyFile": "apps/web/src/components/ui/textarea.stories.tsx",
+    "evidence": [
+      "textarea-states",
+      "textarea-content-stress"
+    ]
+  },
+  "label": {
+    "contractId": "DS-FRM-003",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-frm-003-label",
+    "source": "apps/web/src/components/ui/label.tsx",
+    "storyFile": "apps/web/src/components/ui/label.stories.tsx",
+    "evidence": [
+      "label-association"
+    ]
+  },
+  "checkbox": {
+    "contractId": "DS-FRM-004",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-frm-004-checkbox",
+    "source": "apps/web/src/components/ui/checkbox.tsx",
+    "storyFile": "apps/web/src/components/ui/checkbox.stories.tsx",
+    "evidence": [
+      "checkbox-states",
+      "checkbox-keyboard"
+    ]
+  },
+  "radioGroup": {
+    "contractId": "DS-FRM-005",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-frm-005-radio-group",
+    "source": "apps/web/src/components/ui/radio-group.tsx",
+    "storyFile": "apps/web/src/components/ui/radio-group.stories.tsx",
+    "evidence": [
+      "radio-group-states",
+      "radio-group-keyboard"
+    ]
+  },
+  "switchControl": {
+    "contractId": "DS-FRM-006",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-frm-006-switch",
+    "source": "apps/web/src/components/ui/switch.tsx",
+    "storyFile": "apps/web/src/components/ui/switch.stories.tsx",
+    "evidence": [
+      "switch-states",
+      "switch-keyboard"
+    ]
+  },
+  "select": {
+    "contractId": "DS-FRM-007",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-frm-007-select",
+    "source": "apps/web/src/components/ui/select.tsx",
+    "storyFile": "apps/web/src/components/ui/select.stories.tsx",
+    "evidence": [
+      "select-states",
+      "select-keyboard"
+    ]
+  },
+  "tabs": {
+    "contractId": "DS-NAV-001",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-nav-001-tabs",
+    "source": "apps/web/src/components/ui/tabs.tsx",
+    "storyFile": "apps/web/src/components/ui/tabs.stories.tsx",
+    "evidence": [
+      "tabs-states",
+      "tabs-keyboard"
+    ]
+  },
+  "dialog": {
+    "contractId": "DS-OVR-001",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-ovr-001-dialog",
+    "source": "apps/web/src/components/ui/dialog.tsx",
+    "storyFile": "apps/web/src/components/ui/dialog.stories.tsx",
+    "evidence": [
+      "dialog-layout",
+      "dialog-keyboard"
+    ]
+  },
+  "dropdownMenu": {
+    "contractId": "DS-OVR-002",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-ovr-002-dropdown-menu",
+    "source": "apps/web/src/components/ui/dropdown-menu.tsx",
+    "storyFile": "apps/web/src/components/ui/dropdown-menu.stories.tsx",
+    "evidence": [
+      "menu-states",
+      "menu-keyboard"
+    ]
+  },
+  "tooltip": {
+    "contractId": "DS-OVR-003",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-ovr-003-tooltip",
+    "source": "apps/web/src/components/ui/tooltip.tsx",
+    "storyFile": "apps/web/src/components/ui/tooltip.stories.tsx",
+    "evidence": [
+      "tooltip-keyboard"
+    ]
+  },
+  "field": {
+    "contractId": "DS-PAT-001",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-001-field-and-field-group",
+    "source": "apps/web/src/components/patterns/form-field.tsx",
+    "storyFile": "apps/web/src/components/patterns/form-field.stories.tsx",
+    "evidence": [
+      "storybook-field-states",
+      "storybook-narrow-reflow",
+      "storybook-foundation-keyboard"
+    ]
+  },
+  "filterBar": {
+    "contractId": "DS-PAT-002",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-002-filter-bar-and-filter-field",
+    "source": "apps/web/src/components/patterns/filter-bar.tsx",
+    "storyFile": "apps/web/src/components/patterns/filter-bar.stories.tsx",
+    "evidence": [
+      "filter-bar-states",
+      "filter-bar-narrow",
+      "filter-bar-keyboard"
+    ]
+  },
+  "listView": {
+    "contractId": "DS-PAT-003",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-003-list-view-and-list-view-row",
+    "source": "apps/web/src/components/patterns/list-view.tsx",
+    "storyFile": "apps/web/src/components/patterns/list-view.stories.tsx",
+    "evidence": [
+      "list-view-selection",
+      "list-view-density",
+      "list-view-keyboard"
+    ]
+  },
+  "contextBanner": {
+    "contractId": "DS-PAT-004",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-004-context-banner",
+    "source": "apps/web/src/components/patterns/context-banner.tsx",
+    "storyFile": "apps/web/src/components/patterns/context-banner.stories.tsx",
+    "evidence": [
+      "context-banner-states",
+      "context-banner-narrow"
+    ]
+  },
+  "statePanel": {
+    "contractId": "DS-PAT-005",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-005-state-panel",
+    "source": "apps/web/src/components/patterns/state-panel.tsx",
+    "storyFile": "apps/web/src/components/patterns/state-panel.stories.tsx",
+    "evidence": [
+      "storybook-state-panel-states",
+      "storybook-narrow-reflow"
+    ]
+  },
+  "summaryList": {
+    "contractId": "DS-PAT-006",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-006-summary-list",
+    "source": "apps/web/src/components/patterns/summary-list.tsx",
+    "storyFile": "apps/web/src/components/patterns/summary-list.stories.tsx",
+    "evidence": [
+      "summary-list-density",
+      "summary-list-content-stress"
+    ]
   },
   "dataTable": {
     "contractId": "DS-PAT-007",
@@ -45,7 +286,12 @@
     "specRef": "spec/product/design-system/molecules.md#ds-pat-007-data-table",
     "source": "apps/web/src/components/patterns/data-table.tsx",
     "storyFile": "apps/web/src/components/patterns/data-table.stories.tsx",
-    "evidence": ["storybook-data-table", "storybook-data-table-hierarchy", "storybook-data-table-narrow", "storybook-data-table-controls"]
+    "evidence": [
+      "storybook-data-table",
+      "storybook-data-table-hierarchy",
+      "storybook-data-table-narrow",
+      "storybook-data-table-controls"
+    ]
   },
   "comboboxField": {
     "contractId": "DS-PAT-008",
@@ -53,7 +299,12 @@
     "specRef": "spec/product/design-system/molecules.md#ds-pat-008-combobox-field",
     "source": "apps/web/src/components/patterns/combobox-field.tsx",
     "storyFile": "apps/web/src/components/patterns/combobox-field.stories.tsx",
-    "evidence": ["storybook-combobox-field", "storybook-combobox-field-states", "storybook-combobox-field-narrow", "storybook-combobox-field-keyboard"]
+    "evidence": [
+      "storybook-combobox-field",
+      "storybook-combobox-field-states",
+      "storybook-combobox-field-narrow",
+      "storybook-combobox-field-keyboard"
+    ]
   },
   "dateField": {
     "contractId": "DS-PAT-009",
@@ -61,7 +312,12 @@
     "specRef": "spec/product/design-system/molecules.md#ds-pat-009-australian-date-field",
     "source": "apps/web/src/components/patterns/date-field.tsx",
     "storyFile": "apps/web/src/components/patterns/date-field.stories.tsx",
-    "evidence": ["storybook-australian-date-field", "storybook-australian-date-field-states", "storybook-australian-date-field-narrow", "storybook-australian-date-field-keyboard"]
+    "evidence": [
+      "storybook-australian-date-field",
+      "storybook-australian-date-field-states",
+      "storybook-australian-date-field-narrow",
+      "storybook-australian-date-field-keyboard"
+    ]
   },
   "dateRangeField": {
     "contractId": "DS-PAT-010",
@@ -69,7 +325,12 @@
     "specRef": "spec/product/design-system/molecules.md#ds-pat-010-australian-date-range-field",
     "source": "apps/web/src/components/patterns/date-range-field.tsx",
     "storyFile": "apps/web/src/components/patterns/date-range-field.stories.tsx",
-    "evidence": ["storybook-australian-date-range", "storybook-australian-date-range-states", "storybook-australian-date-range-narrow", "storybook-australian-date-range-keyboard"]
+    "evidence": [
+      "storybook-australian-date-range",
+      "storybook-australian-date-range-states",
+      "storybook-australian-date-range-narrow",
+      "storybook-australian-date-range-keyboard"
+    ]
   },
   "timeField": {
     "contractId": "DS-PAT-011",
@@ -77,6 +338,24 @@
     "specRef": "spec/product/design-system/molecules.md#ds-pat-011-local-time-field",
     "source": "apps/web/src/components/patterns/time-field.tsx",
     "storyFile": "apps/web/src/components/patterns/time-field.stories.tsx",
-    "evidence": ["storybook-local-time-field", "storybook-local-time-field-states", "storybook-local-time-field-narrow", "storybook-local-time-field-keyboard"]
+    "evidence": [
+      "storybook-local-time-field",
+      "storybook-local-time-field-states",
+      "storybook-local-time-field-narrow",
+      "storybook-local-time-field-keyboard"
+    ]
+  },
+  "fileInputField": {
+    "contractId": "DS-PAT-012",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-012-file-input-field",
+    "source": "apps/web/src/components/patterns/file-input-field.tsx",
+    "storyFile": "apps/web/src/components/patterns/file-input-field.stories.tsx",
+    "evidence": [
+      "storybook-file-input-field",
+      "storybook-file-input-field-states",
+      "storybook-file-input-field-narrow",
+      "storybook-file-input-field-keyboard"
+    ]
   }
 }

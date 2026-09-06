@@ -108,6 +108,13 @@ for (const absoluteStoryPath of componentStories) {
   if (!registered) fail(`${relativeStoryPath} has no registered catalogue contract`);
 }
 
+// Parity is reached, so a catalogue entry without a story is now a failure rather than a countdown.
+// A new atom or molecule arrives with its story, tests and evidence or it does not arrive.
+const unregistered = [...catalogues.keys()].filter((id) => !registeredIds.has(id));
+if (unregistered.length > 0) {
+  fail(`${unregistered.join(', ')} ${unregistered.length === 1 ? 'has' : 'have'} no registered story`);
+}
+
 console.log(
-  `Design-system traceability: ${registeredIds.size} stories validated; ${catalogues.size - registeredIds.size} maintained catalogue entries remain for later parity slices.`,
+  `Design-system traceability: ${registeredIds.size} catalogue entries validated; every maintained atom and molecule has a registered story.`,
 );
