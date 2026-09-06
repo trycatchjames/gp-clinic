@@ -231,6 +231,37 @@ export const storybookAtomStates = {
       'Cancelling removes the reserved time from Dr Duong’s book at Northside Demo Clinic and releases it for online booking. Any linked care-plan review, recall and reminder remains scheduled and must be cancelled separately. The cancellation, the staff member who performed it and the reason recorded below are written to the appointment history and cannot be removed.',
   },
 
+  sheet: {
+    trigger: 'Open appointment',
+    title: 'Marlee Tran · 11:15 am',
+    description: 'Standard consultation with Dr Aroha Duong at Northside Demo Clinic.',
+    facts: [
+      { term: 'Status', detail: 'Arrived 11:07 am · waiting 8 minutes' },
+      { term: 'Date and time', detail: 'Friday 4 September 2026, 11:15 am AEST' },
+      { term: 'Duration', detail: '15 minutes' },
+      { term: 'Practitioner', detail: 'Dr Aroha Duong' },
+      { term: 'Location', detail: 'Northside Demo Clinic · Room 3' },
+      { term: 'Mode', detail: 'In person' },
+      { term: 'Identity check', detail: 'Three identifiers confirmed at reception' },
+      { term: 'Reception note', detail: 'Has a hearing aid; speak facing the patient.' },
+      { term: 'Booked', detail: '18 August 2026 by Jules Ferreira-Whitcombe' },
+      { term: 'Last changed', detail: '2 September 2026 — moved from 10:45 am' },
+    ],
+    primaryAction: 'Start consultation',
+    secondaryAction: 'Close',
+    longHistory: [
+      'Booked 18 August 2026, 9:12 am by Jules Ferreira-Whitcombe as a standard consultation at 10:45 am.',
+      'Moved 2 September 2026, 3:44 pm to 11:15 am because Dr Duong’s morning session was shortened by a home visit.',
+      'A reminder was sent 3 September 2026, 8:00 am to the mobile number recorded on the patient record.',
+      'Arrived 4 September 2026, 11:07 am and marked waiting by reception.',
+      'A recall for a cervical screening reminder is linked to this patient. The reason for the recall is not shown here.',
+      'A second booking exists for 18 September 2026, 2:30 pm with Dr Rowena Aspinall.',
+      'The account for this appointment has not been finalised. No item numbers have been recorded yet.',
+      'This appointment has not been billed and no claim has been sent to any external service.',
+    ],
+    longTitle:
+      'Hamish Okonkwo-Delacroix · 2:45 pm · extended consultation and chronic disease management plan review',
+  },
   dropdownMenu: {
     trigger: 'Record actions',
     groupLabel: 'This appointment',

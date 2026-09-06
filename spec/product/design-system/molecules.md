@@ -21,6 +21,7 @@ interaction coordination. Global state, responsive, and content rules apply to e
 | `DS-PAT-011` | Local Time Field | forms | `apps/web/src/components/patterns/time-field.tsx` |
 | `DS-PAT-012` | File Input Field | forms | `apps/web/src/components/patterns/file-input-field.tsx` |
 | `DS-PAT-013` | Consequence Confirmation | operation states | `apps/web/src/components/patterns/consequence-confirmation.tsx` |
+| `DS-PAT-014` | Toast Region | feedback | `apps/web/src/components/patterns/toast-region.tsx` |
 
 ## Forms
 
@@ -413,6 +414,41 @@ interaction coordination. Global state, responsive, and content rules apply to e
 - **Excludes:** Deciding that an action is destructive, consequence and recovery wording, permission
   and elevation checks, reauthentication, proving that a second authorised person acknowledged,
   mutation, idempotency, retry safety, and audit.
+
+### DS-PAT-014 Toast Region
+
+- **Need:** Report the outcome of a completed or failed operation where the operator is looking,
+  and announce it to assistive technology, without moving focus away from the task in hand.
+- **Owner:** `apps/web/src/components/patterns/toast-region.tsx`.
+- **Semantics:** A labelled landmark holding an ordered list of outcome messages, paired with two
+  live regions that exist for the life of the component. Routine confirmation and status use the
+  polite region; a failed operation uses the assertive one. The visible stack is NOT itself a live
+  region, so a message is announced once and its controls are not read as part of it.
+- **Public contract:** Requires the controlled list of messages and a dismissal callback. Each
+  message requires a stable identity, a tone, and a title naming the object and the action, and
+  accepts a description, a single recovery or undo action, and an explicit announcement string. The
+  caller owns every word, the operation, and when a message is removed.
+- **States:** Success, routine status, and failure. Success wording is only correct after a durable
+  commit. A failure states what did not happen and what remains unchanged, and offers the safe next
+  step as a control. Re-supplying an unchanged message under its existing identity MUST NOT announce
+  it again, so a background refresh cannot repeat itself.
+- **Keyboard and focus:** Arrival never moves focus. Every message exposes a dismissal control named
+  with its title, and any recovery action is reachable in reading order before it. The region owns
+  no timer: a message stays until the caller removes it or the operator dismisses it, so an outcome
+  cannot expire before it has been read.
+- **Responsive/content:** Messages stack from the bottom edge on narrow screens and from the bottom
+  right otherwise, and are bounded in width. A long partial-failure description wraps in full rather
+  than truncating, because a hidden clause can turn a partial result into an apparent success. Tone
+  is carried by an icon and a leading word as well as by colour.
+- **Required stories:** `Default`, `Tones`, `FailureWithRecovery`, `WithUndo`, `ContentStress`,
+  `Narrow`, `Announcement`, and `KeyboardFlow`.
+- **Evidence:** `toast-tones`, `toast-failure`, `toast-content-stress`, `toast-narrow`,
+  `toast-announcement`, and `toast-keyboard`.
+- **Used by:** [Calendar day](../../capabilities/calendar/spec.md#screen-contract-calendar-day) and
+  [consultation workspace](../../capabilities/consultations/spec.md#screen-contract-consultation-workspace).
+- **Excludes:** Deciding that an operation succeeded, retry and idempotency, wording, how long a
+  message should remain, persistent or reviewable notification history, and any message that carries
+  required instructions or a decision the operator must not miss.
 
 ## Superseded or overlapping foundations
 

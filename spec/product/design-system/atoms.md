@@ -28,6 +28,7 @@ native attributes required for composition but MUST NOT expose raw visual-token 
 | `DS-DSP-005` | Separator | display | `apps/web/src/components/ui/separator.tsx` |
 | `DS-FBK-003` | Skeleton | feedback | `apps/web/src/components/ui/skeleton.tsx` |
 | `DS-OVR-003` | Tooltip | overlay | `apps/web/src/components/ui/tooltip.tsx` |
+| `DS-OVR-004` | Sheet | overlay | `apps/web/src/components/ui/sheet.tsx` |
 
 ## Actions
 
@@ -415,3 +416,31 @@ native attributes required for composition but MUST NOT expose raw visual-token 
 - **Used by:** May supplement help in accepted screen contracts but MUST NOT carry required capability
   behaviour on its own.
 - **Excludes:** Interactive popovers, validation messages, required instructions, and protected content.
+
+### DS-OVR-004 Sheet
+
+- **Need:** Give a record's detail and its actions a modal working region that is taller and longer
+  lived than a bounded decision, and that stays usable where a side region does not fit.
+- **Owner:** `apps/web/src/components/ui/sheet.tsx`.
+- **Semantics:** Modal panel anchored to the right or bottom edge, with trigger, overlay, labelled
+  title, description, a scrolling body, close, header, and footer composition. It carries the same
+  modal contract as the Dialog atom and is chosen for extent, not for importance.
+- **Public contract:** Open/closed control, anchored side, focus containment, a named close
+  affordance, and a header and footer that do not scroll with the body.
+- **States:** Opening/closing motion honours reduced motion. A body long enough to scroll MUST NOT
+  displace the title or the final actions. Closing MUST NOT imply confirmation or a completed save.
+- **Keyboard and focus:** Focus enters meaningfully, remains trapped while modal, Escape closes only
+  when safe, and returns to the trigger on close. The scrolling body is reachable by keyboard so
+  overflowed content can be read without a pointer.
+- **Responsive/content:** The right anchor becomes full width below the small breakpoint, and the
+  bottom anchor is bounded so the region behind it stays visible. A long title wraps rather than
+  truncating, because a clipped patient name is a wrong-record risk.
+- **Required stories:** `Default`, `Open`, `LongContent`, `LongTitle`, `BottomEdge`, `Narrow`,
+  `ReducedMotion`, and `KeyboardFlow`.
+- **Evidence:** `sheet-layout`, `sheet-narrow`, and `sheet-keyboard`.
+- **Used by:** [Appointment panel](../../capabilities/calendar/spec.md#screen-contract-appointment-panel)
+  and [calendar day](../../capabilities/calendar/spec.md#screen-contract-calendar-day).
+- **Excludes:** A persistently docked non-modal side region, which is a screen layout decision;
+  choosing when detail warrants an overlay; permission, mutation, dirty-state, and unsaved-work
+  policy; and the content of the detail itself.
+

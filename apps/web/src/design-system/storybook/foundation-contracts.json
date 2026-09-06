@@ -212,6 +212,18 @@
       "tooltip-keyboard"
     ]
   },
+  "sheet": {
+    "contractId": "DS-OVR-004",
+    "layer": "atom",
+    "specRef": "spec/product/design-system/atoms.md#ds-ovr-004-sheet",
+    "source": "apps/web/src/components/ui/sheet.tsx",
+    "storyFile": "apps/web/src/components/ui/sheet.stories.tsx",
+    "evidence": [
+      "sheet-layout",
+      "sheet-narrow",
+      "sheet-keyboard"
+    ]
+  },
   "field": {
     "contractId": "DS-PAT-001",
     "layer": "molecule",
@@ -372,6 +384,21 @@
       "confirmation-failure",
       "confirmation-narrow",
       "confirmation-keyboard"
+    ]
+  },
+  "toastRegion": {
+    "contractId": "DS-PAT-014",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-014-toast-region",
+    "source": "apps/web/src/components/patterns/toast-region.tsx",
+    "storyFile": "apps/web/src/components/patterns/toast-region.stories.tsx",
+    "evidence": [
+      "toast-tones",
+      "toast-failure",
+      "toast-content-stress",
+      "toast-narrow",
+      "toast-announcement",
+      "toast-keyboard"
     ]
   }
 }
