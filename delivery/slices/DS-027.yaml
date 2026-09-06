@@ -1,0 +1,52 @@
+id: DS-027
+title: Enter a fee, a quantity or a measurement without the control changing it
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Biller, receptionist or clinician entering a fee, an adjustment, a quantity or a measurement
+  goal: type a number and have exactly that number reach the record, or nothing at all
+  benefit: no amount is silently rounded, rewritten or read as a different number
+spec_refs:
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/capabilities/billing/spec.md
+  - spec/capabilities/observations/spec.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - The accepted value is a whole number of the smallest unit the field allows, never a float
+    - Text that does not describe a value yields no value and is preserved exactly as typed
+    - More precision than the unit carries yields no value rather than a silent rounding
+    - A negative value yields no value unless the caller permits one
+    - Grouping separators are accepted on entry and canonical text is written ungrouped
+    - Canonical text is written only on leaving a field that already parses, and never mid-edit
+    - Arrow keys and the scroll wheel do not change the value, because the control is not a spinner
+    - A visible unit is also stated to assistive technology rather than left to the adornment
+    - The entry is padded clear of its unit so a right-aligned amount never runs into it
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - numeric-field-states
+    - numeric-field-narrow
+  flows:
+    - numeric-field-keyboard
+  fixtures:
+    - storybook-molecule-states
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-026
+out_of_scope:
+  - Fee schedule resolution, precedence and override permission
+  - Every calculation, including totals, tax, adjustments and balances
+  - The meaning of a negative value
+  - Plausibility, threshold and limit rules, which stay with the capability
+  - Unit conversion and any currency other than Australian dollars
+  - Adopting the field in a capability route

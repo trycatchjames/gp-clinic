@@ -491,5 +491,17 @@
       "itemised-narrow",
       "itemised-keyboard"
     ]
+  },
+  "numericField": {
+    "contractId": "DS-PAT-022",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-022-numeric-field",
+    "source": "apps/web/src/components/patterns/numeric-field.tsx",
+    "storyFile": "apps/web/src/components/patterns/numeric-field.stories.tsx",
+    "evidence": [
+      "numeric-field-states",
+      "numeric-field-narrow",
+      "numeric-field-keyboard"
+    ]
   }
 }

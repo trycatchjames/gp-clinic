@@ -541,4 +541,37 @@ export const storybookMoleculeStates = {
       'Hamish Okonkwo-Delacroix · urine culture',
     ],
   },
+
+  numericField: {
+    fee: {
+      label: 'Fee',
+      hint: 'Enter dollars and cents. The scheduled fee for this item is $82.30.',
+      text: '82.30',
+    },
+    quantity: {
+      label: 'Services',
+      hint: 'Whole services only.',
+      text: '2',
+    },
+    weight: {
+      label: 'Weight',
+      hint: 'One decimal place.',
+      text: '74.6',
+    },
+    adjustment: {
+      label: 'Adjustment',
+      hint: 'A reduction is negative. A charge is positive.',
+      text: '-15.00',
+    },
+    invalidText: '8o.30',
+    invalidError: 'Enter an amount in dollars and cents, such as 82.30.',
+    overPreciseText: '82.305',
+    overPreciseError:
+      'An amount is recorded to the cent. Round to two decimal places before continuing.',
+    negativeRefusedError: 'A fee cannot be negative. Record a reduction as an adjustment instead.',
+    longLabel:
+      'Fee for this item after the informed financial consent variance recorded at the time of booking',
+    longHint:
+      'The scheduled fee for item 44 at Wongaburra Community Health and Allied Services is $194.40. An override above the scheduled fee needs a reason and is audited.',
+  },
 } as const;
