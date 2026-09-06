@@ -29,6 +29,7 @@ interaction coordination. Global state, responsive, and content rules apply to e
 | `DS-PAT-019` | Action Bar | operation states | `apps/web/src/components/patterns/action-bar.tsx` |
 | `DS-PAT-020` | Bulk Selection | lists | `apps/web/src/components/patterns/bulk-selection.tsx` |
 | `DS-PAT-021` | Itemised Outcome | operation states | `apps/web/src/components/patterns/itemised-outcome.tsx` |
+| `DS-PAT-022` | Numeric Field | forms | `apps/web/src/components/patterns/numeric-field.tsx` |
 
 ## Forms
 
@@ -218,6 +219,46 @@ interaction coordination. Global state, responsive, and content rules apply to e
 - **Excludes:** File acceptance/size authority, deduplication, uploading/cancellation, malware or
   quality checks, quarantine, safe rendering, patient matching, classification, filing, review,
   persistence, and permissions.
+
+### DS-PAT-022 Numeric Field
+
+- **Need:** Let staff enter a fee, an adjustment, a quantity or a measurement without the control
+  silently changing, rounding or discarding the number they typed.
+- **Owner:** `apps/web/src/components/patterns/numeric-field.tsx`.
+- **Semantics:** A visible `Field` label names a text input carrying `inputmode="decimal"` rather
+  than `type="number"`, whose spinner, scroll-wheel mutation and silent character rejection are all
+  unsafe beside money and clinical measurements. A unit is shown as an adornment inside the control
+  and is also stated to assistive technology, never left to the placeholder. Figures are tabular and
+  end-aligned so amounts in a column compare.
+- **Public contract:** Receives the raw text, the accepted value and a callback for each. The
+  accepted value is a whole number of the smallest unit the field allows — cents at two decimal
+  places, tenths at one, whole units at none — because money and measurements must not pass through
+  binary floating point. It is `null` whenever the text does not describe such a value. A visible
+  unit requires its spoken form. Accepts whether a negative value is permitted, and the usual hint,
+  error, required, disabled and read-only state. Canonical text is written only when the operator
+  leaves a field that already parses, never while they are typing. The caller owns every limit, all
+  arithmetic, and what any value means.
+- **States:** Empty, in progress, accepted, unparseable, and more precise than the unit allows. Text
+  that does not describe a value yields no value and is preserved exactly as typed, so a mistyped fee
+  is never quietly read as a different amount and an original entry survives for the record. A
+  negative value yields no value unless the caller permits one, because a credit and a charge are
+  different facts. Read-only and disabled stay distinct.
+- **Keyboard and focus:** Native text-input behaviour. Arrow keys and the scroll wheel MUST NOT
+  change the value, so an amount cannot be altered by a pointer passing over it or by a keystroke
+  meant to move the caret. Leaving a parseable field rewrites the text to its canonical form without
+  moving focus; leaving an unparseable one changes nothing.
+- **Responsive/content:** The unit stays visible beside the entry at every width and at 200% reflow.
+  Grouped input is accepted and canonical text is written ungrouped, because a separator inserted
+  mid-edit moves the caret under the operator. Long labels, hints and errors wrap.
+- **Required stories:** `Currency`, `Quantity`, `Measurement`, `Negative`, `Invalid`,
+  `OverPrecision`, `Disabled`, `ContentStress`, `Narrow`, and `KeyboardFlow`.
+- **Evidence:** `numeric-field-states`, `numeric-field-narrow`, and `numeric-field-keyboard`.
+- **Used by:** [Billing checkout](../../capabilities/billing/spec.md#screen-contract-billing-checkout),
+  [patient account](../../capabilities/billing/spec.md#screen-contract-patient-account), and
+  [observation entry](../../capabilities/observations/spec.md#observation-entry-and-trend).
+- **Excludes:** Fee schedule resolution and precedence, every calculation including totals, tax,
+  adjustments and balances, the meaning of a negative value, permission for an override, plausibility
+  and threshold rules, unit conversion, and any currency other than Australian dollars.
 
 ## Search and lists
 
