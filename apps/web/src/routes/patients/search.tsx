@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { CircleAlert, Search, SearchX } from 'lucide-react';
+import { CircleAlert, Search } from 'lucide-react';
 import { usePracticeId } from '@/lib/auth';
 import { usePatientSearch } from '@/lib/queries';
 import { describeError } from '@/lib/api';
 import { PageHeader } from '@/components/page-header';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
-import { EmptyState } from '@/components/empty-state';
+import { StatePanel } from '@/components/patterns/state-panel';
 import { FilterBar, FilterField } from '@/components/patterns/filter-bar';
 import { ListView, ListViewRow } from '@/components/patterns/list-view';
 import { Input } from '@/components/ui/input';
@@ -124,9 +124,9 @@ export function PatientSearchRoute() {
         )}
 
         {hasQuery && search.isSuccess && results.length === 0 && (
-          <EmptyState
-            density="compact"
-            icon={<SearchX className="size-5" aria-hidden="true" />}
+          <StatePanel
+            kind="empty"
+            compact
             title="No matches"
             description="Try another name, date of birth, address or phone before registering."
           />

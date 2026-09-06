@@ -1,4 +1,4 @@
-import { MapPin, Clock, PhoneCall, Accessibility } from 'lucide-react';
+import { Clock, PhoneCall, Accessibility } from 'lucide-react';
 import { AFTER_HOURS_ARRANGEMENT_LABELS, DAYS_OF_WEEK, type AfterHoursArrangement } from '@gp/contracts';
 import type { LocationDto } from '@gp/sdk';
 import { usePracticeId } from '@/lib/auth';
@@ -7,7 +7,7 @@ import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { EmptyState } from '@/components/empty-state';
+import { StatePanel } from '@/components/patterns/state-panel';
 import { Separator } from '@/components/ui/separator';
 import { formatPhoneNumber } from '@/lib/formatters';
 
@@ -25,8 +25,8 @@ export function LocationsSettingsRoute() {
       />
 
       {locations.data?.length === 0 ? (
-        <EmptyState
-          icon={<MapPin className="size-8" />}
+        <StatePanel
+          kind="empty"
           title="No locations yet"
           description="Add your first site in the setup wizard."
         />

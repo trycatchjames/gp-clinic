@@ -596,7 +596,9 @@ interaction coordination. Global state, responsive, and content rules apply to e
 - **Semantics:** Named section/region; loading carries busy/live semantics and failure carries alert
   semantics when newly inserted. Iconography supplements the state title and description.
 - **Public contract:** Requires kind and title; accepts description, details, action, and compact
-  density. Capability copy names scope, failed dependency, freshness, or recovery.
+  density. Capability copy names scope, failed dependency, freshness, or recovery. `details` carries
+  evidence the reader needs, such as what was searched for; a caller MUST NOT pass decoration that
+  competes with the mark the state already supplies.
 - **States:** Each supported kind has distinct structure, icon, and semantic-token treatment. Empty
   never substitutes for failure/unavailable; restricted never leaks protected content; offline
   labels cached content and unsafe writes separately.
@@ -877,7 +879,14 @@ interaction coordination. Global state, responsive, and content rules apply to e
 
 ## Superseded or overlapping foundations
 
-`apps/web/src/components/empty-state.tsx` is not a separate maintained contract while `StatePanel`
-owns the reusable empty-state semantics. Its consumers must be assessed during implementation:
-either migrate them without behaviour loss or document a distinct reusable need before retaining a
-second foundation.
+`apps/web/src/components/empty-state.tsx` was assessed and removed. It forwarded to `StatePanel` and
+passed a second decorative icon into the `details` slot, so an empty outcome rendered two icons: the
+one the state chose and the one the caller supplied. No consumer needed anything `StatePanel`
+did not already own, so there was no distinct reusable need to document. Its two consumers — patient
+search and location settings — now render `DS-PAT-005 State Panel` with `kind="empty"` directly,
+keeping their title, description and density. An empty outcome carries exactly one icon, and it is
+the one the state means.
+
+A caller MUST NOT reintroduce a second empty-state foundation. `details` carries evidence a reader
+needs, such as what was searched for; it is not a slot for decoration that competes with the state's
+own mark.
