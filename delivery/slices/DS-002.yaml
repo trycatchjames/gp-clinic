@@ -24,9 +24,6 @@ acceptance:
 evidence:
   screenshots:
     - storybook-theme-foundations
-    - storybook-button-states
-    - storybook-field-states
-    - storybook-state-panel-states
     - storybook-narrow-reflow
   flows:
     - storybook-foundation-keyboard
@@ -45,3 +42,4 @@ out_of_scope:
   - API-connected capability organisms, templates or pages
   - External Storybook preview hosting
   - Removal of the existing foundations route before full gallery parity
+  - Per-contract named evidence, which each catalogue entry now owns under DS-017

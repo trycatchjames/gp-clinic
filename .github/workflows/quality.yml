@@ -10,6 +10,7 @@ on:
 permissions:
   contents: read
   statuses: write
+  pull-requests: write
 
 concurrency:
   group: quality-${{ github.event.pull_request.number || github.event.client_payload.pull_number || github.ref }}
@@ -48,6 +49,28 @@ jobs:
       # branch that actually has stories, even though every story passes.
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm gate
+      # `pnpm gate` builds Storybook into test-results/storybook-static. Publishing that build is
+      # what makes the gallery reviewable by the owner without hosting a preview service. A branch
+      # that fails before the build step has no candidate, which is the honest outcome.
+      - name: Upload the candidate Storybook build
+        if: always()
+        id: storybook-candidate
+        uses: actions/upload-artifact@v7
+        with:
+          name: storybook-candidate-${{ needs.context.outputs.sha }}
+          path: test-results/storybook-static
+          if-no-files-found: ignore
+          retention-days: 30
+      - name: Link the candidate Storybook build on the pull request
+        if: always() && github.event_name == 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          STORYBOOK_ARTIFACT_URL: ${{ steps.storybook-candidate.outputs.artifact-url }}
+          STORYBOOK_ARTIFACT_NAME: storybook-candidate-${{ needs.context.outputs.sha }}
+          PULL_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ needs.context.outputs.sha }}
+        run: node tools/pr-pipeline/src/publish-storybook-candidate.mjs "$PULL_NUMBER" "$HEAD_SHA"
 
   api-integration:
     needs: context

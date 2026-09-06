@@ -1,0 +1,49 @@
+id: DS-015
+title: Confirm a destructive or corrective action against its full consequence
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Practice staff member
+  goal: see exactly what an irreversible action affects, keeps and changes before committing to it
+  benefit: a cancellation, amendment or merge is a deliberate decision rather than a dismissed prompt
+spec_refs:
+  - spec/product/design-system/molecules.md
+  - spec/product/design-system/states-and-interaction.md
+  - spec/product/design-system/responsive-and-content.md
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/cross-cutting/clinical-safety/destructive-actions.md
+  - spec/cross-cutting/clinical-safety/principles.md
+acceptance:
+  scenarios: []
+  criteria:
+    - The target, context, consequence, retained history, downstream effects and safer alternative each have a named slot
+    - Opening the dialog never places focus on the consequential action
+    - A required reason or acknowledgement blocks the action and names the unmet precondition at the point of need
+    - Dismissal by Escape, overlay, close or cancel never confirms the action
+    - Every dismissal path is refused while the mutation is in flight
+    - A failed submission keeps the dialog, the entered reason and the acknowledgement recoverable and says what did not happen
+    - Named desktop and 360 pixel evidence is captured from the reviewed commit
+evidence:
+  screenshots:
+    - confirmation-disclosures
+    - confirmation-blocked
+    - confirmation-failure
+    - confirmation-narrow
+  flows:
+    - confirmation-keyboard
+  fixtures:
+    - storybook-molecule-states
+risk:
+  permissions: false
+  clinical_safety: true
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-003
+  - DS-004
+out_of_scope:
+  - Deciding that a capability action is destructive or corrective
+  - Consequence, recovery and safer-alternative wording
+  - Permission, elevation, reauthentication and proving a second authorised reviewer
+  - The mutation, its idempotency, retry safety and audit

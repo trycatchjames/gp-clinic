@@ -6,8 +6,9 @@
     "source": "apps/web/src/components/ui/button.tsx",
     "storyFile": "apps/web/src/components/ui/button.stories.tsx",
     "evidence": [
-      "storybook-button-states",
-      "storybook-foundation-keyboard"
+      "button-hierarchy",
+      "button-states",
+      "button-keyboard"
     ]
   },
   "badge": {
@@ -218,9 +219,9 @@
     "source": "apps/web/src/components/patterns/form-field.tsx",
     "storyFile": "apps/web/src/components/patterns/form-field.stories.tsx",
     "evidence": [
-      "storybook-field-states",
-      "storybook-narrow-reflow",
-      "storybook-foundation-keyboard"
+      "field-states",
+      "field-group-reflow",
+      "field-keyboard"
     ]
   },
   "filterBar": {
@@ -265,8 +266,9 @@
     "source": "apps/web/src/components/patterns/state-panel.tsx",
     "storyFile": "apps/web/src/components/patterns/state-panel.stories.tsx",
     "evidence": [
-      "storybook-state-panel-states",
-      "storybook-narrow-reflow"
+      "state-panel-kinds",
+      "state-panel-recovery",
+      "state-panel-narrow"
     ]
   },
   "summaryList": {
@@ -356,6 +358,20 @@
       "storybook-file-input-field-states",
       "storybook-file-input-field-narrow",
       "storybook-file-input-field-keyboard"
+    ]
+  },
+  "consequenceConfirmation": {
+    "contractId": "DS-PAT-013",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-013-consequence-confirmation",
+    "source": "apps/web/src/components/patterns/consequence-confirmation.tsx",
+    "storyFile": "apps/web/src/components/patterns/consequence-confirmation.stories.tsx",
+    "evidence": [
+      "confirmation-disclosures",
+      "confirmation-blocked",
+      "confirmation-failure",
+      "confirmation-narrow",
+      "confirmation-keyboard"
     ]
   }
 }

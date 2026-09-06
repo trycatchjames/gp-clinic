@@ -1,0 +1,34 @@
+id: DS-005
+title: Review the candidate Storybook build attached to a pull request
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Product owner
+  goal: open the gallery built from the exact commit under review without installing the repository
+  benefit: component approval is granted against the reviewed head rather than a local build that may differ from it
+spec_refs:
+  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/design-system/contributing.md
+acceptance:
+  scenarios: []
+  criteria:
+    - The deterministic gate publishes its Storybook build as an artifact named for the reviewed head
+    - The pull-request description links the candidate in its own marked section and replaces it on every head
+    - A head whose gate stopped before the Storybook build reports no candidate rather than linking a stale one
+    - A candidate URL that is not an https GitHub address is reported as unavailable rather than rendered as a link
+evidence:
+  screenshots: []
+  flows: []
+  fixtures: []
+risk:
+  permissions: false
+  clinical_safety: false
+  data_migration: false
+  domains: []
+depends_on:
+  - DS-002
+out_of_scope:
+  - External visual review or preview hosting services
+  - Publishing an approved gallery from main to a public URL
+  - Visual regression comparison between heads

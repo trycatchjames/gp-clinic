@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, fn, userEvent, within } from 'storybook/test';
+import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { foundationContracts, foundationParameters } from '@/design-system/storybook/define-foundation';
 import { storybookDateFieldStates } from '@/fixtures/storybook-date-field-states';
 import type { DateFieldProps } from './date-field';
@@ -198,7 +198,9 @@ export const KeyboardFlow: Story = {
     await expect(canvas.getByRole('button', { name: 'Sunday 9 May 2027' })).toHaveFocus();
     await userEvent.keyboard('{Enter}');
     await expect(input).toHaveValue('09/05/2027');
-    await expect(input).toHaveFocus();
+    // Radix returns focus to the trigger after the calendar has finished closing, so this is a
+    // state to wait for rather than one to sample the instant Enter is handled.
+    await waitFor(() => expect(input).toHaveFocus());
     await expect(canvas.queryByRole('dialog')).not.toBeInTheDocument();
   },
 };

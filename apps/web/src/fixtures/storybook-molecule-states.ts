@@ -228,4 +228,68 @@ export const storybookMoleculeStates = {
       },
     },
   },
+
+  confirmation: {
+    cancelAppointment: {
+      title: 'Cancel this appointment',
+      target: 'Tuesday 9 September 2026, 10:15 am — Standard consultation with Dr Rowena Aspinall',
+      context: 'Marlee Tran · 14 Mar 1988 · Northside Demo Clinic',
+      consequence:
+        'The appointment is released and the time becomes bookable by anyone else in the practice.',
+      retained: 'The booking, who cancelled it and when stays in the appointment history.',
+      downstream: 'The patient reminder scheduled for Monday 8 September is withdrawn.',
+      alternative: 'Reschedule instead if the patient still intends to attend.',
+      confirmLabel: 'Cancel appointment',
+      cancelLabel: 'Keep appointment',
+      failure:
+        'The appointment was not cancelled. The booking is unchanged and the patient has not been notified. Try again, or check the day view before telling the patient anything.',
+    },
+    amendObservation: {
+      title: 'Amend the recorded blood pressure',
+      target: 'Blood pressure 210/140 mmHg recorded 4 September 2026, 9:02 am',
+      context: 'Hamish Okonkwo-Delacroix · 2 Jul 1954 · recorded by Nurse Priya Balasubramanian',
+      consequence:
+        'The corrected reading becomes the current value everywhere this observation is shown.',
+      retained: 'The original reading, its author and its time stay visible in the entry history.',
+      downstream: 'Any graph or report that includes this observation is recalculated.',
+      reasonLabel: 'Reason for the amendment',
+      reasonHint: 'Recorded against the entry and visible to anyone reviewing the history.',
+      reasonError: 'Enter the reason this reading is being corrected.',
+      confirmLabel: 'Amend reading',
+    },
+    mergeRecords: {
+      title: 'Merge these patient records',
+      target: 'Record 0041-882 (Marlee Tran) into record 0041-107 (Marlee Tran)',
+      context: 'Both records are active at Northside Demo Clinic',
+      consequence:
+        'Record 0041-882 stops being usable and every future search resolves to record 0041-107.',
+      retained: 'Both source records, their lineage and this decision stay in the merge history.',
+      downstream:
+        'Appointments, documents, results and account balances held against 0041-882 move to 0041-107.',
+      alternative:
+        'Mark the duplicate inactive if you are not certain these are the same person. Merging cannot be undone here.',
+      reasonLabel: 'Reason for the merge',
+      reasonHint: 'Name the identifiers you checked to confirm these are the same person.',
+      acknowledgementLabel:
+        'I have compared both records with a second authorised person and confirm they are the same person.',
+      confirmLabel: 'Merge records',
+    },
+    contentStress: {
+      title: 'Mark this correspondence as filed against the wrong patient',
+      target:
+        'Specialist letter “Cardiology outpatient review — exercise tolerance, medication reconciliation and follow-up plan” received 28 August 2026, 4:47 pm from Wongaburra Community Health Cardiology Service',
+      context:
+        'Currently filed to Hamish Okonkwo-Delacroix · 2 Jul 1954 · record 0041-9930 · Harbour Street Rooms',
+      consequence:
+        'The letter is withdrawn from this record and returned to the unmatched correspondence queue for re-matching.',
+      retained:
+        'The original filing, the person who filed it, the person withdrawing it and both times stay in the document history. Nothing is erased while the retention period applies.',
+      downstream:
+        'The review task raised for Dr Rowena Aspinall is cancelled. Any recall created from this letter is left in place and must be reviewed separately, because the pattern cannot know whether the recall is still clinically warranted.',
+      alternative:
+        'If you are unsure the letter is misfiled, flag it for clinician review instead of withdrawing it.',
+      reasonLabel: 'Reason for withdrawing this document from the record',
+      confirmLabel: 'Withdraw from this record',
+    },
+  },
 } as const;
