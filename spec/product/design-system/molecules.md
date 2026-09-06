@@ -32,6 +32,7 @@ interaction coordination. Global state, responsive, and content rules apply to e
 | `DS-PAT-022` | Numeric Field | forms | `apps/web/src/components/patterns/numeric-field.tsx` |
 | `DS-PAT-023` | Record Timeline | data display | `apps/web/src/components/patterns/record-timeline.tsx` |
 | `DS-PAT-024` | Record Comparison | data display | `apps/web/src/components/patterns/record-comparison.tsx` |
+| `DS-PAT-025` | Page Header | context | `apps/web/src/components/patterns/page-header.tsx` |
 
 ## Forms
 
@@ -519,6 +520,39 @@ interaction coordination. Global state, responsive, and content rules apply to e
 - **Excludes:** Deciding which record survives, which facts are high-risk, whether a reviewer may see
   a data class, merging free text, the merge and its atomicity, lineage, reauthentication and the
   second-person confirmation.
+
+### DS-PAT-025 Page Header
+
+- **Need:** Name the screen, say exactly which scope it is showing, and say how fresh that is, so no
+  one acts on a stale queue or on the wrong location or date without noticing.
+- **Owner:** `apps/web/src/components/patterns/page-header.tsx`.
+- **Semantics:** A `banner`-free header region holding the screen's heading, its scope as named
+  facts, a freshness statement and the screen-level actions. Scope is a definition list so a missing
+  fact is visible rather than silently absent. The freshness sentence is announced politely and
+  moves no focus.
+- **Public contract:** Requires the title. Accepts the heading level, a short description, the scope
+  facts as label and value pairs, a freshness state carrying an as-of instant, the IANA timezone,
+  whether the view is refreshing or known to be stale, a refresh action, and the screen-level
+  actions. The caller owns routing, fetching, every word and the judgement that something is stale.
+- **States:** Current, refreshing, stale, and freshness not known. A refreshing header keeps the
+  previous scope and as-of visible rather than blanking them, because a screen that forgets what it
+  was showing while it reloads invites acting on the wrong one. Freshness that is not known says so
+  rather than showing nothing, and MUST NOT be rendered as current. A repeated refresh that changes
+  nothing MUST NOT announce again.
+- **Keyboard and focus:** The refresh control follows the freshness it refreshes in reading order.
+  Refreshing MUST NOT move focus or reorder the actions. The heading is not focusable and the header
+  never takes focus on arrival.
+- **Responsive/content:** The title wraps rather than truncating. Scope facts wrap as a group and
+  keep their labels. Actions wrap beneath at a narrow width and every one stays reachable.
+- **Required stories:** `Default`, `WithScope`, `Refreshing`, `Stale`, `UnknownFreshness`,
+  `ContentStress`, `Narrow`, and `KeyboardFlow`.
+- **Evidence:** `page-header-states`, `page-header-stale`, `page-header-narrow`, and
+  `page-header-keyboard`.
+- **Used by:** [Calendar day](../../capabilities/calendar/spec.md#screen-contract-calendar-day),
+  [results inbox](../../capabilities/results/spec.md#screen-contract-results-inbox), and
+  [task worklist](../../capabilities/tasks/spec.md#screen-contract-task-worklist).
+- **Excludes:** Routing, fetching and refresh scheduling, deciding that a view is stale, permission
+  for any action, breadcrumbs, and the record identity that `DS-PAT-004` carries.
 
 ## Data and operation states
 

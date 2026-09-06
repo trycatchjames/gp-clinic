@@ -684,4 +684,27 @@ export const storybookMoleculeStates = {
     longValue:
       'Care of Wongaburra Community Health and Allied Services Demonstration Site, Building 3 Level 2, 480 Wongaburra Road, Wongaburra Demo Township NSW 2999, postal deliveries to Locked Bag 9000',
   },
+
+  pageHeader: {
+    title: 'Results inbox',
+    description: 'Results assigned to you and to the clinicians you are covering.',
+    timeZone: 'Australia/Sydney',
+    asOf: '2026-09-06T08:42:00+10:00',
+    staleAsOf: '2026-09-06T06:05:00+10:00',
+    refreshLabel: 'Refresh',
+    scope: [
+      { key: 'queue', label: 'Queue', value: 'Mine and covering' },
+      { key: 'location', label: 'Location', value: 'Northside Demo Clinic' },
+      { key: 'timezone', label: 'Timezone', value: 'Australia/Sydney (AEST)' },
+    ],
+    actions: [
+      { id: 'filters', label: 'Change filters' },
+      { id: 'cover', label: 'Manage cover' },
+    ],
+    longTitle:
+      'Results inbox for the Wongaburra Community Health and Allied Services Demonstration Site',
+    longScopeValue:
+      'Mine, covering Dr Rowena Aspinall and Dr Aroha Duong, plus the unmatched and follow-up queues for the Wongaburra catchment',
+  },
+
 } as const;
