@@ -62,6 +62,10 @@ Typing progressively searches without auto-select. Exact matches rank first. Arr
 
 Initial help; searching; no matches with searched scope; results; too many/refine; restricted; partial index failure with safe fallback; full failure that prevents new registration from assuming no patient exists.
 
+A restricted candidate is found on the same identifiers as any other — a search that could not find it would cause the duplicate it exists to prevent — but is returned as an identity stub and is not a selectable candidate. The stub carries name used, date of birth, local record number, lifecycle state and which safe fields matched; it carries no address, contact, entitlement or other identifier, and the redaction is made server-side rather than by hiding fields on the screen. The restriction is named once for the search rather than repeated per row, is presented after the candidates the user may act on, and states the authorised path and the record number to quote. Reaching a restricted record is audited as its own event, naming the record and the actor.
+
+Full failure is presented with alert semantics and a retry. Its wording must close the inference the screen would otherwise invite — that nothing was found, therefore the patient is new — so it states that a matching patient may still exist and that registration must wait. The no-matches state and its registration guidance MUST NOT appear for a failure.
+
 #### Failure/privacy
 
 Search failure never renders “no patient”. Cross-practice/unauthorised records are not disclosed. Record opening creates appropriate audit. Reception search never shows diagnoses, medicines, clinical alerts or note snippets.

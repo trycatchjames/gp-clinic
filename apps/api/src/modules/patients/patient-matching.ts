@@ -20,6 +20,13 @@ export interface PatientCandidate {
   localRecordNumber: string;
   medicareNumber: string | null;
   medicareIrn: string | null;
+  /**
+   * True when an active access restriction applies to this record. Matching is
+   * deliberately unaffected by it: a restricted record must still be found, or
+   * the search that was meant to prevent a duplicate creates one. What changes
+   * is how much of the candidate the caller is allowed to read back.
+   */
+  accessRestricted: boolean;
 }
 
 export interface PatientSearchQuery {

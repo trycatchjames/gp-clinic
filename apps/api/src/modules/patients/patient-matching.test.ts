@@ -18,6 +18,7 @@ function candidate(overrides: Partial<PatientCandidate> = {}): PatientCandidate 
     localRecordNumber: 'R000001',
     medicareNumber: null,
     medicareIrn: null,
+    accessRestricted: false,
     ...overrides,
   };
 }

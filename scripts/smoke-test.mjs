@@ -276,6 +276,36 @@ ok('a different practice cannot query another practice\'s patients', crossTenant
 const noIdentifiers = await req('GET', `/practices/${pid}/patients/search`, R);
 ok('no identifiers supplied returns nothing rather than every patient', noIdentifiers.body?.results?.length === 0);
 
+console.log('\nRestricted and lifecycle records');
+const O = { token: owner.accessToken };
+const fenechForReception = await req('GET', `/practices/${pid}/patients/search?q=Fenech`, R);
+ok('a restricted record is still found, so a duplicate is not created', fenechForReception.body?.results?.length === 3, JSON.stringify(fenechForReception.body?.results?.length));
+ok('  and inactive and deceased records are returned and labelled', ['inactive', 'deceased'].every((state) => fenechForReception.body?.results?.some((r) => r.status === state)));
+
+const stub = fenechForReception.body?.results?.find((r) => r.restricted === true);
+ok('  exactly one of them is restricted', fenechForReception.body?.results?.filter((r) => r.restricted).length === 1);
+ok('  the response counts the restriction so the screen can name it once', fenechForReception.body?.restrictedMatches === 1);
+ok('  the stub keeps the identity that prevents a duplicate', Boolean(stub?.nameUsed && stub?.dateOfBirth && stub?.localRecordNumber));
+ok('  and withholds every contact, address and entitlement fact', [stub?.suburb, stub?.postcode, stub?.maskedContact, stub?.maskedMedicareNumber, stub?.medicareIrn, stub?.legalName].every((field) => field === null), JSON.stringify(stub));
+
+// The same record read by a caller who holds sensitive_record.view. This is the
+// pair that proves the redaction is a permission decision rather than a missing
+// column: identical query, identical record, different disclosure.
+const fenechForOwner = await req('GET', `/practices/${pid}/patients/search?q=Fenech`, O);
+const unrestricted = fenechForOwner.body?.results?.find((r) => r.localRecordNumber === stub?.localRecordNumber);
+ok('a holder of sensitive_record.view reads the same record in full', unrestricted?.restricted === false && unrestricted?.suburb !== null && unrestricted?.maskedMedicareNumber !== null, JSON.stringify(unrestricted));
+ok('  and nothing is restricted for them', fenechForOwner.body?.restrictedMatches === 0);
+
+// Searching the restricted patient's own Medicare number: the receptionist may
+// not read it back, but it must still find the record, or the search that was
+// meant to prevent a duplicate causes one.
+const restrictedByMedicare = await req('GET', `/practices/${pid}/patients/search?q=4118206712`, R);
+ok('a restricted record is found by an identifier it does not disclose', restrictedByMedicare.body?.results?.length === 1 && restrictedByMedicare.body.results[0].restricted === true);
+ok('  and the searched identifier is still not echoed back', restrictedByMedicare.body?.results?.[0]?.maskedMedicareNumber === null);
+
+const restrictedCrossTenant = await req('GET', `/practices/${pid}/patients/search?q=Fenech`, N2);
+ok('another practice cannot reach the restricted record at all', restrictedCrossTenant.status === 404);
+
 console.log('\nAudit log');
 // The audit log has no read endpoint by design, so check it directly.
 const { createRequire } = await import('node:module');
@@ -289,6 +319,12 @@ const [{ count: activations }] = await sqlc`select count(*)::int as count from a
 ok('activation is audit-logged', activations >= 1);
 const [{ count: searches }] = await sqlc`select count(*)::int as count from audit_log_entries where action = 'patient.search.performed'`;
 ok('patient search is audit-logged', searches >= 3, `count=${searches}`);
+const [{ count: sensitiveAttempts }] = await sqlc`select count(*)::int as count from audit_log_entries where action = 'patient.search.restricted_stub_returned'`;
+ok('reaching a restricted record is audited in its own right', sensitiveAttempts >= 2, `count=${sensitiveAttempts}`);
+const [{ count: attemptsWithPatient }] = await sqlc`select count(*)::int as count from audit_log_entries where action = 'patient.search.restricted_stub_returned' and patient_id is null`;
+ok('  and names which record was approached', attemptsWithPatient === 0);
+const [{ count: attemptsByOwner }] = await sqlc`select count(*)::int as count from audit_log_entries where action = 'patient.search.restricted_stub_returned' and actor_user_id = ${owner.user.id}`;
+ok('  an authorised reader is not logged as a denied attempt', attemptsByOwner === 0, `count=${attemptsByOwner}`);
 await sqlc.end();
 
 console.log(`\n${pass} passed, ${fail} failed\n`);

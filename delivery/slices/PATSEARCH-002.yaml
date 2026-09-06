@@ -1,7 +1,7 @@
 id: PATSEARCH-002
 title: Handle restricted records and failed patient searches safely
 kind: story
-status: queued
+status: in_review
 capability: patient-search
 story:
   actor: Receptionist
@@ -12,6 +12,10 @@ spec_refs:
   - spec/cross-cutting/privacy/specification.md
   - spec/cross-cutting/error-handling/requirements.md
   - spec/cross-cutting/authorization/permissions.md
+  - spec/cross-cutting/search/requirements.md
+  - spec/cross-cutting/audit/requirements.md
+  - spec/domain/patient.md
+  - spec/product/design-system/molecules.md
 acceptance:
   scenarios:
     - file: spec/capabilities/patient-search/acceptance.feature
@@ -36,6 +40,8 @@ risk:
 depends_on:
   - PATSEARCH-001
 out_of_scope:
-  - Sensitive-record access approval workflow
+  - Sensitive-record access approval workflow, including any control that requests access
+  - Managing a restriction — creating, reviewing or lifting one
+  - The care/work relationship check that must accompany sensitive-record access
   - Patient registration
   - Clinical record content
