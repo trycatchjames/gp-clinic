@@ -283,7 +283,18 @@ export const atsiStatusEnum = pgEnum('atsi_status', [
   'not_stated',
 ]);
 
-export const alertCategoryEnum = pgEnum('alert_category', ['clinical', 'front_desk']);
+/**
+ * `access_restriction` is the third alert type the patient domain names
+ * (spec/domain/patient.md — "sensitive-record or representative/contact
+ * restriction enforced by authorisation, not merely displayed text"). Its row
+ * is the authorisation fact; its text is a policy note for staff who already
+ * hold access, and is never rendered to a caller the restriction applies to.
+ */
+export const alertCategoryEnum = pgEnum('alert_category', [
+  'clinical',
+  'front_desk',
+  'access_restriction',
+]);
 
 export const alertSeverityEnum = pgEnum('alert_severity', ['info', 'warning', 'critical']);
 

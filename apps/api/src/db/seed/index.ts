@@ -18,6 +18,7 @@ import {
   locationBusinessHours,
   mbsItems,
   onboardingProgress,
+  patientAlerts,
   patientEntitlements,
   patients,
   practiceBillingSettings,
@@ -586,6 +587,7 @@ async function seedFeeSchedules(practiceId: string) {
 async function seedPatients(practiceId: string, anitaId: string, tomId: string) {
   const islaId = uuidv7();
   const miaId = uuidv7();
+  const restrictedId = uuidv7();
 
   await db.insert(patients).values([
     {
@@ -674,11 +676,88 @@ async function seedPatients(practiceId: string, anitaId: string, tomId: string) 
       preferredLanguage: 'English',
       usualPractitionerId: tomId,
     },
+    // Fixture "inactive-deceased-sensitive": the three lifecycle and privacy
+    // states a receptionist must be able to tell apart from "no such patient".
+    // All three share the family name Fenech and the same suburb so one search
+    // returns them together. See PATSEARCH-002.
+    {
+      id: uuidv7(),
+      practiceId,
+      localRecordNumber: 'R000006',
+      familyName: 'Fenech',
+      givenNames: 'Bernadette',
+      dateOfBirth: '1969-09-30',
+      sexAtBirth: 'female',
+      mobile: '0412 555 006',
+      suburb: 'Pascoe Vale',
+      state: 'VIC',
+      postcode: '3044',
+      atsiStatus: 'neither',
+      preferredLanguage: 'English',
+      status: 'inactive',
+    },
+    {
+      id: uuidv7(),
+      practiceId,
+      localRecordNumber: 'R000007',
+      familyName: 'Fenech',
+      givenNames: 'Stanley',
+      dateOfBirth: '1941-01-17',
+      sexAtBirth: 'male',
+      suburb: 'Pascoe Vale',
+      state: 'VIC',
+      postcode: '3044',
+      atsiStatus: 'neither',
+      preferredLanguage: 'English',
+      status: 'deceased',
+      deceasedOn: '2025-11-08',
+      deceasedSource: 'Family notification recorded at reception',
+    },
+    {
+      id: restrictedId,
+      practiceId,
+      localRecordNumber: 'R000008',
+      familyName: 'Fenech',
+      givenNames: 'Rosalind',
+      dateOfBirth: '1994-02-25',
+      sexAtBirth: 'female',
+      mobile: '0412 555 008',
+      residentialAddress: '7 Sussex Street',
+      suburb: 'Pascoe Vale',
+      state: 'VIC',
+      postcode: '3044',
+      atsiStatus: 'neither',
+      preferredLanguage: 'English',
+      usualPractitionerId: anitaId,
+    },
   ]);
 
   await db.insert(patientEntitlements).values([
     { id: uuidv7(), practiceId, patientId: islaId, medicareNumber: '3261125853', medicareIrn: '1' },
     { id: uuidv7(), practiceId, patientId: miaId, medicareNumber: '3261125853', medicareIrn: '2' },
+    // The restricted record carries an entitlement precisely so the stub can be
+    // shown to withhold it. A stub that had nothing to withhold proves nothing.
+    {
+      id: uuidv7(),
+      practiceId,
+      patientId: restrictedId,
+      medicareNumber: '4118206712',
+      medicareIrn: '1',
+    },
+  ]);
+
+  // The restriction is the authorisation fact, not display text: the search
+  // decides what to disclose from this row, and its own wording is a policy
+  // note for staff who already hold access.
+  await db.insert(patientAlerts).values([
+    {
+      id: uuidv7(),
+      practiceId,
+      patientId: restrictedId,
+      category: 'access_restriction',
+      severity: 'warning',
+      text: 'Record restricted at the patient’s request. Access approved by the privacy officer.',
+    },
   ]);
 }
 

@@ -56,6 +56,14 @@ export class PatientSearchResultDto {
     description: 'Which safe fields matched the search, in plain language.',
   })
   matchedFields: string[];
+
+  @ApiProperty({
+    description:
+      'True when this record carries an active access restriction the caller may not open. ' +
+      'A restricted result is an identity stub: it exists so a duplicate is not created, and ' +
+      'every field beyond name, date of birth, record number, status and matched fields is null.',
+  })
+  restricted: boolean;
 }
 
 export class PatientSearchResponseDto {
@@ -64,4 +72,10 @@ export class PatientSearchResponseDto {
   totalMatches: number;
   @ApiProperty({ description: 'True when totalMatches exceeds the returned results.' })
   truncated: boolean;
+  @ApiProperty({
+    description:
+      'How many of the returned results are restricted stubs, so the screen can name the ' +
+      'restriction once rather than repeating it on every row.',
+  })
+  restrictedMatches: number;
 }
