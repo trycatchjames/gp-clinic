@@ -229,6 +229,46 @@ export const storybookMoleculeStates = {
     },
   },
 
+  formSection: {
+    identity: {
+      title: 'Identity',
+      description:
+        'Record the name the patient uses as well as their legal name where those differ. Check one photographic and one non-photographic document where you can.',
+    },
+    privacy: {
+      title: 'Sex, gender and pronouns',
+      description:
+        'These questions are optional and can be completed away from reception. Prefer not to say is a valid answer and is recorded as such.',
+    },
+    payer: {
+      title: 'Medicare, concession and payer',
+      description:
+        'Leave blank where the patient does not hold a card. Blank is not the same as expired.',
+    },
+    longTitle: 'Next of kin, emergency contact and representative decision-making authority',
+    longDescription:
+      'A representative with decision-making authority is not the same as an emergency contact. Record the document that establishes the authority, who sighted it and the date. Where the patient has capacity and has not appointed anyone, record that rather than leaving this section blank, because a blank section cannot be told apart from one nobody has reached yet.',
+  },
+
+  collapsible: {
+    title: 'Health summary',
+    summary: '9 items',
+    indicators: [
+      { id: 'allergy', label: 'Anaphylaxis: amoxicillin' },
+      { id: 'interpreter', label: 'Interpreter required — Dari' },
+    ],
+    items: [
+      {
+        term: 'Active problems',
+        detail: 'Type 2 diabetes, hypertension, osteoarthritis (left knee)',
+      },
+      { term: 'Current medicines', detail: 'Metformin 1 g twice daily, perindopril 5 mg daily' },
+      { term: 'Recent results', detail: 'HbA1c 7.8% on 12 August 2026; eGFR 68 on 12 August 2026' },
+      { term: 'Open obligations', detail: 'Diabetes cycle-of-care review due 30 September 2026' },
+    ],
+    longIndicator:
+      'Anaphylaxis: amoxicillin, cefalexin and every other beta-lactam — documented 4 March 2021',
+  },
   saveState: {
     label: 'Consultation note',
     timeZone: 'Australia/Sydney',

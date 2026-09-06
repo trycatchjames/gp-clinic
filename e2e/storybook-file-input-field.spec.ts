@@ -1,26 +1,9 @@
 import path from 'node:path';
 import { mkdir } from 'node:fs/promises';
 import { expect, test, type Page } from '@playwright/test';
+import { openStory } from './support/storybook-story';
 
 const evidenceDirectory = path.join(process.cwd(), 'delivery/evidence/DS-014');
-
-async function openStory(page: Page, id: string) {
-  await page.goto(`/iframe.html?id=${id}&viewMode=story`);
-  await page.waitForFunction(
-    () => (document.querySelector('#storybook-root')?.childElementCount ?? 0) > 0,
-  );
-  // A story's own play function may have left focus part-way through its flow. Click the empty
-  // margin to reset it, so the tab order asserted below is the one a fresh operator would meet and
-  // the first Tab counts as keyboard focus.
-  //
-  // The reset is retried rather than asserted once: a play function that is still running can take
-  // focus back after the click, and a single attempt then races it. Retrying converges as soon as
-  // the play has finished.
-  await expect(async () => {
-    await page.mouse.click(2, 2);
-    await expect(page.locator('body')).toBeFocused();
-  }).toPass({ timeout: 10_000 });
-}
 
 async function capture(page: Page, evidenceId: string) {
   const target = page.locator(`[data-evidence="${evidenceId}"]`);
