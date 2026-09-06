@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CircleAlert, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { usePracticeId } from '@/lib/auth';
 import { usePatientSearch } from '@/lib/queries';
 import { describeError } from '@/lib/api';
@@ -26,7 +26,12 @@ export function PatientSearchRoute() {
   const hasQuery = Boolean(q.trim() || dateOfBirth);
   const search = usePatientSearch(practiceId, q, dateOfBirth);
   const results = search.data?.results ?? [];
-  const selected = results.find((result) => result.id === selectedId) ?? null;
+  // A restricted record is not a candidate the receptionist may choose. It is
+  // shown so a duplicate is not created, so it is kept out of the list whose
+  // whole contract is that Enter selects a row.
+  const candidates = results.filter((result) => !result.restricted);
+  const restricted = results.filter((result) => result.restricted);
+  const selected = candidates.find((result) => result.id === selectedId) ?? null;
 
   // A fresh search is a fresh decision — the previous selection cannot linger
   // and be mistaken for a match against the new identifiers.
@@ -52,10 +57,10 @@ export function PatientSearchRoute() {
           label="Patient search"
           summary={
             hasQuery && search.isSuccess
-              ? search.data?.truncated
-                ? `${results.length} of ${search.data.totalMatches} results`
-                : `${results.length} result${results.length === 1 ? '' : 's'}`
-              : undefined
+              ? resultSummary(results.length, restricted.length, search.data)
+              : hasQuery && search.isError
+                ? 'Search failed'
+                : undefined
           }
         >
           <FilterField
@@ -113,14 +118,28 @@ export function PatientSearchRoute() {
           </div>
         )}
 
+        {/*
+          A failure is not a result. The wording has to close the inference the
+          screen would otherwise invite — search returned nothing, therefore this
+          person is new — because acting on it registers a duplicate of someone
+          the practice already holds a record for.
+        */}
         {hasQuery && search.isError && (
-          <Alert variant="destructive">
-            <CircleAlert aria-hidden="true" />
-            <AlertTitle>Search failed</AlertTitle>
-            <AlertDescription>
-              {describeError(search.error)} Retry before registering.
-            </AlertDescription>
-          </Alert>
+          <StatePanel
+            kind="failure"
+            title="Search failed"
+            description={
+              <>
+                {describeError(search.error)} This is not a result: a matching patient may still
+                exist. Do not register a new patient until search is working.
+              </>
+            }
+            action={
+              <Button type="button" variant="outline" size="sm" onClick={() => search.refetch()}>
+                Try the search again
+              </Button>
+            }
+          />
         )}
 
         {hasQuery && search.isSuccess && results.length === 0 && (
@@ -129,6 +148,63 @@ export function PatientSearchRoute() {
             compact
             title="No matches"
             description="Try another name, date of birth, address or phone before registering."
+          />
+        )}
+
+        {hasQuery && search.isSuccess && candidates.length > 0 && (
+          <>
+            {search.data?.truncated && (
+              <Alert variant="warning">
+                <AlertTitle>Refine your search</AlertTitle>
+                <AlertDescription>
+                  Showing the first {results.length} of {search.data.totalMatches} matches.
+                </AlertDescription>
+              </Alert>
+            )}
+            <ListView
+              label="Matching patients"
+              items={candidates}
+              getKey={(result) => result.id}
+              selectedKey={selectedId}
+              onSelect={(result) => setSelectedId(result.id)}
+              renderItem={(result) => <PatientRow result={result} />}
+            />
+          </>
+        )}
+
+        {/*
+          Named once for the whole search rather than repeated on every row: the
+          restriction is a fact about access, not about any one candidate, and
+          the record number is what a request for access is made against.
+        */}
+        {restricted.length > 0 && (
+          <StatePanel
+            kind="restricted"
+            compact
+            title={
+              restricted.length === 1
+                ? 'One matching record is restricted'
+                : `${restricted.length} matching records are restricted`
+            }
+            description="You can see that the record exists so you do not create a duplicate, but not its contact or Medicare details, and you cannot open it here."
+            details={
+              <ul className="space-y-1">
+                {restricted.map((result) => (
+                  <li key={result.id}>
+                    <span className="text-foreground font-medium">{result.nameUsed}</span> · DOB{' '}
+                    {formatDate(result.dateOfBirth)} · Record {result.localRecordNumber} · matched on{' '}
+                    {result.matchedFields.join(' + ').toLowerCase()}
+                  </li>
+                ))}
+              </ul>
+            }
+            action={
+              <p className="text-muted-foreground max-w-lg text-xs">
+                To act on {restricted.length === 1 ? 'this record' : 'these records'}, ask a treating
+                practitioner to open {restricted.length === 1 ? 'it' : 'them'} for you, or request
+                access from the practice privacy officer quoting the record number.
+              </p>
+            }
           />
         )}
 
@@ -154,30 +230,25 @@ export function PatientSearchRoute() {
             </Button>
           </div>
         )}
-
-        {hasQuery && search.isSuccess && results.length > 0 && (
-          <>
-            {search.data?.truncated && (
-              <Alert variant="warning">
-                <AlertTitle>Refine your search</AlertTitle>
-                <AlertDescription>
-                  Showing the first {results.length} of {search.data.totalMatches} matches.
-                </AlertDescription>
-              </Alert>
-            )}
-            <ListView
-              label="Matching patients"
-              items={results}
-              getKey={(result) => result.id}
-              selectedKey={selectedId}
-              onSelect={(result) => setSelectedId(result.id)}
-              renderItem={(result) => <PatientRow result={result} />}
-            />
-          </>
-        )}
       </div>
     </>
   );
+}
+
+/**
+ * A restricted match is counted, because it is a record the practice holds, but
+ * it is named separately: a bare "3 results" above two rows reads as a screen
+ * that has lost one.
+ */
+function resultSummary(
+  total: number,
+  restricted: number,
+  data: { truncated: boolean; totalMatches: number } | undefined,
+): string {
+  const head = data?.truncated
+    ? `${total} of ${data.totalMatches} results`
+    : `${total} result${total === 1 ? '' : 's'}`;
+  return restricted > 0 ? `${head}, ${restricted} restricted` : head;
 }
 
 function PatientRow({ result }: { result: PatientSearchResultDto }) {
