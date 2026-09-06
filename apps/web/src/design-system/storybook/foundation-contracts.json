@@ -516,5 +516,18 @@
       "timeline-narrow",
       "timeline-keyboard"
     ]
+  },
+  "recordComparison": {
+    "contractId": "DS-PAT-024",
+    "layer": "molecule",
+    "specRef": "spec/product/design-system/molecules.md#ds-pat-024-record-comparison",
+    "source": "apps/web/src/components/patterns/record-comparison.tsx",
+    "storyFile": "apps/web/src/components/patterns/record-comparison.stories.tsx",
+    "evidence": [
+      "comparison-differences",
+      "comparison-resolving",
+      "comparison-narrow",
+      "comparison-keyboard"
+    ]
   }
 }
