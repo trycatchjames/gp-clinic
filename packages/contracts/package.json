@@ -20,6 +20,6 @@
     "typecheck": "tsc -p tsconfig.esm.json --noEmit"
   },
   "devDependencies": {
-    "typescript": "^5.7.3"
+    "typescript": "^7.0.2"
   }
 }
