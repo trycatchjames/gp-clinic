@@ -21,7 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Field, FieldGroup } from '@/components/patterns/form-field';
+import { Field, FieldDescription, FieldLabel } from '@/components/ui/field';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
@@ -117,17 +117,27 @@ export function StepLocation({
       )}
 
       <form onSubmit={submit} className="space-y-5">
-        <Field label="Location name" htmlFor="name" required hint="How your team refers to this site.">
+        <Field>
+          <FieldLabel htmlFor="name">
+            Location name
+            <span aria-hidden="true" className="text-destructive">*</span>
+          </FieldLabel>
           <Input
+            aria-describedby="name-description"
             id="name"
             required
             value={form.name}
             onChange={(e) => set('name')(e.target.value)}
             placeholder="Brunswick"
           />
+          <FieldDescription id="name-description">How your team refers to this site.</FieldDescription>
         </Field>
 
-        <Field label="Street address" htmlFor="streetAddress" required>
+        <Field>
+          <FieldLabel htmlFor="streetAddress">
+            Street address
+            <span aria-hidden="true" className="text-destructive">*</span>
+          </FieldLabel>
           <Input
             id="streetAddress"
             required
@@ -137,8 +147,12 @@ export function StepLocation({
           />
         </Field>
 
-        <FieldGroup columns={3}>
-          <Field label="Suburb" htmlFor="suburb" required>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Field>
+            <FieldLabel htmlFor="suburb">
+              Suburb
+              <span aria-hidden="true" className="text-destructive">*</span>
+            </FieldLabel>
             <Input
               id="suburb"
               required
@@ -146,9 +160,13 @@ export function StepLocation({
               onChange={(e) => set('suburb')(e.target.value)}
             />
           </Field>
-          <Field label="State" required>
+          <Field>
+            <FieldLabel htmlFor="state">
+              State
+              <span aria-hidden="true" className="text-destructive">*</span>
+            </FieldLabel>
             <Select value={form.state} onValueChange={onStateChange}>
-              <SelectTrigger>
+              <SelectTrigger id="state">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -160,7 +178,11 @@ export function StepLocation({
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Postcode" htmlFor="postcode" required>
+          <Field>
+            <FieldLabel htmlFor="postcode">
+              Postcode
+              <span aria-hidden="true" className="text-destructive">*</span>
+            </FieldLabel>
             <Input
               id="postcode"
               required
@@ -172,18 +194,18 @@ export function StepLocation({
               onChange={(e) => set('postcode')(e.target.value)}
             />
           </Field>
-        </FieldGroup>
+        </div>
 
-        <Field
-          label="Timezone"
-          required
-          hint="Chosen explicitly rather than guessed from the state — a group practice can span states, and Broken Hill runs on its own time."
-        >
+        <Field>
+          <FieldLabel htmlFor="timezone">
+            Timezone
+            <span aria-hidden="true" className="text-destructive">*</span>
+          </FieldLabel>
           <Select
             value={form.timezone}
             onValueChange={(value) => set('timezone')(value as AustralianTimezone)}
           >
-            <SelectTrigger>
+            <SelectTrigger id="timezone" aria-describedby="timezone-description">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -194,47 +216,53 @@ export function StepLocation({
               ))}
             </SelectContent>
           </Select>
+          <FieldDescription id="timezone-description">Chosen explicitly rather than guessed from the state — a group practice can span states, and Broken Hill runs on its own time.</FieldDescription>
         </Field>
 
-        <FieldGroup>
-          <Field label="Phone" htmlFor="phone">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field>
+            <FieldLabel htmlFor="phone">
+              Phone
+            </FieldLabel>
             <Input id="phone" value={form.phone} onChange={(e) => set('phone')(e.target.value)} />
           </Field>
-          <Field
-            label="Fax"
-            htmlFor="fax"
-            hint="Still real in this industry — pathology and hospitals use it."
-          >
-            <Input id="fax" value={form.fax} onChange={(e) => set('fax')(e.target.value)} />
+          <Field>
+            <FieldLabel htmlFor="fax">
+              Fax
+            </FieldLabel>
+            <Input aria-describedby="fax-description" id="fax" value={form.fax} onChange={(e) => set('fax')(e.target.value)} />
+            <FieldDescription id="fax-description">Still real in this industry — pathology and hospitals use it.</FieldDescription>
           </Field>
-        </FieldGroup>
+        </div>
 
-        <FieldGroup>
-          <Field
-            label="HPI-O"
-            htmlFor="hpiO"
-            hint="Healthcare Provider Identifier — Organisation. Needed for eScripts and My Health Record. You can add it later."
-          >
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field>
+            <FieldLabel htmlFor="hpiO">
+              HPI-O
+            </FieldLabel>
             <Input
+              aria-describedby="hpiO-description"
               id="hpiO"
               className="tabular"
               value={form.hpiO}
               onChange={(e) => set('hpiO')(e.target.value)}
             />
+            <FieldDescription id="hpiO-description">Healthcare Provider Identifier — Organisation. Needed for eScripts and My Health Record. You can add it later.</FieldDescription>
           </Field>
-          <Field
-            label="Medicare Minor ID"
-            htmlFor="medicareMinorId"
-            hint="Used for claiming and banking at this site."
-          >
+          <Field>
+            <FieldLabel htmlFor="medicareMinorId">
+              Medicare Minor ID
+            </FieldLabel>
             <Input
+              aria-describedby="medicareMinorId-description"
               id="medicareMinorId"
               className="tabular"
               value={form.medicareMinorId}
               onChange={(e) => set('medicareMinorId')(e.target.value)}
             />
+            <FieldDescription id="medicareMinorId-description">Used for claiming and banking at this site.</FieldDescription>
           </Field>
-        </FieldGroup>
+        </div>
 
         <div className="flex justify-between">
           <Button type="submit" variant="outline" disabled={busy}>

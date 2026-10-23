@@ -23,9 +23,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Field } from '@/components/patterns/form-field';
+import { Field, FieldLabel } from '@/components/ui/field';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
+import { toneClasses } from '@/components/tone';
 
 interface DayRow {
   dayOfWeek: DayOfWeek;
@@ -144,9 +145,12 @@ export function StepHours({ practiceId, onDone }: { practiceId: string; onDone: 
   return (
     <div className="space-y-6">
       {(locations.data?.length ?? 0) > 1 && (
-        <Field label="Location">
+        <Field>
+          <FieldLabel htmlFor="location">
+            Location
+          </FieldLabel>
           <Select value={locationId} onValueChange={setLocationId}>
-            <SelectTrigger>
+            <SelectTrigger id="location">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -211,7 +215,7 @@ export function StepHours({ practiceId, onDone }: { practiceId: string; onDone: 
       <Separator />
 
       <div className="space-y-4">
-        <Alert variant="info">
+        <Alert className={toneClasses.info}>
           <AlertTitle>Care outside opening hours</AlertTitle>
           <AlertDescription>
             RACGP GP1.3 requires the practice to have arrangements for care outside normal
@@ -220,14 +224,17 @@ export function StepHours({ practiceId, onDone }: { practiceId: string; onDone: 
           </AlertDescription>
         </Alert>
 
-        <Field label="After-hours arrangement">
+        <Field>
+          <FieldLabel htmlFor="after-hours-arrangement">
+            After-hours arrangement
+          </FieldLabel>
           <Select
             value={afterHours.arrangement}
             onValueChange={(value) =>
               setAfterHours((a) => ({ ...a, arrangement: value as AfterHoursArrangement }))
             }
           >
-            <SelectTrigger>
+            <SelectTrigger id="after-hours-arrangement">
               <SelectValue placeholder="Choose an arrangement" />
             </SelectTrigger>
             <SelectContent>
@@ -242,14 +249,12 @@ export function StepHours({ practiceId, onDone }: { practiceId: string; onDone: 
 
         {afterHours.arrangement && (
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field
-              label={
-                afterHours.arrangement === 'hospital_ed_referral'
+            <Field>
+              <FieldLabel htmlFor="ahProvider">
+                {afterHours.arrangement === 'hospital_ed_referral'
                   ? 'Hospital name'
-                  : 'Service or co-op name'
-              }
-              htmlFor="ahProvider"
-            >
+                  : 'Service or co-op name'}
+              </FieldLabel>
               <Input
                 id="ahProvider"
                 value={afterHours.providerName}
@@ -258,7 +263,10 @@ export function StepHours({ practiceId, onDone }: { practiceId: string; onDone: 
                 }
               />
             </Field>
-            <Field label="Contact number or address" htmlFor="ahContact">
+            <Field>
+              <FieldLabel htmlFor="ahContact">
+                Contact number or address
+              </FieldLabel>
               <Input
                 id="ahContact"
                 value={afterHours.contact}

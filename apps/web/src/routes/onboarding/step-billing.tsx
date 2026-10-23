@@ -16,11 +16,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Field } from '@/components/patterns/form-field';
+import { Field, FieldDescription, FieldLabel } from '@/components/ui/field';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
+import { toneClasses } from '@/components/tone';
 import { formatCurrency } from '@/lib/formatters';
 
 /** Step 7. Billing policy and the generated fee schedules. */
@@ -69,7 +70,7 @@ export function StepBilling({ practiceId, onDone }: { practiceId: string; onDone
   return (
     <div className="space-y-6">
       {locked && (
-        <Alert variant="warning">
+        <Alert className={toneClasses.warning}>
           <Lock />
           <AlertTitle>Your billing policy is set by BBPIP participation</AlertTitle>
           <AlertDescription>
@@ -137,12 +138,12 @@ export function StepBilling({ practiceId, onDone }: { practiceId: string; onDone
         <div className="space-y-3">
           <h3 className="font-medium">Private fees</h3>
           <div className="grid items-end gap-4 sm:grid-cols-2">
-            <Field
-              label="Fee multiplier"
-              htmlFor="multiplier"
-              hint="Private fees are generated as the MBS schedule fee × this multiplier, rounded to the nearest $5. You can override individual items later."
-            >
+            <Field>
+              <FieldLabel htmlFor="multiplier">
+                Fee multiplier
+              </FieldLabel>
               <Input
+                aria-describedby="multiplier-description"
                 id="multiplier"
                 type="number"
                 step="0.05"
@@ -152,6 +153,7 @@ export function StepBilling({ practiceId, onDone }: { practiceId: string; onDone
                 value={multiplier}
                 onChange={(e) => setMultiplier(Number(e.target.value) || 1)}
               />
+              <FieldDescription id="multiplier-description">Private fees are generated as the MBS schedule fee × this multiplier, rounded to the nearest $5. You can override individual items later.</FieldDescription>
             </Field>
             <Card>
               <CardContent className="space-y-1 text-sm">

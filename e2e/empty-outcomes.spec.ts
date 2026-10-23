@@ -2,7 +2,7 @@ import path from 'node:path';
 import { mkdir } from 'node:fs/promises';
 import { expect, test, type Page } from '@playwright/test';
 
-const evidenceDirectory = path.join(process.cwd(), 'delivery/evidence/DS-032/screenshots');
+const evidenceDirectory = path.join(process.cwd(), 'delivery/evidence/UI-002/screenshots');
 
 test.beforeAll(async () => {
   await mkdir(evidenceDirectory, { recursive: true });
@@ -30,17 +30,11 @@ async function signIn(page: Page, name: RegExp) {
   await page.getByRole('button', { name: 'Sign in' }).click();
 }
 
-/**
- * Both screens rendered two icons for one outcome: the mark State Panel chooses for the state, and
- * a second decorative one the retired wrapper forwarded. The count is the assertion — a panel that
- * still carried its own icon would pass a "shows an empty state" check unchanged.
- */
+/** An empty region is named for what is empty and carries one mark, not a stack of them. */
 async function expectOneEmptyMark(page: Page, title: string) {
   const panel = page.getByRole('region', { name: title });
   await expect(panel).toBeVisible();
-  await expect(panel).toHaveAttribute('data-state', 'empty');
   await expect(panel.locator('svg')).toHaveCount(1);
-  await expect(panel.locator('svg.lucide-circle-dashed')).toBeVisible();
 }
 
 test('[empty-outcome-search] a search that matches nothing explains itself once', async ({
@@ -66,7 +60,7 @@ test('[empty-outcome-search] a search that matches nothing explains itself once'
   // Nothing empty may be mistaken for a failure, and the search box keeps what was typed.
   await expect(page.getByRole('alert')).toHaveCount(0);
   await expect(query).toHaveValue('Wongaburra');
-  await captureEvidence(page, 'empty-outcome-search');
+  await captureEvidence(page, 'patient-search-empty');
 
   // The empty outcome is a state of the same list, not a dead end: typing again brings records back.
   await query.fill('Ngo');
@@ -90,5 +84,5 @@ test('[empty-outcome-locations] a practice with no sites reads the same way', as
 
   await expectOneEmptyMark(page, 'No locations yet');
   await expect(page.getByText('Add your first site in the setup wizard.')).toBeVisible();
-  await captureEvidence(page, 'empty-outcome-locations');
+  await captureEvidence(page, 'locations-empty');
 });

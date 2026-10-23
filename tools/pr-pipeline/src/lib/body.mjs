@@ -64,7 +64,7 @@ export function updatePipelineState(body, state, detail, hiddenMarkers = []) {
 }
 
 /**
- * A design-system pull request has to hand the owner something they can open. Preview hosting is a
+ * A pull request that changes Storybook stories has to hand the owner something they can open. Preview hosting is a
  * separate delivery decision, so the reviewable candidate is the static build the gate already
  * produced, linked from its own marked section and replaced on every head.
  */

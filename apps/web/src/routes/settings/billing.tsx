@@ -12,6 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { StatusBadge } from '@/components/tone';
 import {
   Table,
   TableBody,
@@ -75,10 +76,10 @@ export function BillingSettingsRoute() {
                     {BILLING_POLICY_LABELS[settings.data?.billingPolicy as BillingPolicy] ?? '—'}
                   </p>
                   {settings.data?.policyLockedByBbpip && (
-                    <Badge variant="warning" className="gap-1">
+                    <StatusBadge tone="warning" className="gap-1">
                       <Lock className="size-3" />
                       Locked by BBPIP
-                    </Badge>
+                    </StatusBadge>
                   )}
                 </div>
               </div>

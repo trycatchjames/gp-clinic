@@ -22,7 +22,7 @@ const preview: Preview = {
     },
     options: {
       storySort: {
-        order: ['Foundations', 'Atoms', 'Molecules', 'Capabilities'],
+        order: ['Capabilities'],
       },
     },
     viewport: {

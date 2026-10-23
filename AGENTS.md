@@ -56,9 +56,12 @@ patient information, secrets or production data into fixtures, screenshots, trac
   cross-domain writes use explicit application orchestration.
 - Never silently discard failed saves, conflicts or clinically consequential history.
 - Keep generated SDK and OpenAPI outputs deterministic; do not edit generated SDK files.
-- Prefer accessible shadcn-derived primitives in `apps/web/src/components/ui`, pure shared
-  compositions in `apps/web/src/components/patterns`, and API/permission-aware components in a
-  capability-owned feature area.
+- Build web screens from unmodified shadcn registry components in `apps/web/src/components/ui`,
+  composed with Tailwind utilities. Install a missing one with the shadcn CLI; never edit an
+  installed file or write a look-alike. The brand lives only in `apps/web/src/index.css`.
+- Lay screens out by [`spec/product/experience/`](spec/product/experience/): web interaction
+  patterns and list views. Keep API/permission-aware components in a capability-owned feature
+  area.
 - Keep `tools/pr-pipeline` independent of application packages. Application code must not import
   it. GitHub workflows should be thin adapters around it.
 
@@ -74,9 +77,8 @@ patient information, secrets or production data into fixtures, screenshots, trac
 - Product copy is brief, task-specific and written at the point of need. Do not explain normal UI
   mechanics, repeat headings, or turn safety guidance into persistent prose when a concise label,
   state or decision-point message is sufficient.
-- Reusable list, search and filter patterns must be specified and demonstrated in the component
-  gallery before a capability makes them the de facto standard. Capability code supplies data and
-  rules; the pattern owns density, hierarchy, keyboard behaviour and responsive layout.
+- When a screen settles a layout choice others should follow, record it in
+  `spec/product/experience/` in the same PR, naming the screen as the first reference.
 
 ## Validation
 

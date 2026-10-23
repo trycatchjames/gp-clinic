@@ -24,11 +24,11 @@ import {
 } from '@/lib/queries';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
+import { StatusBadge, toneClasses, type Tone } from '@/components/tone';
 import { formatDate } from '@/lib/formatters';
 
 export function DashboardRoute() {
@@ -59,10 +59,10 @@ export function DashboardRoute() {
         }
         actions={
           practice.data?.onboardingStatus === 'active' ? (
-            <Badge variant="success" className="gap-1">
+            <StatusBadge tone="success" className="gap-1">
               <CheckCircle2 className="size-3" />
               Active
-            </Badge>
+            </StatusBadge>
           ) : (
             <Button asChild>
               <Link to="/onboarding">
@@ -143,7 +143,7 @@ export function DashboardRoute() {
       </div>
 
       {registrations.data?.bbpipParticipating && (
-        <Alert variant="warning">
+        <Alert className={toneClasses.warning}>
           <AlertTriangle />
           <AlertTitle>
             Participating in the Bulk Billing Practice Incentive Program
@@ -230,7 +230,7 @@ export function DashboardRoute() {
         <CardContent className="grid gap-3 sm:grid-cols-3">
           <Coverage title="Built" items={['Practice registration and onboarding', 'Locations, hours and after-hours', 'Practitioners and provider numbers', 'Team, roles and invitations', 'Fee schedules and billing policy']} tone="success" />
           <Coverage title="Modelled" items={['Patients and entitlements', 'Appointment book and arrivals', 'Consultation and health summary', 'Invoices, payments and claims']} tone="info" />
-          <Coverage title="Specified" items={['Prescribing and RTPM', 'Results, recalls and reminders', 'Chronic condition management', 'Accreditation evidence']} tone="secondary" />
+          <Coverage title="Specified" items={['Prescribing and RTPM', 'Results, recalls and reminders', 'Chronic condition management', 'Accreditation evidence']} tone="neutral" />
         </CardContent>
       </Card>
     </>
@@ -283,11 +283,11 @@ function Coverage({
 }: {
   title: string;
   items: string[];
-  tone: 'success' | 'info' | 'secondary';
+  tone: Tone;
 }) {
   return (
     <div className="space-y-2">
-      <Badge variant={tone}>{title}</Badge>
+      <StatusBadge tone={tone}>{title}</StatusBadge>
       <ul className="text-muted-foreground space-y-1 text-xs">
         {items.map((item) => (
           <li key={item}>{item}</li>
