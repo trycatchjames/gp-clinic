@@ -22,12 +22,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Field, FieldGroup } from '@/components/patterns/form-field';
+import { Field, FieldLabel } from '@/components/ui/field';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
+import { StatusBadge, toneClasses } from '@/components/tone';
 import {
   Dialog,
   DialogContent,
@@ -123,7 +124,7 @@ export function StepTeam({ practiceId, onDone }: { practiceId: string; onDone: (
                       <Badge variant="secondary">Vocationally registered</Badge>
                     )}
                     {practitioner.mentalHealthSkillsTraining && (
-                      <Badge variant="info">MHST — 2715/2717</Badge>
+                      <StatusBadge tone="info">MHST — 2715/2717</StatusBadge>
                     )}
                     {practitioner.isSupervisor && <Badge variant="secondary">Supervisor</Badge>}
                     <Button
@@ -167,7 +168,7 @@ export function StepTeam({ practiceId, onDone }: { practiceId: string; onDone: (
                 </div>
 
                 {practitioner.warnings.length > 0 && (
-                  <Alert variant="warning">
+                  <Alert className={toneClasses.warning}>
                     <TriangleAlert />
                     <AlertDescription>
                       <ul className="list-disc space-y-0.5 pl-4">
@@ -189,15 +190,22 @@ export function StepTeam({ practiceId, onDone }: { practiceId: string; onDone: (
       <form onSubmit={addPractitioner} className="space-y-5">
         <h3 className="font-medium">Add a practitioner</h3>
 
-        <FieldGroup columns={3}>
-          <Field label="Title" htmlFor="title">
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Field>
+            <FieldLabel htmlFor="title">
+              Title
+            </FieldLabel>
             <Input
               id="title"
               value={form.title}
               onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
             />
           </Field>
-          <Field label="Given name" htmlFor="given" required>
+          <Field>
+            <FieldLabel htmlFor="given">
+              Given name
+              <span aria-hidden="true" className="text-destructive">*</span>
+            </FieldLabel>
             <Input
               id="given"
               required
@@ -205,7 +213,11 @@ export function StepTeam({ practiceId, onDone }: { practiceId: string; onDone: (
               onChange={(e) => setForm((f) => ({ ...f, givenName: e.target.value }))}
             />
           </Field>
-          <Field label="Family name" htmlFor="family" required>
+          <Field>
+            <FieldLabel htmlFor="family">
+              Family name
+              <span aria-hidden="true" className="text-destructive">*</span>
+            </FieldLabel>
             <Input
               id="family"
               required
@@ -213,15 +225,19 @@ export function StepTeam({ practiceId, onDone }: { practiceId: string; onDone: (
               onChange={(e) => setForm((f) => ({ ...f, familyName: e.target.value }))}
             />
           </Field>
-        </FieldGroup>
+        </div>
 
-        <FieldGroup columns={3}>
-          <Field label="Kind" required>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Field>
+            <FieldLabel htmlFor="kind">
+              Kind
+              <span aria-hidden="true" className="text-destructive">*</span>
+            </FieldLabel>
             <Select
               value={form.kind}
               onValueChange={(value) => setForm((f) => ({ ...f, kind: value as PractitionerKind }))}
             >
-              <SelectTrigger>
+              <SelectTrigger id="kind">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -233,7 +249,10 @@ export function StepTeam({ practiceId, onDone }: { practiceId: string; onDone: (
               </SelectContent>
             </Select>
           </Field>
-          <Field label="AHPRA registration" htmlFor="ahpra">
+          <Field>
+            <FieldLabel htmlFor="ahpra">
+              AHPRA registration
+            </FieldLabel>
             <Input
               id="ahpra"
               className="tabular"
@@ -243,7 +262,10 @@ export function StepTeam({ practiceId, onDone }: { practiceId: string; onDone: (
               }
             />
           </Field>
-          <Field label="Prescriber number" htmlFor="prescriber">
+          <Field>
+            <FieldLabel htmlFor="prescriber">
+              Prescriber number
+            </FieldLabel>
             <Input
               id="prescriber"
               className="tabular"
@@ -251,7 +273,7 @@ export function StepTeam({ practiceId, onDone }: { practiceId: string; onDone: (
               onChange={(e) => setForm((f) => ({ ...f, prescriberNumber: e.target.value }))}
             />
           </Field>
-        </FieldGroup>
+        </div>
 
         <div className="grid gap-3">
           <ToggleRow
@@ -397,7 +419,7 @@ function InviteDialog({
         </DialogHeader>
 
         {acceptUrl ? (
-          <Alert variant="info">
+          <Alert className={toneClasses.info}>
             <AlertTitle>Invitation link</AlertTitle>
             <AlertDescription>
               <p>
@@ -411,17 +433,26 @@ function InviteDialog({
           </Alert>
         ) : (
           <div className="space-y-4">
-            <Field label="Email" htmlFor="inviteEmail" required>
+            <Field>
+              <FieldLabel htmlFor="inviteEmail">
+                Email
+                <span aria-hidden="true" className="text-destructive">*</span>
+              </FieldLabel>
               <Input
+                aria-required
                 id="inviteEmail"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Field>
-            <Field label="Role" required>
+            <Field>
+              <FieldLabel htmlFor="role">
+                Role
+                <span aria-hidden="true" className="text-destructive">*</span>
+              </FieldLabel>
               <Select value={role} onValueChange={(value) => setRole(value as PracticeRole)}>
-                <SelectTrigger>
+                <SelectTrigger id="role">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>

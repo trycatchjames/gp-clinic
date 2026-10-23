@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { StatusBadge, toneClasses } from '@/components/tone';
 import {
   Table,
   TableBody,
@@ -40,7 +41,7 @@ export function MbsRoute() {
         description="A working subset of the Medicare Benefits Schedule, sufficient to demonstrate the billing workflows."
       />
 
-      <Alert variant="info">
+      <Alert className={toneClasses.info}>
         <Info />
         <AlertTitle>Not an authoritative MBS</AlertTitle>
         <AlertDescription>
@@ -104,10 +105,10 @@ export function MbsRoute() {
                         <TableCell>
                           <div className="flex flex-wrap gap-1">
                             {item.requiresMentalHealthSkillsTraining && (
-                              <Badge variant="warning">Requires MHST</Badge>
+                              <StatusBadge tone="warning">Requires MHST</StatusBadge>
                             )}
                             {item.requiresMyMedicare && (
-                              <Badge variant="info">MyMedicare</Badge>
+                              <StatusBadge tone="info">MyMedicare</StatusBadge>
                             )}
                             {item.bulkBillIncentiveEligible && (
                               <Badge variant="secondary">Incentive eligible</Badge>

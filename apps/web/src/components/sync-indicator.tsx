@@ -2,7 +2,7 @@ import * as React from 'react';
 import { formatTime } from '@/lib/formatters';
 import { CloudOff, RefreshCw, Cloud, AlertTriangle } from 'lucide-react';
 import { subscribeSync, type SyncStatus } from '@/lib/offline';
-import { Badge } from '@/components/ui/badge';
+import { StatusBadge } from '@/components/tone';
 import {
   Tooltip,
   TooltipContent,
@@ -24,15 +24,15 @@ export function SyncIndicator() {
 
   React.useEffect(() => subscribeSync(setStatus) as unknown as () => void, []);
 
-  const { icon, label, variant, detail } = describe(status);
+  const { icon, label, tone, detail } = describe(status);
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Badge variant={variant} className="gap-1.5 py-1 font-normal">
+        <StatusBadge tone={tone} className="gap-1.5 py-1 font-normal">
           {icon}
           {label}
-        </Badge>
+        </StatusBadge>
       </TooltipTrigger>
       <TooltipContent>{detail}</TooltipContent>
     </Tooltip>
@@ -44,7 +44,7 @@ function describe(status: SyncStatus) {
     return {
       icon: <AlertTriangle className="size-3" />,
       label: `${status.needsReview} to review`,
-      variant: 'destructive' as const,
+      tone: 'danger' as const,
       detail:
         'Some changes could not be applied because the record changed on the server. Clinical data is never merged automatically — review them before they are lost.',
     };
@@ -53,7 +53,7 @@ function describe(status: SyncStatus) {
     return {
       icon: <RefreshCw className="size-3 animate-spin" />,
       label: 'Syncing',
-      variant: 'info' as const,
+      tone: 'info' as const,
       detail: 'Sending queued changes to the server.',
     };
   }
@@ -61,7 +61,7 @@ function describe(status: SyncStatus) {
     return {
       icon: <CloudOff className="size-3" />,
       label: status.queued > 0 ? `Offline · ${status.queued} queued` : 'Offline',
-      variant: 'warning' as const,
+      tone: 'warning' as const,
       detail:
         status.queued > 0
           ? `${status.queued} change(s) are saved on this device and will sync when you reconnect. Prescribing and Medicare claiming need a connection.`
@@ -72,14 +72,14 @@ function describe(status: SyncStatus) {
     return {
       icon: <RefreshCw className="size-3" />,
       label: `${status.queued} queued`,
-      variant: 'warning' as const,
+      tone: 'warning' as const,
       detail: 'Changes are waiting to be sent.',
     };
   }
   return {
     icon: <Cloud className="size-3" />,
     label: 'Online',
-    variant: 'secondary' as const,
+    tone: 'neutral' as const,
     detail: status.lastSyncedAt
       ? `Everything is saved. Last synced ${formatTime(
           status.lastSyncedAt,

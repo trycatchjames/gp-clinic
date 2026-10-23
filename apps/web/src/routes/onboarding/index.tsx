@@ -7,8 +7,8 @@ import { useAuth } from '@/lib/auth';
 import { keys, useOnboarding } from '@/lib/queries';
 import { cn } from '@/lib/utils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { SyncIndicator } from '@/components/sync-indicator';
+import { StatusBadge } from '@/components/tone';
 import { StepIdentity } from './step-identity';
 import { StepLocation } from './step-location';
 import { StepHours } from './step-hours';
@@ -111,7 +111,7 @@ export function OnboardingRoute() {
                 <CardTitle>{currentStep?.label ?? 'Practice identity'}</CardTitle>
                 <CardDescription>{currentStep?.description}</CardDescription>
               </div>
-              {currentStep?.status === 'complete' && <Badge variant="success">Done</Badge>}
+              {currentStep?.status === 'complete' && <StatusBadge tone="success">Done</StatusBadge>}
             </div>
           </CardHeader>
           <CardContent>

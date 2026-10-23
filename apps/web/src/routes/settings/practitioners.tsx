@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
+import { StatusBadge, toneClasses } from '@/components/tone';
 import {
   Table,
   TableBody,
@@ -32,7 +33,7 @@ export function PractitionersSettingsRoute() {
       />
 
       {withWarnings.length > 0 && (
-        <Alert variant="warning">
+        <Alert className={toneClasses.warning}>
           <TriangleAlert />
           <AlertDescription>
             <ul className="list-disc space-y-1 pl-4">
@@ -63,10 +64,10 @@ export function PractitionersSettingsRoute() {
                     <Badge variant="secondary">Vocationally registered</Badge>
                   )}
                   {practitioner.mentalHealthSkillsTraining ? (
-                    <Badge variant="info" className="gap-1">
+                    <StatusBadge tone="info" className="gap-1">
                       <GraduationCap className="size-3" />
                       MHST
-                    </Badge>
+                    </StatusBadge>
                   ) : practitioner.kind === 'gp' || practitioner.kind === 'gp_registrar' ? (
                     <Badge variant="outline">No MHST — 2700/2701 only</Badge>
                   ) : null}

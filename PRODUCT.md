@@ -92,7 +92,7 @@ features are not yet.
 
 Twenty-four capabilities are specified under [`spec/capabilities/`](spec/capabilities/). Built end
 to end today: account registration and the practice onboarding wizard, authentication, dashboard,
-practice settings, MBS browsing, the design-system foundations gallery, and patient search.
+practice settings, MBS browsing, and patient search.
 
 Binding constraints:
 
@@ -108,9 +108,9 @@ Binding constraints:
   labelled and must never look durably saved.
 - Authorization and practice isolation are enforced server-side on granular permissions. Hiding
   something in the UI is not access control.
-- Component layering is fixed: accessible shadcn-derived primitives in
-  `apps/web/src/components/ui`, pure shared compositions in `apps/web/src/components/patterns`, and
-  API- or permission-aware components in a capability-owned feature area.
+- Web screens are composed from unmodified shadcn registry components (style `radix-nova`) in
+  `apps/web/src/components/ui`; the brand lives only in `apps/web/src/index.css`. API- or
+  permission-aware components live in a capability-owned feature area.
 - Generated OpenAPI and SDK output is deterministic and never hand-edited.
 - Canonical terminology in [`spec/product/terminology.md`](spec/product/terminology.md) is binding
   in UI copy, not just in prose.
@@ -120,7 +120,7 @@ Explicitly undecided:
 - **No product or brand name has been committed.** "GP Practice Management" is a working label;
   "Brunswick" is demo seed data, not a brand.
 - **Capability order is "simplest first"** (confirmed with the owner), not a fixed lifecycle
-  position. Delivered so far: UI foundations, then patient search.
+  position. Delivered so far: patient search.
 - No universal Australian legal-retention schedule; jurisdiction and organisational policy remain
   configurable pending legal review.
 - The specification is deliberately implementation-neutral; the current stack is prototype
@@ -128,10 +128,10 @@ Explicitly undecided:
 
 ## Brand Commitments
 
-- **Interface character**, accepted in
-  [`spec/product/design-system/README.md`](spec/product/design-system/README.md): calm and assured
-  under pressure — professional enough for clinical work, warm enough for a community practice, and
-  distinctive without becoming decorative.
+- **Interface character**: calm and assured under pressure — professional enough for clinical
+  work, warm enough for a community practice, and distinctive without becoming decorative. The
+  theme is compact, with a beach-blue primary on pale cool surfaces; screens follow
+  [`spec/product/experience/`](spec/product/experience/).
 - **Voice**: brief, task-specific, written at the point of need. Do not explain ordinary UI
   mechanics, repeat headings, or turn safety guidance into persistent prose when a concise label,
   state or decision-point message will do.
@@ -146,15 +146,11 @@ Explicitly undecided:
 - [`SPEC.md`](SPEC.md) and [`spec/`](spec/) — the authoritative specification: 24 capability
   packets of `spec.md`, `acceptance.feature` and `review.yaml`, plus domain, cross-cutting,
   contract, architecture and decision material.
-- [`spec/product/design-system/`](spec/product/design-system/) — the normative visual and
-  reusable-component contract, in nine documents covering foundations, composition and ownership,
-  states and interaction, responsive behaviour and content, the atom and molecule catalogues,
-  evidence, and contribution.
+- [`spec/product/experience/`](spec/product/experience/) — how web screens are laid out: page
+  chrome, viewing and editing, forms, states, status, tables and list views.
 - [`spec/research/`](spec/research/) — the Australian source base and open questions, at a research
   cut-off of 26 August 2026. Time-sensitive programme, fee, legislative and standards claims must
   be reverified before use.
-- `apps/web/src/routes/foundations.tsx` with `apps/web/src/fixtures/design-system-states.ts` — the
-  component gallery and its deterministic fixtures.
 - `delivery/evidence/` and `playwright-report/` — captured pull-request evidence.
 - Running prototype: React 19, Vite, TanStack Router and Query, Tailwind v4 and Radix-based
   primitives on the web; NestJS, Drizzle and Postgres on the API, with a generated OpenAPI document
