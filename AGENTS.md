@@ -107,4 +107,5 @@ skill there and both supported harnesses find it with no further wiring: Claude 
 through the checked-in `.claude/skills` symlink and Codex through `.agents/skills`. Both symlinks
 resolve to that one directory. Never add a second copy, a harness-specific variant or a third
 discovery path. Use the relevant skill when a task matches it, especially for delivery slicing, PR
-evidence, feedback handling and the consolidated slice review.
+evidence, feedback handling, the consolidated slice review and grill sessions on the topics in
+`spec/product/grill-queue/`.
