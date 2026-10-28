@@ -8,10 +8,9 @@ story:
   goal: see which action completes the task, what the supporting choices are, and why it is blocked
   benefit: no region offers several competing primary actions or an unexplained disabled control
 spec_refs:
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/experience/patterns/saving-work.md
+  - spec/product/experience/rules.md
+  - spec/product/experience/README.md
   - spec/capabilities/billing/spec.md
   - spec/capabilities/patient-registration/spec.md
   - spec/capabilities/consultations/spec.md

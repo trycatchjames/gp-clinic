@@ -8,10 +8,9 @@ story:
   goal: see the screen's name, the exact scope it is showing and how current that is
   benefit: nobody acts on a stale queue, or on the wrong location or date, without noticing
 spec_refs:
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/experience/patterns/naming-a-screen.md
+  - spec/product/experience/rules.md
+  - spec/product/experience/README.md
   - spec/capabilities/calendar/spec.md
   - spec/capabilities/results/spec.md
   - spec/capabilities/tasks/spec.md

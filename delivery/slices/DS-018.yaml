@@ -8,10 +8,9 @@ story:
   goal: open the full detail and actions for one record without losing the list behind it
   benefit: a detail region stays usable where a permanent side region does not fit
 spec_refs:
-  - spec/product/design-system/atoms.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/experience/components.md
+  - spec/product/experience/rules.md
+  - spec/product/experience/README.md
   - spec/capabilities/calendar/spec.md
   - spec/cross-cutting/accessibility/requirements.md
 acceptance:

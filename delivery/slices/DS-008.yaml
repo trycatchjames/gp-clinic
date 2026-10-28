@@ -8,10 +8,9 @@ story:
   goal: sort, page through and disclose supporting rows in a dense data table
   benefit: large clinical, operational and financial datasets remain efficient and understandable
 spec_refs:
-  - spec/product/design-system/README.md
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/states-and-interaction.md
+  - spec/product/experience/README.md
+  - spec/product/experience/patterns/finding-records.md
+  - spec/product/experience/rules.md
 acceptance:
   scenarios: []
   criteria:

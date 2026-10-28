@@ -8,11 +8,9 @@ story:
   goal: refine and deliberately choose one option from a long or asynchronous list
   benefit: keyboard focus, search matches and loaded results cannot silently become the selected value
 spec_refs:
-  - spec/product/design-system/README.md
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/experience/README.md
+  - spec/product/experience/patterns/entering-values.md
+  - spec/product/experience/rules.md
   - spec/capabilities/referrals/spec.md
 acceptance:
   scenarios: []

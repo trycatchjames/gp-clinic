@@ -2,7 +2,7 @@ import contractRegistry from './foundation-contracts.json';
 
 export type FoundationContract = {
   contractId: string;
-  layer: 'atom' | 'molecule';
+  layer: 'pattern' | 'primitive';
   specRef: string;
   source: string;
   storyFile: string;

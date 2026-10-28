@@ -8,12 +8,9 @@ story:
   goal: review every approved primitive and its meaningful states in one traced Storybook gallery
   benefit: capability screens can adopt a primitive knowing its states, keyboard route and evidence were reviewed
 spec_refs:
-  - spec/product/design-system/README.md
-  - spec/product/design-system/atoms.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/storybook-and-evidence.md
-  - spec/product/design-system/contributing.md
+  - spec/product/experience/README.md
+  - spec/product/experience/components.md
+  - spec/product/experience/rules.md
 acceptance:
   scenarios: []
   criteria:

@@ -8,10 +8,9 @@ story:
   goal: see every affected record before committing, and every record's own outcome afterwards
   benefit: a partial result can never be read as complete success, and no record fails silently
 spec_refs:
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/experience/patterns/reporting-an-outcome.md
+  - spec/product/experience/rules.md
+  - spec/product/experience/README.md
   - spec/capabilities/tasks/spec.md
   - spec/capabilities/results/spec.md
   - spec/capabilities/practitioner-management/spec.md

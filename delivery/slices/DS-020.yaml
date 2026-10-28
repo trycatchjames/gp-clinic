@@ -8,11 +8,9 @@ story:
   goal: see at a glance whether what I have typed is on the record, only on this device, or lost
   benefit: pending, locally recovered, failed and overtaken work is never mistaken for saved
 spec_refs:
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/README.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/experience/patterns/saving-work.md
+  - spec/product/experience/README.md
+  - spec/product/experience/rules.md
   - spec/capabilities/clinical-notes/spec.md
   - spec/capabilities/consultations/spec.md
   - spec/capabilities/patient-registration/spec.md

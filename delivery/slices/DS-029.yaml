@@ -8,10 +8,9 @@ story:
   goal: see which facts agree, which differ and which conflict, and choose between them one at a time
   benefit: no record is silently preferred and no missing value is mistaken for agreement
 spec_refs:
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/experience/patterns/comparing-records.md
+  - spec/product/experience/rules.md
+  - spec/product/experience/README.md
   - spec/capabilities/patient-registration/spec.md
   - spec/capabilities/clinical-notes/spec.md
   - spec/capabilities/results/spec.md

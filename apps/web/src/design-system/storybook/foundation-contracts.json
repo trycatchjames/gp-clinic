@@ -1,8 +1,8 @@
 {
   "button": {
     "contractId": "DS-ACT-001",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-act-001-button",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/button.tsx",
     "storyFile": "apps/web/src/components/ui/button.stories.tsx",
     "evidence": [
@@ -13,8 +13,8 @@
   },
   "badge": {
     "contractId": "DS-DSP-001",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-dsp-001-badge",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/badge.tsx",
     "storyFile": "apps/web/src/components/ui/badge.stories.tsx",
     "evidence": [
@@ -23,8 +23,8 @@
   },
   "card": {
     "contractId": "DS-DSP-002",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-dsp-002-card",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/card.tsx",
     "storyFile": "apps/web/src/components/ui/card.stories.tsx",
     "evidence": [
@@ -33,8 +33,8 @@
   },
   "avatar": {
     "contractId": "DS-DSP-003",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-dsp-003-avatar",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/avatar.tsx",
     "storyFile": "apps/web/src/components/ui/avatar.stories.tsx",
     "evidence": [
@@ -43,8 +43,8 @@
   },
   "table": {
     "contractId": "DS-DSP-004",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-dsp-004-table",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/table.tsx",
     "storyFile": "apps/web/src/components/ui/table.stories.tsx",
     "evidence": [
@@ -54,8 +54,8 @@
   },
   "separator": {
     "contractId": "DS-DSP-005",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-dsp-005-separator",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/separator.tsx",
     "storyFile": "apps/web/src/components/ui/separator.stories.tsx",
     "evidence": [
@@ -64,8 +64,8 @@
   },
   "alert": {
     "contractId": "DS-FBK-001",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-fbk-001-alert",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/alert.tsx",
     "storyFile": "apps/web/src/components/ui/alert.stories.tsx",
     "evidence": [
@@ -75,8 +75,8 @@
   },
   "progress": {
     "contractId": "DS-FBK-002",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-fbk-002-progress",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/progress.tsx",
     "storyFile": "apps/web/src/components/ui/progress.stories.tsx",
     "evidence": [
@@ -85,8 +85,8 @@
   },
   "skeleton": {
     "contractId": "DS-FBK-003",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-fbk-003-skeleton",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/skeleton.tsx",
     "storyFile": "apps/web/src/components/ui/skeleton.stories.tsx",
     "evidence": [
@@ -95,8 +95,8 @@
   },
   "input": {
     "contractId": "DS-FRM-001",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-frm-001-input",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/input.tsx",
     "storyFile": "apps/web/src/components/ui/input.stories.tsx",
     "evidence": [
@@ -106,8 +106,8 @@
   },
   "textarea": {
     "contractId": "DS-FRM-002",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-frm-002-textarea",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/textarea.tsx",
     "storyFile": "apps/web/src/components/ui/textarea.stories.tsx",
     "evidence": [
@@ -117,8 +117,8 @@
   },
   "label": {
     "contractId": "DS-FRM-003",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-frm-003-label",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/label.tsx",
     "storyFile": "apps/web/src/components/ui/label.stories.tsx",
     "evidence": [
@@ -127,8 +127,8 @@
   },
   "checkbox": {
     "contractId": "DS-FRM-004",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-frm-004-checkbox",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/checkbox.tsx",
     "storyFile": "apps/web/src/components/ui/checkbox.stories.tsx",
     "evidence": [
@@ -138,8 +138,8 @@
   },
   "radioGroup": {
     "contractId": "DS-FRM-005",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-frm-005-radio-group",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/radio-group.tsx",
     "storyFile": "apps/web/src/components/ui/radio-group.stories.tsx",
     "evidence": [
@@ -149,8 +149,8 @@
   },
   "switchControl": {
     "contractId": "DS-FRM-006",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-frm-006-switch",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/switch.tsx",
     "storyFile": "apps/web/src/components/ui/switch.stories.tsx",
     "evidence": [
@@ -160,8 +160,8 @@
   },
   "select": {
     "contractId": "DS-FRM-007",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-frm-007-select",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/select.tsx",
     "storyFile": "apps/web/src/components/ui/select.stories.tsx",
     "evidence": [
@@ -171,8 +171,8 @@
   },
   "tabs": {
     "contractId": "DS-NAV-001",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-nav-001-tabs",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/tabs.tsx",
     "storyFile": "apps/web/src/components/ui/tabs.stories.tsx",
     "evidence": [
@@ -182,8 +182,8 @@
   },
   "dialog": {
     "contractId": "DS-OVR-001",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-ovr-001-dialog",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/dialog.tsx",
     "storyFile": "apps/web/src/components/ui/dialog.stories.tsx",
     "evidence": [
@@ -193,8 +193,8 @@
   },
   "dropdownMenu": {
     "contractId": "DS-OVR-002",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-ovr-002-dropdown-menu",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/dropdown-menu.tsx",
     "storyFile": "apps/web/src/components/ui/dropdown-menu.stories.tsx",
     "evidence": [
@@ -204,8 +204,8 @@
   },
   "tooltip": {
     "contractId": "DS-OVR-003",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-ovr-003-tooltip",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/tooltip.tsx",
     "storyFile": "apps/web/src/components/ui/tooltip.stories.tsx",
     "evidence": [
@@ -214,8 +214,8 @@
   },
   "sheet": {
     "contractId": "DS-OVR-004",
-    "layer": "atom",
-    "specRef": "spec/product/design-system/atoms.md#ds-ovr-004-sheet",
+    "layer": "primitive",
+    "specRef": "spec/product/experience/components.md",
     "source": "apps/web/src/components/ui/sheet.tsx",
     "storyFile": "apps/web/src/components/ui/sheet.stories.tsx",
     "evidence": [
@@ -226,8 +226,8 @@
   },
   "field": {
     "contractId": "DS-PAT-001",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-001-field-and-field-group",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/entering-values.md#ds-pat-001-field-and-field-group",
     "source": "apps/web/src/components/patterns/form-field.tsx",
     "storyFile": "apps/web/src/components/patterns/form-field.stories.tsx",
     "evidence": [
@@ -238,8 +238,8 @@
   },
   "filterBar": {
     "contractId": "DS-PAT-002",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-002-filter-bar-and-filter-field",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/finding-records.md#ds-pat-002-filter-bar-and-filter-field",
     "source": "apps/web/src/components/patterns/filter-bar.tsx",
     "storyFile": "apps/web/src/components/patterns/filter-bar.stories.tsx",
     "evidence": [
@@ -250,8 +250,8 @@
   },
   "listView": {
     "contractId": "DS-PAT-003",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-003-list-view-and-list-view-row",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/finding-records.md#ds-pat-003-list-view-and-list-view-row",
     "source": "apps/web/src/components/patterns/list-view.tsx",
     "storyFile": "apps/web/src/components/patterns/list-view.stories.tsx",
     "evidence": [
@@ -262,8 +262,8 @@
   },
   "contextBanner": {
     "contractId": "DS-PAT-004",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-004-context-banner",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/naming-a-screen.md#ds-pat-004-context-banner",
     "source": "apps/web/src/components/patterns/context-banner.tsx",
     "storyFile": "apps/web/src/components/patterns/context-banner.stories.tsx",
     "evidence": [
@@ -273,8 +273,8 @@
   },
   "statePanel": {
     "contractId": "DS-PAT-005",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-005-state-panel",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/empty-and-failed-outcomes.md#ds-pat-005-state-panel",
     "source": "apps/web/src/components/patterns/state-panel.tsx",
     "storyFile": "apps/web/src/components/patterns/state-panel.stories.tsx",
     "evidence": [
@@ -285,8 +285,8 @@
   },
   "summaryList": {
     "contractId": "DS-PAT-006",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-006-summary-list",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/reading-a-record.md#ds-pat-006-summary-list",
     "source": "apps/web/src/components/patterns/summary-list.tsx",
     "storyFile": "apps/web/src/components/patterns/summary-list.stories.tsx",
     "evidence": [
@@ -296,8 +296,8 @@
   },
   "dataTable": {
     "contractId": "DS-PAT-007",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-007-data-table",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/finding-records.md#ds-pat-007-data-table",
     "source": "apps/web/src/components/patterns/data-table.tsx",
     "storyFile": "apps/web/src/components/patterns/data-table.stories.tsx",
     "evidence": [
@@ -309,8 +309,8 @@
   },
   "comboboxField": {
     "contractId": "DS-PAT-008",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-008-combobox-field",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/entering-values.md#ds-pat-008-combobox-field",
     "source": "apps/web/src/components/patterns/combobox-field.tsx",
     "storyFile": "apps/web/src/components/patterns/combobox-field.stories.tsx",
     "evidence": [
@@ -322,8 +322,8 @@
   },
   "dateField": {
     "contractId": "DS-PAT-009",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-009-australian-date-field",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/entering-values.md#ds-pat-009-australian-date-field",
     "source": "apps/web/src/components/patterns/date-field.tsx",
     "storyFile": "apps/web/src/components/patterns/date-field.stories.tsx",
     "evidence": [
@@ -335,8 +335,8 @@
   },
   "dateRangeField": {
     "contractId": "DS-PAT-010",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-010-australian-date-range-field",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/entering-values.md#ds-pat-010-australian-date-range-field",
     "source": "apps/web/src/components/patterns/date-range-field.tsx",
     "storyFile": "apps/web/src/components/patterns/date-range-field.stories.tsx",
     "evidence": [
@@ -348,8 +348,8 @@
   },
   "timeField": {
     "contractId": "DS-PAT-011",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-011-local-time-field",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/entering-values.md#ds-pat-011-local-time-field",
     "source": "apps/web/src/components/patterns/time-field.tsx",
     "storyFile": "apps/web/src/components/patterns/time-field.stories.tsx",
     "evidence": [
@@ -361,8 +361,8 @@
   },
   "fileInputField": {
     "contractId": "DS-PAT-012",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-012-file-input-field",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/entering-values.md#ds-pat-012-file-input-field",
     "source": "apps/web/src/components/patterns/file-input-field.tsx",
     "storyFile": "apps/web/src/components/patterns/file-input-field.stories.tsx",
     "evidence": [
@@ -374,8 +374,8 @@
   },
   "consequenceConfirmation": {
     "contractId": "DS-PAT-013",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-013-consequence-confirmation",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/confirming-an-action.md#ds-pat-013-consequence-confirmation",
     "source": "apps/web/src/components/patterns/consequence-confirmation.tsx",
     "storyFile": "apps/web/src/components/patterns/consequence-confirmation.stories.tsx",
     "evidence": [
@@ -388,8 +388,8 @@
   },
   "toastRegion": {
     "contractId": "DS-PAT-014",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-014-toast-region",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/reporting-an-outcome.md#ds-pat-014-toast-region",
     "source": "apps/web/src/components/patterns/toast-region.tsx",
     "storyFile": "apps/web/src/components/patterns/toast-region.stories.tsx",
     "evidence": [
@@ -403,8 +403,8 @@
   },
   "saveState": {
     "contractId": "DS-PAT-015",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-015-save-state",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/saving-work.md#ds-pat-015-save-state",
     "source": "apps/web/src/components/patterns/save-state.tsx",
     "storyFile": "apps/web/src/components/patterns/save-state.stories.tsx",
     "evidence": [
@@ -417,8 +417,8 @@
   },
   "formErrorSummary": {
     "contractId": "DS-PAT-016",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-016-form-error-summary",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/organising-a-form.md#ds-pat-016-form-error-summary",
     "source": "apps/web/src/components/patterns/form-error-summary.tsx",
     "storyFile": "apps/web/src/components/patterns/form-error-summary.stories.tsx",
     "evidence": [
@@ -430,8 +430,8 @@
   },
   "formSection": {
     "contractId": "DS-PAT-017",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-017-form-section",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/organising-a-form.md#ds-pat-017-form-section",
     "source": "apps/web/src/components/patterns/form-section.tsx",
     "storyFile": "apps/web/src/components/patterns/form-section.stories.tsx",
     "evidence": [
@@ -441,8 +441,8 @@
   },
   "collapsibleSection": {
     "contractId": "DS-PAT-018",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-018-collapsible-section",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/organising-a-form.md#ds-pat-018-collapsible-section",
     "source": "apps/web/src/components/patterns/collapsible-section.tsx",
     "storyFile": "apps/web/src/components/patterns/collapsible-section.stories.tsx",
     "evidence": [
@@ -454,8 +454,8 @@
   },
   "actionBar": {
     "contractId": "DS-PAT-019",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-019-action-bar",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/saving-work.md#ds-pat-019-action-bar",
     "source": "apps/web/src/components/patterns/action-bar.tsx",
     "storyFile": "apps/web/src/components/patterns/action-bar.stories.tsx",
     "evidence": [
@@ -467,8 +467,8 @@
   },
   "bulkSelection": {
     "contractId": "DS-PAT-020",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-020-bulk-selection",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/finding-records.md#ds-pat-020-bulk-selection",
     "source": "apps/web/src/components/patterns/bulk-selection.tsx",
     "storyFile": "apps/web/src/components/patterns/bulk-selection.stories.tsx",
     "evidence": [
@@ -481,8 +481,8 @@
   },
   "itemisedOutcome": {
     "contractId": "DS-PAT-021",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-021-itemised-outcome",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/reporting-an-outcome.md#ds-pat-021-itemised-outcome",
     "source": "apps/web/src/components/patterns/itemised-outcome.tsx",
     "storyFile": "apps/web/src/components/patterns/itemised-outcome.stories.tsx",
     "evidence": [
@@ -494,8 +494,8 @@
   },
   "numericField": {
     "contractId": "DS-PAT-022",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-022-numeric-field",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/entering-values.md#ds-pat-022-numeric-field",
     "source": "apps/web/src/components/patterns/numeric-field.tsx",
     "storyFile": "apps/web/src/components/patterns/numeric-field.stories.tsx",
     "evidence": [
@@ -506,8 +506,8 @@
   },
   "recordTimeline": {
     "contractId": "DS-PAT-023",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-023-record-timeline",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/record-history.md#ds-pat-023-record-timeline",
     "source": "apps/web/src/components/patterns/record-timeline.tsx",
     "storyFile": "apps/web/src/components/patterns/record-timeline.stories.tsx",
     "evidence": [
@@ -519,8 +519,8 @@
   },
   "recordComparison": {
     "contractId": "DS-PAT-024",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-024-record-comparison",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/comparing-records.md#ds-pat-024-record-comparison",
     "source": "apps/web/src/components/patterns/record-comparison.tsx",
     "storyFile": "apps/web/src/components/patterns/record-comparison.stories.tsx",
     "evidence": [
@@ -532,8 +532,8 @@
   },
   "pageHeader": {
     "contractId": "DS-PAT-025",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-025-page-header",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/naming-a-screen.md#ds-pat-025-page-header",
     "source": "apps/web/src/components/patterns/page-header.tsx",
     "storyFile": "apps/web/src/components/patterns/page-header.stories.tsx",
     "evidence": [
@@ -545,8 +545,8 @@
   },
   "sectionNavigation": {
     "contractId": "DS-PAT-026",
-    "layer": "molecule",
-    "specRef": "spec/product/design-system/molecules.md#ds-pat-026-section-navigation",
+    "layer": "pattern",
+    "specRef": "spec/product/experience/patterns/moving-between-sections.md#ds-pat-026-section-navigation",
     "source": "apps/web/src/components/patterns/section-navigation.tsx",
     "storyFile": "apps/web/src/components/patterns/section-navigation.stories.tsx",
     "evidence": [

@@ -8,9 +8,9 @@ story:
   goal: scan and compare dense row and column information with consistent alignment
   benefit: clinical and operational screens can reuse an accessible compact table foundation
 spec_refs:
-  - spec/product/design-system/README.md
-  - spec/product/design-system/atoms.md
-  - spec/product/design-system/responsive-and-content.md
+  - spec/product/experience/README.md
+  - spec/product/experience/components.md
+  - spec/product/experience/rules.md
 acceptance:
   scenarios: []
   criteria:

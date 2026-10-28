@@ -39,7 +39,7 @@ const meta = {
     docs: {
       description: {
         component:
-          '[Shared display formatters](https://github.com/trycatchjames/gp-clinic/blob/main/spec/product/design-system/responsive-and-content.md#shared-display-formatters) · Source: `apps/web/src/lib/formatters.ts`',
+          '[Shared display formatters](https://github.com/trycatchjames/gp-clinic/blob/main/spec/product/experience/rules.md#shared-display-formatters) · Source: `apps/web/src/lib/formatters.ts`',
       },
     },
   },

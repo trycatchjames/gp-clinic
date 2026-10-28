@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const foundationSpec =
-  'https://github.com/trycatchjames/gp-clinic/blob/main/spec/product/design-system/principles-and-foundations.md';
+  'https://github.com/trycatchjames/gp-clinic/blob/main/spec/product/experience/rules.md';
 
 const meta = {
   title: 'Foundations/Theme',

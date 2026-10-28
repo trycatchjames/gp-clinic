@@ -8,11 +8,10 @@ story:
   goal: see which section is current and how much work each holds, and move between them
   benefit: arriving at a section never marks anything read, and the current location is never hidden
 spec_refs:
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/atoms.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/experience/patterns/moving-between-sections.md
+  - spec/product/experience/components.md
+  - spec/product/experience/rules.md
+  - spec/product/experience/README.md
   - spec/capabilities/patient-record/spec.md
   - spec/capabilities/results/spec.md
   - spec/capabilities/tasks/spec.md

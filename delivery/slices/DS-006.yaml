@@ -8,8 +8,8 @@ story:
   goal: read dates, times, phone numbers, currency and quantities in one consistent format
   benefit: repeated values remain predictable and comparable across dense clinical workflows
 spec_refs:
-  - spec/product/design-system/README.md
-  - spec/product/design-system/responsive-and-content.md
+  - spec/product/experience/README.md
+  - spec/product/experience/rules.md
 acceptance:
   scenarios: []
   criteria:

@@ -8,11 +8,10 @@ story:
   goal: choose many records at once and see what is selected, what is not, and what cannot be included
   benefit: nothing is acted on that the operator did not knowingly choose, and nothing is quietly left out
 spec_refs:
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/atoms.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/experience/patterns/finding-records.md
+  - spec/product/experience/components.md
+  - spec/product/experience/rules.md
+  - spec/product/experience/README.md
   - spec/capabilities/results/spec.md
   - spec/capabilities/tasks/spec.md
   - spec/capabilities/documents/spec.md

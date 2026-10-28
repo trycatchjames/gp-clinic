@@ -8,12 +8,9 @@ story:
   goal: review every approved reusable composition and its meaningful states in the same traced gallery
   benefit: a capability can reuse a search, list, context or summary pattern without re-deciding density, hierarchy or keyboard behaviour
 spec_refs:
-  - spec/product/design-system/README.md
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/storybook-and-evidence.md
-  - spec/product/design-system/contributing.md
+  - spec/product/experience/README.md
+  - spec/product/experience/components.md
+  - spec/product/experience/rules.md
 acceptance:
   scenarios: []
   criteria:

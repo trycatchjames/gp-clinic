@@ -129,7 +129,7 @@ Explicitly undecided:
 ## Brand Commitments
 
 - **Interface character**, accepted in
-  [`spec/product/design-system/README.md`](spec/product/design-system/README.md): calm and assured
+  [`spec/product/experience/README.md`](spec/product/experience/README.md): calm and assured
   under pressure — professional enough for clinical work, warm enough for a community practice, and
   distinctive without becoming decorative.
 - **Voice**: brief, task-specific, written at the point of need. Do not explain ordinary UI
@@ -146,10 +146,9 @@ Explicitly undecided:
 - [`SPEC.md`](SPEC.md) and [`spec/`](spec/) — the authoritative specification: 24 capability
   packets of `spec.md`, `acceptance.feature` and `review.yaml`, plus domain, cross-cutting,
   contract, architecture and decision material.
-- [`spec/product/design-system/`](spec/product/design-system/) — the normative visual and
-  reusable-component contract, in nine documents covering foundations, composition and ownership,
-  states and interaction, responsive behaviour and content, the atom and molecule catalogues,
-  evidence, and contribution.
+- [`spec/product/experience/`](spec/product/experience/) — the normative experience contract:
+  thirteen pattern pages, each owning one product problem a screen has to solve, the UX rules that
+  apply to all of them, and an inventory of what exists in code.
 - [`spec/research/`](spec/research/) — the Australian source base and open questions, at a research
   cut-off of 26 August 2026. Time-sensitive programme, fee, legislative and standards claims must
   be reverified before use.

@@ -8,11 +8,9 @@ story:
   goal: recognise concise statuses and categories without losing their textual meaning
   benefit: dense clinical and operational views can communicate state consistently without relying on colour
 spec_refs:
-  - spec/product/design-system/README.md
-  - spec/product/design-system/principles-and-foundations.md
-  - spec/product/design-system/atoms.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/experience/README.md
+  - spec/product/experience/rules.md
+  - spec/product/experience/components.md
 acceptance:
   scenarios: []
   criteria:

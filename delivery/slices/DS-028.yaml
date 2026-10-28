@@ -8,10 +8,9 @@ story:
   goal: see each entry in time order with when it applied, when it was recorded and whether it still stands
   benefit: a late entry, an amendment and a withdrawn entry are never mistaken for ordinary history
 spec_refs:
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/experience/patterns/record-history.md
+  - spec/product/experience/rules.md
+  - spec/product/experience/README.md
   - spec/capabilities/patient-record/spec.md
   - spec/capabilities/clinical-notes/spec.md
   - spec/capabilities/observations/spec.md

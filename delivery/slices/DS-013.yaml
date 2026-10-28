@@ -8,11 +8,9 @@ story:
   goal: type or deliberately choose a local appointment time
   benefit: the clock convention and location timezone remain explicit without focus implying selection
 spec_refs:
-  - spec/product/design-system/README.md
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/experience/README.md
+  - spec/product/experience/patterns/entering-values.md
+  - spec/product/experience/rules.md
   - spec/cross-cutting/dates-and-times/requirements.md
   - spec/capabilities/calendar/spec.md
 acceptance:

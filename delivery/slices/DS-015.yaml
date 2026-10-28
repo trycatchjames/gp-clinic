@@ -8,10 +8,9 @@ story:
   goal: see exactly what an irreversible action affects, keeps and changes before committing to it
   benefit: a cancellation, amendment or merge is a deliberate decision rather than a dismissed prompt
 spec_refs:
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/experience/patterns/confirming-an-action.md
+  - spec/product/experience/rules.md
+  - spec/product/experience/README.md
   - spec/cross-cutting/clinical-safety/destructive-actions.md
   - spec/cross-cutting/clinical-safety/principles.md
 acceptance:

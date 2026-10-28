@@ -8,10 +8,9 @@ story:
   goal: see everything that blocked the save and move straight to each field
   benefit: an error in a scrolled-out section cannot hide behind a save that quietly did nothing
 spec_refs:
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/experience/patterns/organising-a-form.md
+  - spec/product/experience/rules.md
+  - spec/product/experience/README.md
   - spec/capabilities/patient-registration/spec.md
   - spec/capabilities/consultations/spec.md
   - spec/cross-cutting/accessibility/requirements.md

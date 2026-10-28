@@ -8,8 +8,7 @@ story:
   goal: open the gallery built from the exact commit under review without installing the repository
   benefit: component approval is granted against the reviewed head rather than a local build that may differ from it
 spec_refs:
-  - spec/product/design-system/storybook-and-evidence.md
-  - spec/product/design-system/contributing.md
+  - spec/product/experience/README.md
 acceptance:
   scenarios: []
   criteria:

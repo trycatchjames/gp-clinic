@@ -8,11 +8,9 @@ story:
   goal: enter or choose an exact date in unambiguous Australian order
   benefit: incomplete text is preserved and date-only values cannot silently become instants or US-formatted dates
 spec_refs:
-  - spec/product/design-system/README.md
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/responsive-and-content.md
-  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/experience/README.md
+  - spec/product/experience/patterns/entering-values.md
+  - spec/product/experience/rules.md
   - spec/cross-cutting/dates-and-times/requirements.md
   - spec/capabilities/calendar/spec.md
 acceptance:

@@ -56,6 +56,9 @@ patient information, secrets or production data into fixtures, screenshots, trac
   cross-domain writes use explicit application orchestration.
 - Never silently discard failed saves, conflicts or clinically consequential history.
 - Keep generated SDK and OpenAPI outputs deterministic; do not edit generated SDK files.
+- Before building a screen, read the page in `spec/product/experience/patterns/` that owns the
+  problem it solves, and `spec/product/experience/rules.md` for what applies to every screen. A
+  pattern page is authoritative for the components listed at its foot.
 - Prefer accessible shadcn-derived primitives in `apps/web/src/components/ui`, pure shared
   compositions in `apps/web/src/components/patterns`, and API/permission-aware components in a
   capability-owned feature area.
@@ -74,9 +77,14 @@ patient information, secrets or production data into fixtures, screenshots, trac
 - Product copy is brief, task-specific and written at the point of need. Do not explain normal UI
   mechanics, repeat headings, or turn safety guidance into persistent prose when a concise label,
   state or decision-point message is sufficient.
-- Reusable list, search and filter patterns must be specified and demonstrated in the component
-  gallery before a capability makes them the de facto standard. Capability code supplies data and
-  rules; the pattern owns density, hierarchy, keyboard behaviour and responsive layout.
+- Reusable list, search and filter patterns must be specified on their pattern page in
+  `spec/product/experience/patterns/` and demonstrated in the component gallery before a
+  capability makes them the de facto standard. Capability code supplies data and rules; the
+  pattern owns density, hierarchy, keyboard behaviour and responsive layout.
+- A pattern is settled by a real screen, not by being written down. Each page names its first
+  reference and records who settled it and when; a pattern with no shipped consumer says so. When
+  a second screen needs the same thing and exposes a better shape, revise the page rather than
+  building a variant.
 
 ## Validation
 

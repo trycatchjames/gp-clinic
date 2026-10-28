@@ -8,9 +8,9 @@ story:
   goal: see an empty result explained once, by the mark the state itself means
   benefit: no screen shows two icons for one outcome, and no second empty-state foundation survives
 spec_refs:
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/states-and-interaction.md
-  - spec/product/design-system/storybook-and-evidence.md
+  - spec/product/experience/patterns/empty-and-failed-outcomes.md
+  - spec/product/experience/rules.md
+  - spec/product/experience/README.md
   - spec/capabilities/patient-search/spec.md
   - spec/cross-cutting/accessibility/requirements.md
 acceptance:

@@ -8,10 +8,8 @@ story:
   goal: find the evidence a component contract asked for under the name the contract used
   benefit: a component cannot quietly satisfy its contract with proof the contract never requested
 spec_refs:
-  - spec/product/design-system/atoms.md
-  - spec/product/design-system/molecules.md
-  - spec/product/design-system/storybook-and-evidence.md
-  - spec/product/design-system/contributing.md
+  - spec/product/experience/components.md
+  - spec/product/experience/README.md
 acceptance:
   scenarios: []
   criteria:
