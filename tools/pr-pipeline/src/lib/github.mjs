@@ -1,4 +1,18 @@
+import { execFileSync } from 'node:child_process';
+
 const apiVersion = '2026-03-10';
+
+// In GitHub Actions the environment supplies both. On a developer's machine neither is set,
+// so fall back to the signed-in gh CLI rather than asking for a second credential.
+export function localGitHubCredentials() {
+  const fromGh = (args) =>
+    execFileSync('gh', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+  const token = process.env.GITHUB_TOKEN || fromGh(['auth', 'token']);
+  const repository =
+    process.env.GITHUB_REPOSITORY ||
+    fromGh(['repo', 'view', '--json', 'nameWithOwner', '--jq', '.nameWithOwner']);
+  return { token, repository };
+}
 
 export function repositoryParts(value = process.env.GITHUB_REPOSITORY) {
   const [owner, repo] = (value ?? '').split('/');

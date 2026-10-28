@@ -6,7 +6,7 @@ import path from 'node:path';
 import YAML from 'yaml';
 import config from '../config.json' with { type: 'json' };
 import { captureFlowVideos, invalidatesFlowEvidence } from './lib/evidence.mjs';
-import { githubClient } from './lib/github.mjs';
+import { githubClient, localGitHubCredentials } from './lib/github.mjs';
 import { repositoryRoot } from './lib/manifests.mjs';
 import { parseLocalArgs, runAgent } from './lib/local-agent.mjs';
 import { positiveIntegerSetting } from './lib/settings.mjs';
@@ -187,12 +187,6 @@ async function runReviews(targets, trustedInstructions) {
 function manifestPathForBranch(branch) {
   const sliceId = branch.match(/^agent\/(.+)$/)?.[1]?.toUpperCase();
   return sliceId ? `delivery/slices/${sliceId}.yaml` : 'Locate it from the PR diff and directly supporting metadata.';
-}
-
-function localGitHubCredentials() {
-  const token = process.env.GITHUB_TOKEN || exec('gh', ['auth', 'token']);
-  const repository = process.env.GITHUB_REPOSITORY || exec('gh', ['repo', 'view', '--json', 'nameWithOwner', '--jq', '.nameWithOwner']);
-  return { token, repository };
 }
 
 function prepareCleanCheckout() {

@@ -3,6 +3,24 @@
 This repository is an Australian general-practice product. Treat GitHub pull requests as the
 delivery and approval interface: ship small, reviewable user outcomes with observable evidence.
 
+## How work moves
+
+Read [`FLOW.md`](FLOW.md) first. Work moves through three stages, and knowing which one you are
+in decides what you may change:
+
+| Stage | Who | You may change |
+|---|---|---|
+| **Research** | an agent, the PM reviews | `spec/research/` |
+| **Product** | the PM, in a grill session | `spec/proposals/`, then `spec/`, then the slices it releases |
+| **Build** | the pipeline, unattended | `apps/`, `packages/`, tests and evidence |
+
+**The product stage decides; the build stage never does.** Working in the build stage, decide no
+product question. If the specification does not answer something a person using the product could
+notice, that is a gap the readiness review missed: stop and raise it for a grill session rather
+than choosing. `FLOW.md` has the words this repository uses and the right size for each unit.
+
+A grill session needs the PM present and never runs unattended.
+
 ## Authority
 
 1. Read `SPEC.md` before product work.
@@ -29,6 +47,13 @@ override `SPEC.md` or `spec/`.
   layer from a higher one.
 - Material behaviour, permission, safety, domain, contract or screen changes require the
   corresponding authoritative specification change.
+- A slice reaches the pipeline only after a readiness review found no product decision left for
+  the builder. That result is the slice's `ready` date and `decided_by`, and `pnpm lint:slices`
+  refuses a queued slice without them. A change to a ready slice's rules, scenarios or contracts
+  takes the date off until the review passes again.
+- Merging the pull request that writes a slice is what releases it: the `Release ready slices`
+  workflow opens the queued issue the pipeline picks up. Do not open those issues by hand, and do
+  not queue a slice by labelling an issue in place of a readiness review.
 - Findings outside the slice become a linked GitHub issue with evidence and acceptance criteria.
   Fix them in the current PR only when they block the story or make it unsafe.
 
@@ -112,5 +137,14 @@ Reusable workflows live canonically in `agent-skills/` using the open Agent Skil
 skill there and both supported harnesses find it with no further wiring: Claude Code discovers it
 through the checked-in `.claude/skills` symlink and Codex through `.agents/skills`. Both symlinks
 resolve to that one directory. Never add a second copy, a harness-specific variant or a third
-discovery path. Use the relevant skill when a task matches it, especially for delivery slicing, PR
-evidence, feedback handling and the consolidated slice review.
+discovery path. Use the relevant skill when a task matches it.
+
+| Skill | For |
+|---|---|
+| `grilling` | Settling what the product should do, with the PM. The product stage's only entry point. |
+| `reviewing-readiness` | Checking a slice has no product decision left before the pipeline takes it. |
+| `delivering-slice` | Implementing one ready slice. |
+| `reviewing-slice` | The consolidated review gate on a slice pull request. |
+| `handling-pr-feedback` | Applying trusted human review to the right layer of a stack. |
+| `settling-a-pattern` | Creating or revising a shared UX pattern and its components. |
+| `gp-specification` | Auditing or consolidating the specification outside a grill session. |

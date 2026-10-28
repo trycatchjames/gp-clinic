@@ -1,7 +1,7 @@
 id: PATSEARCH-001
 title: Find and deliberately select an existing patient
 kind: story
-status: queued
+status: delivered
 capability: patient-search
 story:
   actor: Receptionist

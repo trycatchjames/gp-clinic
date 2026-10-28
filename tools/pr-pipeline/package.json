@@ -12,7 +12,8 @@
     "architecture": "node src/check-architecture.mjs",
     "test": "node --test test/*.test.mjs",
     "poll": "node --env-file-if-exists=../../.env src/poll.mjs",
-    "local": "node --env-file-if-exists=../../.env src/run-local.mjs"
+    "local": "node --env-file-if-exists=../../.env src/run-local.mjs",
+    "release": "node --env-file-if-exists=../../.env src/release-ready-slices.mjs"
   },
   "dependencies": {
     "ajv": "^8.17.1",

@@ -72,7 +72,7 @@ export async function prepareWork({ client, mode, payload }) {
       stackPullNumbers: ordered.map((pull) => pull.number),
     };
     prompt = [
-      'Use the delivering-slice skill and the capturing-pr-evidence skill.',
+      'Use the delivering-slice skill.',
       `Implement issue #${issue.number}: ${issue.title}`,
       'The delivery manifest is authoritative for this PR:',
       manifest,

@@ -61,9 +61,12 @@ To see the onboarding wizard, create a new account at `/register` instead.
 ## Specification shape
 
 ```text
-SPEC.md
+SPEC.md                            the authority order and the Version 1 boundary
+FLOW.md                            the three stages, the shared language, the right size
 spec/
-  product/                         product promise, actors and vocabulary
+  grill-queue.md                   product questions still waiting to be settled
+  proposals/P-###-<name>.md        the record of why each change was made, frozen once accepted
+  product/                         product promise, actors, vocabulary and experience patterns
   domain/<owner>.md                canonical concepts, invariants and lifecycle
   capabilities/<capability>/
     spec.md                        outcome, rules, permissions, screens and dependencies
@@ -78,6 +81,11 @@ spec/
 
 Start every product change from `SPEC.md`, then read the complete three-file capability packet and
 follow every dependency linked from `spec.md`.
+
+`FLOW.md` says how a decision becomes a specification change and then a build. The product manager
+settles what the product should do in a grill session ("Grill me"), which produces one pull
+request: the proposal, its promotion into `spec/`, and the slices it releases. The pipeline builds
+only a slice a readiness review has marked `ready`.
 
 ---
 

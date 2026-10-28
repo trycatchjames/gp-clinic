@@ -24,6 +24,8 @@ The authoritative material is, in descending order:
 
 If two authoritative files conflict, implementation MUST stop at the conflict. A specification change must resolve it; an implementation choice must not silently select one interpretation. Research notes explain provenance but are not normative. Generated OpenAPI output and application code are implementation evidence only.
 
+Accepted proposals in [`spec/proposals`](spec/proposals) record **why** a decision was made. They are provenance, not authority: the specification files a proposal promoted into govern what the product does, and a proposal is never cited in place of them. Where a decision is durable enough to constrain future work, the proposal also amends an ADR, and the ADR governs. [`FLOW.md`](FLOW.md) describes how a decision becomes a specification change and then a build.
+
 The hierarchy is organised around:
 
 - [`spec/product`](spec/product): purpose, scope, people, terminology, quality goals and the
@@ -34,7 +36,9 @@ The hierarchy is organised around:
 - [`spec/cross-cutting`](spec/cross-cutting): requirements that apply everywhere;
 - [`spec/contracts`](spec/contracts): stable internal shapes, identifiers, enums and event semantics;
 - [`spec/architecture`](spec/architecture): ownership, dependency and reliability boundaries;
-- [`spec/decisions`](spec/decisions): durable decisions and their rationale.
+- [`spec/decisions`](spec/decisions): durable decisions and their rationale;
+- [`spec/proposals`](spec/proposals): the record of why each change was made, frozen once accepted;
+- [`spec/grill-queue.md`](spec/grill-queue.md): the product questions still waiting to be settled.
 
 ## How implementation agents use it
 

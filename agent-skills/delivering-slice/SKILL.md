@@ -13,8 +13,11 @@ description: Implement one queued GP Clinic delivery slice as a small, spec-trac
    capability code in their defined layers. Keep `tools/pr-pipeline` out of application imports.
 4. Add deterministic tests for the acceptance scenarios. Permission or practice-scoped changes
    require forbidden-role and cross-practice negative tests.
-5. Use the `capturing-pr-evidence` skill for observable UI changes. Update the slice manifest to
-   `in_review` only after its named evidence exists.
+5. For an observable UI change, capture exactly the evidence the slice manifest and the
+   capability's `review.yaml` name: the screenshots at a fixed viewport with animations and
+   service workers disabled, and the Playwright trace and video for the primary flow, from the
+   current head and synthetic fixtures only. Update the slice manifest to `in_review` only after
+   that evidence exists.
 6. Run the smallest relevant checks while iterating, including database-backed or Playwright
    checks when the risk requires them. When invoked by `tools/pr-pipeline`, do not run the full
    `pnpm gate`; the harness runs it once after implementation. Outside that harness, run the full
