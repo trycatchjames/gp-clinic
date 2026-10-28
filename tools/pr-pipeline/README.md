@@ -8,6 +8,22 @@ The implementation and LLM review agents run on this computer through the instal
 `codex` CLI. GitHub Actions runs deterministic CI only. No model API key is stored in GitHub, and
 this package does not install a cron entry, daemon, launch agent or scheduler.
 
+## How work arrives
+
+Work is released by merging, not by hand. When a slice reaches `main` as `queued` with a `ready`
+date and `decided_by`, the `Release ready slices` workflow opens the queued issue this pipeline
+picks up. The same reconciliation runs locally:
+
+```bash
+pnpm pipeline:release -- --dry-run
+pnpm pipeline:release
+```
+
+It only ever opens issues. It skips a slice that already has one, counting closed issues, so it
+can be re-run safely and never revives a delivered slice. A `queued` slice with no readiness
+result is reported and held back rather than released; `pnpm lint:slices` should have caught it
+first.
+
 ## Run one cycle
 
 From a clean checkout:

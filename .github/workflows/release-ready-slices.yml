@@ -1,0 +1,45 @@
+name: Release ready slices
+
+# Merging a grill session's pull request is what releases its work. That pull request carries the
+# proposal, the specification it promoted and the slices it wrote, so the moment it reaches main
+# the ready ones become the queued issues the pipeline picks up. The product manager merges; they
+# do not also have to open an issue.
+#
+# This only opens issues. The build itself still runs locally through `pnpm pipeline:run`, because
+# no model credential is held in GitHub.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'delivery/slices/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+# Never run two of these at once: both would see the same unclaimed slice and open an issue for
+# it. Queued runs wait rather than cancel, so no merge is skipped.
+concurrency:
+  group: release-ready-slices
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.18.2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Open a queued issue for each ready slice
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: pnpm pipeline:release

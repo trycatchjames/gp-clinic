@@ -140,6 +140,62 @@ for (const entry of domainEntries) {
   }
 }
 
+// A proposal is the record of why a decision was made. It governs nothing on its own, but a
+// malformed or duplicated one makes the record unreliable, so the shape is checked.
+const proposalRoot = path.join(specificationRoot, 'proposals');
+const proposalStatuses = ['exploring', 'proposed', 'accepted', 'rejected', 'superseded'];
+const seenProposalIds = new Map();
+if (existsSync(proposalRoot)) {
+  const proposalFiles = readdirSync(proposalRoot)
+    .filter((name) => name !== 'README.md' && name.endsWith('.md'))
+    .map((name) => path.join(proposalRoot, name));
+  for (const file of proposalFiles) {
+    const name = path.basename(file);
+    const relative = `spec/proposals/${name}`;
+    const nameMatch = name.match(/^(P-\d{3})-[a-z0-9-]+\.md$/);
+    if (!nameMatch) {
+      errors.push(`${relative} is not named P-###-short-name.md`);
+      continue;
+    }
+    const text = readFileSync(file, 'utf8');
+    const frontmatter = text.match(/^---\n([\s\S]*?)\n---/);
+    if (!frontmatter) {
+      errors.push(`${relative} has no frontmatter`);
+      continue;
+    }
+    const field = (key) => frontmatter[1].match(new RegExp(`^${key}:\\s*(.+)$`, 'm'))?.[1].trim();
+    const id = field('id');
+    if (id !== nameMatch[1]) errors.push(`${relative} declares id ${id ?? '(none)'} but is filed as ${nameMatch[1]}`);
+    if (id) {
+      if (seenProposalIds.has(id)) errors.push(`${relative} reuses proposal id ${id}, already used by ${seenProposalIds.get(id)}`);
+      seenProposalIds.set(id, relative);
+    }
+    const status = field('status');
+    if (!proposalStatuses.includes(status)) {
+      errors.push(`${relative} has status ${status ?? '(none)'}; expected one of ${proposalStatuses.join(', ')}`);
+    }
+    if (status === 'accepted' && !field('accepted')) {
+      errors.push(`${relative} is accepted but records no accepted date`);
+    }
+    if (status === 'superseded' && !field('superseded-by')) {
+      errors.push(`${relative} is superseded but does not name superseded-by`);
+    }
+    if (status === 'accepted' && !field('decided_by')) {
+      errors.push(`${relative} is accepted but does not say who decided it`);
+    }
+    for (const section of ['Problem', 'Evidence', 'Options', 'Design questions', 'Delta']) {
+      if (!new RegExp(`^## ${section}$`, 'm').test(text)) {
+        errors.push(`${relative} is missing ${section}`);
+      }
+    }
+  }
+}
+
+// The flow's entry points are referenced from AGENTS.md and the skills; a missing one strands them.
+for (const required of ['FLOW.md', 'spec/grill-queue.md', 'spec/proposals/README.md']) {
+  if (!existsSync(path.join(repositoryRoot, required))) errors.push(`${required} is missing`);
+}
+
 const tinyFiles = specFiles.filter((file) => statSync(file).size < 500 && path.basename(file) !== 'review.yaml');
 const tinyByName = Object.entries(
   tinyFiles.reduce((counts, file) => {

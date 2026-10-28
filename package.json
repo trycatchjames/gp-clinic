@@ -35,6 +35,7 @@
     "test:e2e": "playwright test",
     "pipeline:run": "pnpm --filter @gp/pr-pipeline local",
     "pipeline:status": "pnpm --filter @gp/pr-pipeline local -- --dry-run",
+    "pipeline:release": "pnpm --filter @gp/pr-pipeline release",
     "gate": "pnpm api:generate && pnpm lint && pnpm typecheck && pnpm lint:spec && pnpm lint:slices && pnpm registry:check && pnpm lint:architecture && pnpm test && pnpm test:storybook && pnpm storybook:build && pnpm build",
     "gate:full": "pnpm gate && pnpm db:migrate && pnpm db:seed && pnpm smoke && pnpm test:e2e",
     "bootstrap": "pnpm install && pnpm db:up && sleep 4 && pnpm build:contracts && pnpm db:migrate && pnpm db:seed && pnpm api:generate",

@@ -34,6 +34,16 @@ Lists of records have their own page: [list views](list-views.md).
 
 ## Viewing and editing records
 
+Before choosing a surface, one rule comes first. **Patient identity and clinical safety context
+stay visible while clinical or financial work happens.** When a task concerns one patient, the
+surface must not obscure who that patient is, the allergy and alert summary, or the
+responsibility context the capability requires. If the only way to fit the task is to cover that
+context, it belongs on a page that carries it, not on an overlay that hides it. A surface may
+cover patient context only for a task that cannot be about the wrong patient — signing in,
+practice settings, a global search — or for a confirmation that names the patient in its own
+content. See
+[clinical safety principles](../../cross-cutting/clinical-safety/principles.md).
+
 - Keep the record's current values readable on the page. Give each bounded section a clearly named
   **Edit** action, shown only when the session grants the permission. The API checks the same
   permission and practice scope.

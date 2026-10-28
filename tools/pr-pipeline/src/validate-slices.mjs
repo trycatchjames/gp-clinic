@@ -30,6 +30,21 @@ for (const slice of Object.values(manifests)) {
       errors.push(`${slice.file}: missing scenario file ${scenario.file}`);
     }
   }
+  // The pipeline builds without anyone present, so a slice reaches it only after a readiness
+  // review found no product decision left. Releasing work is what `queued` means, so that is
+  // where the gate sits; slices delivered before the review existed are not rewritten.
+  if (['queued', 'working'].includes(slice.status)) {
+    if (!slice.ready) {
+      errors.push(`${slice.file}: status ${slice.status} requires a ready date from a readiness review`);
+    }
+    if (!slice.decided_by) {
+      errors.push(`${slice.file}: status ${slice.status} requires decided_by naming who settled its product questions`);
+    }
+  }
+  if (slice.ready && !slice.decided_by) {
+    errors.push(`${slice.file}: ready requires decided_by`);
+  }
+
   for (const dependency of slice.depends_on ?? []) {
     if (!manifests[dependency]) errors.push(`${slice.file}: unknown dependency ${dependency}`);
   }
