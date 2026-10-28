@@ -29,7 +29,7 @@ Accepted proposals in [`spec/proposals`](spec/proposals) record **why** a decisi
 The hierarchy is organised around:
 
 - [`spec/product`](spec/product): purpose, scope, people, terminology, quality goals and the
-  [experience patterns](spec/product/experience/README.md);
+  [web experience patterns](spec/product/experience/web-patterns.md);
 - [`spec/research`](spec/research): Australian source base, market observations and unresolved questions;
 - [`spec/domain`](spec/domain): owned concepts, relationships, invariants and lifecycles;
 - [`spec/capabilities`](spec/capabilities): user outcomes, interactions, screens, permissions and acceptance examples;

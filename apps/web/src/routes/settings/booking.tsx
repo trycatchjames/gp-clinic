@@ -4,6 +4,7 @@ import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
+import { StatusBadge } from '@/components/tone';
 import {
   Table,
   TableBody,
@@ -77,7 +78,7 @@ export function BookingSettingsRoute() {
                       </TableCell>
                       <TableCell>
                         {type.requiresTriagePrompt ? (
-                          <Badge variant="warning">Triage required</Badge>
+                          <StatusBadge tone="warning">Triage required</StatusBadge>
                         ) : type.onlineBookable ? (
                           <Badge variant="secondary">Online</Badge>
                         ) : (

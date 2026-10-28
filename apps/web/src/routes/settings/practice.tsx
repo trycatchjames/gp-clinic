@@ -5,9 +5,9 @@ import { usePracticeId } from '@/lib/auth';
 import { usePractice, useRegistrations } from '@/lib/queries';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { StatusBadge } from '@/components/tone';
 import { formatDate } from '@/lib/formatters';
 
 export function PracticeSettingsRoute() {
@@ -60,9 +60,9 @@ export function PracticeSettingsRoute() {
           <Detail
             label="Status"
             value={
-              <Badge variant={practice.data?.onboardingStatus === 'active' ? 'success' : 'warning'}>
+              <StatusBadge tone={practice.data?.onboardingStatus === 'active' ? 'success' : 'warning'}>
                 {practice.data?.onboardingStatus === 'active' ? 'Active' : 'Setup in progress'}
-              </Badge>
+              </StatusBadge>
             }
           />
           <Detail label="Activated" value={formatDate(practice.data?.activatedAt)} />
@@ -80,13 +80,9 @@ export function PracticeSettingsRoute() {
           <Detail
             label="MyMedicare"
             value={
-              <Badge
-                variant={
-                  registrations.data?.myMedicareStatus === 'registered' ? 'success' : 'outline'
-                }
-              >
+              <StatusBadge tone={registrations.data?.myMedicareStatus === 'registered' ? 'success' : 'neutral'}>
                 {registrations.data?.myMedicareStatus.replace(/_/g, ' ') ?? '—'}
-              </Badge>
+              </StatusBadge>
             }
           />
           <Detail
@@ -96,9 +92,9 @@ export function PracticeSettingsRoute() {
           <Detail
             label="BBPIP"
             value={
-              <Badge variant={registrations.data?.bbpipParticipating ? 'warning' : 'outline'}>
+              <StatusBadge tone={registrations.data?.bbpipParticipating ? 'warning' : 'neutral'}>
                 {registrations.data?.bbpipParticipating ? 'Participating' : 'Not participating'}
-              </Badge>
+              </StatusBadge>
             }
           />
           <Detail
@@ -108,13 +104,9 @@ export function PracticeSettingsRoute() {
           <Detail
             label="Accreditation"
             value={
-              <Badge
-                variant={
-                  registrations.data?.accreditationStatus === 'accredited' ? 'success' : 'outline'
-                }
-              >
+              <StatusBadge tone={registrations.data?.accreditationStatus === 'accredited' ? 'success' : 'neutral'}>
                 {registrations.data?.accreditationStatus.replace(/_/g, ' ') ?? '—'}
-              </Badge>
+              </StatusBadge>
             }
           />
           <Detail

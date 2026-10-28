@@ -1,4 +1,4 @@
-import { Clock, PhoneCall, Accessibility } from 'lucide-react';
+import { Clock, CircleDashed, PhoneCall, Accessibility } from 'lucide-react';
 import { AFTER_HOURS_ARRANGEMENT_LABELS, DAYS_OF_WEEK, type AfterHoursArrangement } from '@gp/contracts';
 import type { LocationDto } from '@gp/sdk';
 import { usePracticeId } from '@/lib/auth';
@@ -7,7 +7,13 @@ import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { StatePanel } from '@/components/patterns/state-panel';
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from '@/components/ui/empty';
 import { Separator } from '@/components/ui/separator';
 import { formatPhoneNumber } from '@/lib/formatters';
 
@@ -25,11 +31,15 @@ export function LocationsSettingsRoute() {
       />
 
       {locations.data?.length === 0 ? (
-        <StatePanel
-          kind="empty"
-          title="No locations yet"
-          description="Add your first site in the setup wizard."
-        />
+        <Empty role="region" aria-label="No locations yet" className="border bg-card">
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <CircleDashed />
+            </EmptyMedia>
+            <EmptyTitle>No locations yet</EmptyTitle>
+            <EmptyDescription>Add your first site in the setup wizard.</EmptyDescription>
+          </EmptyHeader>
+        </Empty>
       ) : (
         <div className="space-y-4">
           {locations.data?.map((location) => (

@@ -34,8 +34,7 @@ risk:
   data_migration: true
   domains:
     - patient
-depends_on:
-  - UI-001
+depends_on: []
 out_of_scope:
   - Creating or editing a patient
   - Restricted patient identity stubs

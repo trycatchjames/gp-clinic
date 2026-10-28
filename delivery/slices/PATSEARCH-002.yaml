@@ -15,7 +15,7 @@ spec_refs:
   - spec/cross-cutting/search/requirements.md
   - spec/cross-cutting/audit/requirements.md
   - spec/domain/patient.md
-  - spec/product/experience/patterns/empty-and-failed-outcomes.md
+  - spec/product/experience/list-views.md
 acceptance:
   scenarios:
     - file: spec/capabilities/patient-search/acceptance.feature

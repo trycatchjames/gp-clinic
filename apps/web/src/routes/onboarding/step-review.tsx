@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
+import { toneClasses } from '@/components/tone';
 import type { ChecklistItemDto } from '@gp/sdk';
 
 /** Step 8. Required items block activation; recommended items never do. */
@@ -67,7 +68,7 @@ export function StepReview({ practiceId }: { practiceId: string }) {
       />
 
       {data.canActivate ? (
-        <Alert variant="info">
+        <Alert className={toneClasses.info}>
           <Rocket />
           <AlertTitle>Ready to go</AlertTitle>
           <AlertDescription>
@@ -75,7 +76,7 @@ export function StepReview({ practiceId }: { practiceId: string }) {
           </AlertDescription>
         </Alert>
       ) : (
-        <Alert variant="warning">
+        <Alert className={toneClasses.warning}>
           <AlertTitle>Not quite ready</AlertTitle>
           <AlertDescription>
             Finish the required items above and this button will unlock.

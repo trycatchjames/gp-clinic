@@ -27,6 +27,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { toneClasses } from '@/components/tone';
 import { formatDate } from '@/lib/formatters';
 
 export function TeamSettingsRoute() {
@@ -70,7 +71,7 @@ export function TeamSettingsRoute() {
         description="Least privilege by default. Reception never receives clinical notes over the API — the restriction is server-side, not a hidden button."
       />
 
-      <Alert variant="info">
+      <Alert className={toneClasses.info}>
         <ShieldAlert />
         <AlertTitle>Every clinical record view is audit-logged</AlertTitle>
         <AlertDescription>

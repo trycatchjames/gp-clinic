@@ -9,8 +9,9 @@ description: Implement one queued GP Clinic delivery slice as a small, spec-trac
    capability/domain/cross-cutting documents. Resolve specification conflicts before coding.
 2. Restate the actor, outcome, exclusions, affected permissions and safety risks. Keep the change
    inside the slice. Create a linked issue for non-blocking discoveries outside it.
-3. Implement a vertical, deployable outcome. Put pure UI primitives/patterns and connected
-   capability code in their defined layers. Keep `tools/pr-pipeline` out of application imports.
+3. Implement a vertical, deployable outcome. Compose screens from the shadcn components in
+   `apps/web/src/components/ui` following `spec/product/experience/`, and keep connected
+   capability code in its feature area. Keep `tools/pr-pipeline` out of application imports.
 4. Add deterministic tests for the acceptance scenarios. Permission or practice-scoped changes
    require forbidden-role and cross-practice negative tests.
 5. For an observable UI change, capture exactly the evidence the slice manifest and the

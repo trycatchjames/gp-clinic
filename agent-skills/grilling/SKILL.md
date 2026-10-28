@@ -41,8 +41,9 @@ the reading.
   clinical safety, privacy, authorisation, audit and error handling.
 - Accepted ADRs in [spec/decisions/](../../spec/decisions) that constrain the topic.
 - [spec/research/](../../spec/research), its sources and its open questions.
-- The pattern in [spec/product/experience/](../../spec/product/experience/README.md) any screen
-  would follow.
+- The patterns any screen would follow:
+  [web interaction patterns](../../spec/product/experience/web-patterns.md) and
+  [list views](../../spec/product/experience/list-views.md).
 - Existing proposals in [spec/proposals/](../../spec/proposals) on the same records or journey.
 
 Then tell the PM, in a few short lines: what the repository already settles, what you will ask

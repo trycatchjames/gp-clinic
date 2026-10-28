@@ -11,6 +11,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
+import { StatusBadge, toneClasses } from '@/components/tone';
 import { Info } from 'lucide-react';
 
 /**
@@ -22,7 +23,7 @@ export function StepBooking({ practiceId, onDone }: { practiceId: string; onDone
 
   return (
     <div className="space-y-5">
-      <Alert variant="info">
+      <Alert className={toneClasses.info}>
         <Info />
         <AlertTitle>These are ready to use, and you can change any of them</AlertTitle>
         <AlertDescription>
@@ -68,7 +69,7 @@ export function StepBooking({ practiceId, onDone }: { practiceId: string; onDone
                   </TableCell>
                   <TableCell>
                     {type.requiresTriagePrompt ? (
-                      <Badge variant="warning">Triage required</Badge>
+                      <StatusBadge tone="warning">Triage required</StatusBadge>
                     ) : type.onlineBookable ? (
                       <Badge variant="secondary">Bookable</Badge>
                     ) : (

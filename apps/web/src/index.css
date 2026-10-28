@@ -1,69 +1,26 @@
 @import 'tailwindcss';
-@plugin 'tailwindcss-animate';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
-/* Compact Clinical is intentionally light-only in Version 1. */
-:root {
-  --radius: 0.5rem;
+@custom-variant dark (&:is(.dark *));
 
-  --background: #f8f7f3;
-  --surface: #ffffff;
-  --foreground: #182523;
-  --card: var(--surface);
-  --card-foreground: var(--foreground);
-  --popover: var(--surface);
-  --popover-foreground: var(--foreground);
-  --primary: #176b68;
-  --primary-hover: #125754;
-  --primary-foreground: #ffffff;
-  --secondary: #f0f2ef;
-  --secondary-foreground: var(--foreground);
-  --muted: #f0f2ef;
-  --muted-foreground: #687370;
-  --accent: #e7f2f0;
-  --accent-foreground: #125754;
-  --danger: #c94444;
-  --destructive: var(--danger);
-  --destructive-foreground: #ffffff;
-  --border: #dde3df;
-  /* A stronger derived value preserves a perceivable control boundary on white surfaces. */
-  --input: #879892;
-  --ring: var(--primary);
-
-  /* Clinical state is semantic, never a brand-colour shortcut. */
-  --success: #2f7d4a;
-  --success-foreground: #ffffff;
-  --warning: #b97818;
-  --warning-foreground: #101817;
-  --info: #3f6f9f;
-  --info-foreground: #ffffff;
-
-  /* Shadcn navigation and data-visualisation roles use the same constrained palette. */
-  --sidebar: var(--background);
-  --sidebar-foreground: var(--foreground);
-  --sidebar-primary: var(--primary);
-  --sidebar-primary-foreground: var(--primary-foreground);
-  --sidebar-accent: var(--accent);
-  --sidebar-accent-foreground: var(--accent-foreground);
-  --sidebar-border: var(--border);
-  --sidebar-ring: var(--ring);
-
-  --chart-1: #176b68;
-  --chart-2: #3f6f9f;
-  --chart-3: #8a6f47;
-  --chart-4: #766a8c;
-  --chart-5: #9b5d4e;
-}
+/*
+ * The GP Clinic theme. Components come unmodified from the shadcn registry
+ * (style radix-nova); the brand lives only in these values. Change a colour or
+ * the radius here to retheme the application.
+ */
 
 @theme inline {
+  --font-sans:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: var(--font-sans);
   --color-background: var(--background);
-  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
-  --color-primary-hover: var(--primary-hover);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -72,17 +29,20 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
-  --color-danger: var(--danger);
-  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-subtle: var(--success-subtle);
+  --color-warning: var(--warning);
+  --color-warning-subtle: var(--warning-subtle);
+  --color-info: var(--info);
+  --color-info-subtle: var(--info-subtle);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-success: var(--success);
-  --color-success-foreground: var(--success-foreground);
-  --color-warning: var(--warning);
-  --color-warning-foreground: var(--warning-foreground);
-  --color-info: var(--info);
-  --color-info-foreground: var(--info-foreground);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -91,17 +51,135 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-
-  --radius-sm: 0.25rem;
-  --radius-md: 0.375rem;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
-  --radius-xl: var(--radius);
-  --radius-2xl: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Beach blue for action, pale cool surfaces and readable ink. */
+:root {
+  --background: #f6f9fa;
+  --foreground: #1d3540;
+  --card: #ffffff;
+  --card-foreground: #1d3540;
+  --popover: #ffffff;
+  --popover-foreground: #1d3540;
+  --primary: #0b7294;
+  --primary-foreground: #ffffff;
+  --secondary: #eaf1f3;
+  --secondary-foreground: #244957;
+  --muted: #edf3f5;
+  --muted-foreground: #526b76;
+  --accent: #e3f0f4;
+  --accent-foreground: #135d78;
+  --destructive: #a53e4b;
+  --success: #08745d;
+  --success-subtle: #e4f5ee;
+  --warning: #895007;
+  --warning-subtle: #fff1d6;
+  --info: #2c5d9e;
+  --info-subtle: #e6eefa;
+  /* The primary colour captured for .primary-surface, which redefines --primary inside it. */
+  --primary-surface: #0b7294;
+  --primary-surface-foreground: #ffffff;
+  --border: #d6e2e7;
+  --input: #aebfc7;
+  --ring: #0b7294;
+  --chart-1: #0b7294;
+  --chart-2: #c47a60;
+  --chart-3: #367a70;
+  --chart-4: #577b99;
+  --chart-5: #9a779d;
+  --radius: 0.3rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #263f4a;
+  --sidebar-primary: #0b7294;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e3f0f4;
+  --sidebar-accent-foreground: #135d78;
+  --sidebar-border: #d6e2e7;
+  --sidebar-ring: #0b7294;
+}
+
+/* The same hues for a dark surface. The application does not offer a dark mode yet. */
+.dark {
+  --background: #0e1b21;
+  --foreground: #e3edf0;
+  --card: #15252c;
+  --card-foreground: #e3edf0;
+  --popover: #15252c;
+  --popover-foreground: #e3edf0;
+  --primary: #4cb3d4;
+  --primary-foreground: #0b2530;
+  --secondary: #1f323a;
+  --secondary-foreground: #d3e2e7;
+  --muted: #1b2c33;
+  --muted-foreground: #93aab4;
+  --accent: #1d3a46;
+  --accent-foreground: #bfe3ef;
+  --destructive: #e07a86;
+  --success: #5cc9a7;
+  --success-subtle: #143a31;
+  --warning: #f1bd70;
+  --warning-subtle: #3b2b16;
+  --info: #9cc1f2;
+  --info-subtle: #182a43;
+  --primary-surface: #4cb3d4;
+  --primary-surface-foreground: #0b2530;
+  --border: #ffffff1a;
+  --input: #ffffff26;
+  --ring: #4cb3d4;
+  --chart-1: #4cb3d4;
+  --chart-2: #e0a08a;
+  --chart-3: #6fb8ad;
+  --chart-4: #8eaecb;
+  --chart-5: #c3a2c6;
+  --sidebar: #15252c;
+  --sidebar-foreground: #d3e2e7;
+  --sidebar-primary: #4cb3d4;
+  --sidebar-primary-foreground: #0b2530;
+  --sidebar-accent: #1d3a46;
+  --sidebar-accent-foreground: #bfe3ef;
+  --sidebar-border: #ffffff1a;
+  --sidebar-ring: #4cb3d4;
+}
+
+/*
+ * A surface painted in the primary colour. Every table header is one, so tables need no
+ * per-screen styling; `.primary-surface` paints any other element the same way. Inside it
+ * the semantic colours are swapped, so stock components placed there (headings, checkboxes,
+ * ghost buttons, focus rings) stay legible without per-use overrides. Menus and dialogs it
+ * opens render in a portal and keep the normal theme.
+ */
+.primary-surface,
+[data-slot='table-header'] {
+  --foreground: var(--primary-surface-foreground);
+  --muted-foreground: var(--primary-surface-foreground);
+  --primary: var(--primary-surface-foreground);
+  --primary-foreground: var(--primary-surface);
+  --muted: color-mix(in oklch, var(--primary-surface-foreground) 15%, transparent);
+  --input: color-mix(in oklch, var(--primary-surface-foreground) 80%, transparent);
+  --border: var(--primary-surface);
+  --ring: var(--primary-surface-foreground);
+  background-color: var(--primary-surface);
+  color: var(--primary-surface-foreground);
+}
+
+/*
+ * Each header cell paints the surface too: at fractional device pixel ratios a background
+ * painted only on the header shows hairline seams between cells.
+ */
+[data-slot='table-header'] [data-slot='table-head'] {
+  background-color: var(--primary-surface);
+}
+
+/* A header row is not a data row, so it does not highlight on hover. */
+[data-slot='table-header'] [data-slot='table-row']:hover {
+  background-color: transparent;
 }
 
 @layer base {
@@ -109,12 +187,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family:
-      Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-feature-settings: 'rlig' 1, 'calt' 1;
-    font-size: 0.875rem;
-    line-height: 1.5;
+    @apply min-w-80 bg-background text-foreground antialiased;
   }
   /* A dense appointment book and a long fee schedule both need tabular figures. */
   .tabular {
@@ -122,8 +195,7 @@
   }
   /*
    * Motion never carries meaning on its own here, so an operator who has asked their system to
-   * reduce motion loses nothing by switching every transition and keyframe off. This covers the
-   * overlay enter/exit keyframes and the loading pulse, which are otherwise applied unconditionally.
+   * reduce motion loses nothing by switching every transition and keyframe off.
    */
   @media (prefers-reduced-motion: reduce) {
     *,

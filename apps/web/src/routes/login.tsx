@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Field } from '@/components/patterns/form-field';
+import { Field, FieldLabel } from '@/components/ui/field';
 import { Separator } from '@/components/ui/separator';
 
 const DEMO_ACCOUNTS = [
@@ -59,14 +59,18 @@ export function LoginRoute() {
 
         <Card>
           <CardHeader>
-            <CardTitle asChild>
+            <CardTitle>
               <h2>Sign in</h2>
             </CardTitle>
             <CardDescription>Use your practice email address.</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={submit} className="space-y-4">
-              <Field label="Email" htmlFor="email" required>
+              <Field>
+                <FieldLabel htmlFor="email">
+                  Email
+                  <span aria-hidden="true" className="text-destructive">*</span>
+                </FieldLabel>
                 <Input
                   id="email"
                   type="email"
@@ -76,7 +80,11 @@ export function LoginRoute() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </Field>
-              <Field label="Password" htmlFor="password" required>
+              <Field>
+                <FieldLabel htmlFor="password">
+                  Password
+                  <span aria-hidden="true" className="text-destructive">*</span>
+                </FieldLabel>
                 <Input
                   id="password"
                   type="password"

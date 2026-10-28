@@ -129,8 +129,8 @@ than skipped.
 8. **Worked examples:** concrete cases, with numbers where there are any. They become the
    scenarios.
 9. **Journey and screens:** the steps, each screen's states (empty, loading, failure, restricted,
-   partial, stale), and the pattern in [spec/product/experience/](spec/product/experience/README.md)
-   it follows.
+   partial, stale), and the pattern in [web interaction patterns](spec/product/experience/web-patterns.md)
+   or [list views](spec/product/experience/list-views.md) it follows.
 10. **Out of scope:** what is deliberately left for later.
 
 The agent then writes it all up: the proposal, the promotion into `spec/`, and the slices it

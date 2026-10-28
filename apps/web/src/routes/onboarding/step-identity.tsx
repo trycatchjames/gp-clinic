@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Field, FieldGroup } from '@/components/patterns/form-field';
+import { Field, FieldDescription, FieldError, FieldLabel } from '@/components/ui/field';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 
@@ -77,6 +77,8 @@ export function StepIdentity({
 
   const abnTouched = form.abn.replace(/\s/g, '').length > 0;
   const abnLooksWrong = abnTouched && !isValidAbn(form.abn);
+  const abnError =
+    errors.abn ?? (abnLooksWrong ? 'This ABN is not valid — please check the digits' : undefined);
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
@@ -110,44 +112,50 @@ export function StepIdentity({
 
   return (
     <form onSubmit={submit} className="space-y-5">
-      <FieldGroup>
-        <Field
-          label="Legal entity name"
-          htmlFor="legalName"
-          required
-          hint="The name on your ABN registration."
-        >
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field>
+          <FieldLabel htmlFor="legalName">
+            Legal entity name
+            <span aria-hidden="true" className="text-destructive">*</span>
+          </FieldLabel>
           <Input
+            aria-describedby="legalName-description"
             id="legalName"
             required
             value={form.legalName}
             onChange={(e) => set('legalName')(e.target.value)}
             placeholder="Raman Family Medicine Pty Ltd"
           />
+          <FieldDescription id="legalName-description">The name on your ABN registration.</FieldDescription>
         </Field>
-        <Field
-          label="Trading name"
-          htmlFor="tradingName"
-          required
-          hint="What patients call you. Appears on invoices and the appointment book."
-        >
+        <Field>
+          <FieldLabel htmlFor="tradingName">
+            Trading name
+            <span aria-hidden="true" className="text-destructive">*</span>
+          </FieldLabel>
           <Input
+            aria-describedby="tradingName-description"
             id="tradingName"
             required
             value={form.tradingName}
             onChange={(e) => set('tradingName')(e.target.value)}
             placeholder="Brunswick Family Practice"
           />
+          <FieldDescription id="tradingName-description">What patients call you. Appears on invoices and the appointment book.</FieldDescription>
         </Field>
-      </FieldGroup>
+      </div>
 
-      <FieldGroup>
-        <Field label="Entity type" required>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field>
+          <FieldLabel htmlFor="entity-type">
+            Entity type
+            <span aria-hidden="true" className="text-destructive">*</span>
+          </FieldLabel>
           <Select
             value={form.entityType}
             onValueChange={(value) => set('entityType')(value as EntityType)}
           >
-            <SelectTrigger>
+            <SelectTrigger id="entity-type">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -159,12 +167,16 @@ export function StepIdentity({
             </SelectContent>
           </Select>
         </Field>
-        <Field label="Practice type" required>
+        <Field>
+          <FieldLabel htmlFor="practice-type">
+            Practice type
+            <span aria-hidden="true" className="text-destructive">*</span>
+          </FieldLabel>
           <Select
             value={form.practiceType}
             onValueChange={(value) => set('practiceType')(value as PracticeType)}
           >
-            <SelectTrigger>
+            <SelectTrigger id="practice-type">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -176,25 +188,26 @@ export function StepIdentity({
             </SelectContent>
           </Select>
         </Field>
-      </FieldGroup>
+      </div>
 
-      <FieldGroup>
-        <Field
-          label="ABN"
-          htmlFor="abn"
-          error={errors.abn ?? (abnLooksWrong ? 'This ABN is not valid — please check the digits' : undefined)}
-          hint="Checked against the ATO checksum so a mistyped digit is caught now."
-        >
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field data-invalid={abnError ? true : undefined}>
+          <FieldLabel htmlFor="abn">ABN</FieldLabel>
           <Input
             id="abn"
             inputMode="numeric"
             disabled={noAbn}
             value={form.abn}
             onChange={(e) => set('abn')(e.target.value)}
-            aria-invalid={abnLooksWrong}
+            aria-invalid={abnError ? true : undefined}
+            aria-describedby={abnError ? 'abn-description abn-error' : 'abn-description'}
             placeholder="51 824 753 556"
             className="tabular"
           />
+          <FieldDescription id="abn-description">
+            Checked against the ATO checksum so a mistyped digit is caught now.
+          </FieldDescription>
+          <FieldError id="abn-error">{abnError}</FieldError>
           <div className="flex items-center gap-2 pt-1">
             <Checkbox
               id="noAbn"
@@ -211,8 +224,13 @@ export function StepIdentity({
         </Field>
 
         {form.entityType === 'company' && (
-          <Field label="ACN" htmlFor="acn" error={errors.acn}>
+          <Field data-invalid={errors.acn ? true : undefined}>
+            <FieldLabel htmlFor="acn">
+              ACN
+            </FieldLabel>
             <Input
+              aria-invalid={errors.acn ? true : undefined}
+              aria-describedby={errors.acn ? 'acn-error' : undefined}
               id="acn"
               inputMode="numeric"
               value={form.acn}
@@ -220,12 +238,16 @@ export function StepIdentity({
               placeholder="004 085 616"
               className="tabular"
             />
+            <FieldError id="acn-error">{errors.acn}</FieldError>
           </Field>
         )}
-      </FieldGroup>
+      </div>
 
-      <FieldGroup>
-        <Field label="Practice email" htmlFor="contactEmail">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field>
+          <FieldLabel htmlFor="contactEmail">
+            Practice email
+          </FieldLabel>
           <Input
             id="contactEmail"
             type="email"
@@ -233,14 +255,17 @@ export function StepIdentity({
             onChange={(e) => set('contactEmail')(e.target.value)}
           />
         </Field>
-        <Field label="Practice phone" htmlFor="contactPhone">
+        <Field>
+          <FieldLabel htmlFor="contactPhone">
+            Practice phone
+          </FieldLabel>
           <Input
             id="contactPhone"
             value={form.contactPhone}
             onChange={(e) => set('contactPhone')(e.target.value)}
           />
         </Field>
-      </FieldGroup>
+      </div>
 
       <div className="flex justify-end">
         <Button type="submit" disabled={busy || (abnLooksWrong && !noAbn)}>
