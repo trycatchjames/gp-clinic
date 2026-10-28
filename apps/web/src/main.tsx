@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from '@tanstack/react-router';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
-import { Toaster } from 'sonner';
+import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { AuthProvider } from '@/lib/auth';
 import { persister, queryClient } from '@/lib/query';
@@ -32,7 +32,7 @@ createRoot(document.getElementById('root')!).render(
       <AuthProvider>
         <TooltipProvider delayDuration={200}>
           <RouterProvider router={router} />
-          <Toaster position="bottom-right" richColors closeButton />
+          <Toaster theme="light" position="bottom-right" richColors closeButton />
         </TooltipProvider>
       </AuthProvider>
     </PersistQueryClientProvider>

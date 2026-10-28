@@ -1,0 +1,41 @@
+id: UI-002
+title: Build screens from the shadcn registry with one compact theme
+kind: enablement
+status: in_review
+capability: null
+story:
+  actor: Practice staff member
+  goal: work in a compact, consistent interface built from standard accessible components
+  benefit: each capability slice lays out its screen from shared patterns instead of maintaining a bespoke component library
+spec_refs:
+  - spec/product/experience/web-patterns.md
+  - spec/product/experience/list-views.md
+  - spec/cross-cutting/accessibility/requirements.md
+acceptance:
+  scenarios: []
+  criteria:
+    - Every file in apps/web/src/components/ui matches the shadcn radix-nova registry, checked by pnpm registry:check in the gate
+    - The theme in apps/web/src/index.css is the only place colours, radius and fonts are set
+    - Existing screens keep their behaviour, accessible names and keyboard operation, shown by the unchanged Playwright flows
+    - A failed search, an empty result and a restricted match still read as three different states
+evidence:
+  screenshots:
+    - dashboard
+    - patient-search-results
+    - patient-search-empty
+    - locations-empty
+  flows:
+    - patient-search-keyboard
+  fixtures:
+    - brunswick-demo-practice
+risk:
+  permissions: false
+  clinical_safety: true
+  data_migration: false
+  domains: []
+depends_on: []
+out_of_scope:
+  - Dark mode
+  - New screens or changes to what any screen lets a person do
+  - Storybook stories for existing screens
+  - Moving routes into capability feature folders

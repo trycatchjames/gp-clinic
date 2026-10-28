@@ -13,8 +13,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Field } from '@/components/patterns/form-field';
+import { Field, FieldDescription, FieldLabel } from '@/components/ui/field';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { toneClasses } from '@/components/tone';
 
 export function AcceptInvitationRoute() {
   const { acceptInvitation } = useAuth();
@@ -51,13 +52,17 @@ export function AcceptInvitationRoute() {
         <CardContent>
           <form onSubmit={submit} className="space-y-4">
             {!search.token && (
-              <Alert variant="info">
+              <Alert className={toneClasses.info}>
                 <AlertDescription>
                   Paste the invitation token from your email if it is not already filled in.
                 </AlertDescription>
               </Alert>
             )}
-            <Field label="Invitation token" htmlFor="token" required>
+            <Field>
+              <FieldLabel htmlFor="token">
+                Invitation token
+                <span aria-hidden="true" className="text-destructive">*</span>
+              </FieldLabel>
               <Input
                 id="token"
                 required
@@ -66,8 +71,13 @@ export function AcceptInvitationRoute() {
                 className="font-mono text-xs"
               />
             </Field>
-            <Field label="Choose a password" htmlFor="password" required hint="At least 12 characters.">
+            <Field>
+              <FieldLabel htmlFor="password">
+                Choose a password
+                <span aria-hidden="true" className="text-destructive">*</span>
+              </FieldLabel>
               <Input
+                aria-describedby="password-description"
                 id="password"
                 type="password"
                 autoComplete="new-password"
@@ -76,6 +86,7 @@ export function AcceptInvitationRoute() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <FieldDescription id="password-description">At least 12 characters.</FieldDescription>
             </Field>
             <Button type="submit" className="w-full" disabled={busy}>
               {busy && <Loader2 className="size-4 animate-spin" />}

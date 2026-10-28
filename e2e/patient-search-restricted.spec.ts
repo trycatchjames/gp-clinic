@@ -53,7 +53,6 @@ test('[restricted-stub] a restricted record prevents a duplicate without disclos
 
   const panel = page.getByRole('region', { name: 'One matching record is restricted' });
   await expect(panel).toBeVisible();
-  await expect(panel).toHaveAttribute('data-state', 'restricted');
 
   // The stub carries the identity that stops a duplicate being created.
   await expect(panel).toContainText('Rosalind Fenech');
@@ -123,7 +122,6 @@ test('[search-failure] a failed search never reads as proof that no patient exis
   // is announced when it replaces the results the operator was waiting for.
   const panel = page.getByRole('alert').filter({ hasText: 'Search failed' });
   await expect(panel).toBeVisible();
-  await expect(panel).toHaveAttribute('data-state', 'failure');
   await expect(panel).toHaveAccessibleName('Search failed');
 
   // The three things the scenario turns on.

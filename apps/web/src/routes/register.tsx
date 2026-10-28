@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Field, FieldGroup } from '@/components/patterns/form-field';
+import { Field, FieldDescription, FieldError, FieldLabel } from '@/components/ui/field';
 
 export function RegisterRoute() {
   const { register } = useAuth();
@@ -59,16 +59,30 @@ export function RegisterRoute() {
           </CardHeader>
           <CardContent>
             <form onSubmit={submit} className="space-y-4">
-              <FieldGroup>
-                <Field label="Given name" htmlFor="givenName" required>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field>
+                  <FieldLabel htmlFor="givenName">
+                    Given name
+                    <span aria-hidden="true" className="text-destructive">*</span>
+                  </FieldLabel>
                   <Input id="givenName" required value={form.givenName} onChange={set('givenName')} />
                 </Field>
-                <Field label="Family name" htmlFor="familyName" required>
+                <Field>
+                  <FieldLabel htmlFor="familyName">
+                    Family name
+                    <span aria-hidden="true" className="text-destructive">*</span>
+                  </FieldLabel>
                   <Input id="familyName" required value={form.familyName} onChange={set('familyName')} />
                 </Field>
-              </FieldGroup>
-              <Field label="Email" htmlFor="email" required error={errors.email}>
+              </div>
+              <Field data-invalid={errors.email ? true : undefined}>
+                <FieldLabel htmlFor="email">
+                  Email
+                  <span aria-hidden="true" className="text-destructive">*</span>
+                </FieldLabel>
                 <Input
+                  aria-invalid={errors.email ? true : undefined}
+                  aria-describedby={errors.email ? 'email-error' : undefined}
                   id="email"
                   type="email"
                   autoComplete="username"
@@ -76,18 +90,23 @@ export function RegisterRoute() {
                   value={form.email}
                   onChange={set('email')}
                 />
+                <FieldError id="email-error">{errors.email}</FieldError>
               </Field>
-              <Field label="Mobile" htmlFor="mobile" hint="Optional. Used for account recovery.">
-                <Input id="mobile" value={form.mobile} onChange={set('mobile')} />
+              <Field>
+                <FieldLabel htmlFor="mobile">
+                  Mobile
+                </FieldLabel>
+                <Input aria-describedby="mobile-description" id="mobile" value={form.mobile} onChange={set('mobile')} />
+                <FieldDescription id="mobile-description">Optional. Used for account recovery.</FieldDescription>
               </Field>
-              <Field
-                label="Password"
-                htmlFor="password"
-                required
-                error={errors.password}
-                hint="At least 12 characters. A passphrase is easier to remember and harder to guess."
-              >
+              <Field data-invalid={errors.password ? true : undefined}>
+                <FieldLabel htmlFor="password">
+                  Password
+                  <span aria-hidden="true" className="text-destructive">*</span>
+                </FieldLabel>
                 <Input
+                  aria-invalid={errors.password ? true : undefined}
+                  aria-describedby={errors.password ? 'password-description password-error' : 'password-description'}
                   id="password"
                   type="password"
                   autoComplete="new-password"
@@ -96,6 +115,8 @@ export function RegisterRoute() {
                   value={form.password}
                   onChange={set('password')}
                 />
+                <FieldDescription id="password-description">At least 12 characters. A passphrase is easier to remember and harder to guess.</FieldDescription>
+                <FieldError id="password-error">{errors.password}</FieldError>
               </Field>
               <Button type="submit" className="w-full" disabled={busy}>
                 {busy && <Loader2 className="size-4 animate-spin" />}

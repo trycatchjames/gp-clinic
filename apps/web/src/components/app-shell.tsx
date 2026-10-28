@@ -26,8 +26,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Badge } from '@/components/ui/badge';
 import { SyncIndicator } from '@/components/sync-indicator';
+import { StatusBadge } from '@/components/tone';
 
 interface NavItem {
   to: string;
@@ -181,9 +181,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="flex-1" />
           {user?.onboardingStatus === 'in_progress' && (
             <Link to="/onboarding">
-              <Badge variant="warning" className="cursor-pointer">
+              <StatusBadge tone="warning" className="cursor-pointer">
                 Setup in progress
-              </Badge>
+              </StatusBadge>
             </Link>
           )}
           <SyncIndicator />

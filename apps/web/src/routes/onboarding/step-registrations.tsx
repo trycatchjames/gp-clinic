@@ -19,10 +19,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Field, FieldGroup } from '@/components/patterns/form-field';
+import { Field, FieldDescription, FieldLabel } from '@/components/ui/field';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { Label } from '@/components/ui/label';
+import { toneClasses } from '@/components/tone';
 
 /**
  * Step 4. The programme registrations that determine what the practice can bill.
@@ -99,16 +100,17 @@ export function StepRegistrations({
 
   return (
     <div className="space-y-6">
-      <Field
-        label="PRODA organisation name"
-        htmlFor="proda"
-        hint="Provider Digital Access — where your Organisation Register entry lives."
-      >
+      <Field>
+        <FieldLabel htmlFor="proda">
+          PRODA organisation name
+        </FieldLabel>
         <Input
+          aria-describedby="proda-description"
           id="proda"
           value={form.prodaOrganisationName}
           onChange={(e) => setForm((f) => ({ ...f, prodaOrganisationName: e.target.value }))}
         />
+        <FieldDescription id="proda-description">Provider Digital Access — where your Organisation Register entry lives.</FieldDescription>
       </Field>
 
       <Separator />
@@ -123,8 +125,11 @@ export function StepRegistrations({
           </p>
         </div>
 
-        <FieldGroup>
-          <Field label="Registration status">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field>
+            <FieldLabel htmlFor="registration-status">
+              Registration status
+            </FieldLabel>
             <Select
               value={form.myMedicareStatus}
               onValueChange={(value) =>
@@ -136,7 +141,7 @@ export function StepRegistrations({
                 }))
               }
             >
-              <SelectTrigger>
+              <SelectTrigger id="registration-status">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -146,7 +151,10 @@ export function StepRegistrations({
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Registered on" htmlFor="mmDate">
+          <Field>
+            <FieldLabel htmlFor="mmDate">
+              Registered on
+            </FieldLabel>
             <Input
               id="mmDate"
               type="date"
@@ -157,7 +165,7 @@ export function StepRegistrations({
               }
             />
           </Field>
-        </FieldGroup>
+        </div>
       </div>
 
       <Separator />
@@ -175,7 +183,7 @@ export function StepRegistrations({
         </div>
 
         {!myMedicareRegistered ? (
-          <Alert variant="warning">
+          <Alert className={toneClasses.warning}>
             <TriangleAlert />
             <AlertTitle>MyMedicare registration is required first</AlertTitle>
             <AlertDescription>
@@ -184,7 +192,7 @@ export function StepRegistrations({
             </AlertDescription>
           </Alert>
         ) : (
-          <Alert variant={form.bbpipParticipating ? 'warning' : 'info'}>
+          <Alert className={toneClasses[form.bbpipParticipating ? 'warning' : 'info']}>
             <ShieldCheck />
             <AlertTitle>
               Participation means bulk billing {BBPIP.requiredBulkBillingPercent}% of eligible
@@ -223,7 +231,10 @@ export function StepRegistrations({
         </div>
 
         {form.bbpipParticipating && (
-          <Field label="Effective from" htmlFor="bbpipFrom">
+          <Field>
+            <FieldLabel htmlFor="bbpipFrom">
+              Effective from
+            </FieldLabel>
             <Input
               id="bbpipFrom"
               type="date"
@@ -245,15 +256,18 @@ export function StepRegistrations({
           </p>
         </div>
 
-        <FieldGroup columns={3}>
-          <Field label="Accreditation status">
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Field>
+            <FieldLabel htmlFor="accreditation-status">
+              Accreditation status
+            </FieldLabel>
             <Select
               value={form.accreditationStatus}
               onValueChange={(value) =>
                 setForm((f) => ({ ...f, accreditationStatus: value as AccreditationStatus }))
               }
             >
-              <SelectTrigger>
+              <SelectTrigger id="accreditation-status">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -264,7 +278,10 @@ export function StepRegistrations({
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Accrediting body" htmlFor="body">
+          <Field>
+            <FieldLabel htmlFor="body">
+              Accrediting body
+            </FieldLabel>
             <Input
               id="body"
               placeholder="AGPAL or QPA"
@@ -272,7 +289,10 @@ export function StepRegistrations({
               onChange={(e) => setForm((f) => ({ ...f, accreditingBody: e.target.value }))}
             />
           </Field>
-          <Field label="Certificate expires" htmlFor="accExpiry">
+          <Field>
+            <FieldLabel htmlFor="accExpiry">
+              Certificate expires
+            </FieldLabel>
             <Input
               id="accExpiry"
               type="date"
@@ -282,7 +302,7 @@ export function StepRegistrations({
               }
             />
           </Field>
-        </FieldGroup>
+        </div>
 
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="flex items-center justify-between rounded-md border px-4 py-3">
