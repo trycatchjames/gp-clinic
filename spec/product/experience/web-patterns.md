@@ -172,6 +172,15 @@ content.
 - Escape closes a transient surface only when that loses no work.
 - Every drag, hover or icon-only interaction has a keyboard and labelled equivalent.
 
+## Documentation reader
+
+The product documentation reader (`apps/docs`) is the first reference, requested by James Harvey
+on 29 October 2026. It is a separate reading surface: core domains in the agreed order in a left
+navigation, the document in a readable central column, and an on-page outline where space allows.
+At narrow widths a labelled navigation button opens the document list and search above the reader.
+Search covers the complete documentation; document and heading links preserve their destination
+in the URL. Markdown remains the source of truth, and the reader does not edit it.
+
 ## Checking a screen
 
 Check the owning capability and permission before choosing controls. Inspect the real screen at

@@ -1,0 +1,36 @@
+@import '../../web/src/index.css';
+@source '../../web/src/components/ui';
+
+@layer components {
+  .nav-link { @apply flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-ring; }
+  .nav-link[aria-current='page'] { @apply bg-accent font-medium text-accent-foreground; }
+  .skip-link { @apply fixed left-4 top-2 z-50 -translate-y-20 rounded bg-primary px-4 py-2 text-primary-foreground focus:translate-y-0; }
+  .document { @apply break-words text-[15px] leading-[1.85]; }
+  .document h1 { @apply mb-7 text-3xl leading-tight font-semibold tracking-tight md:text-4xl; }
+  .document h2 { @apply mt-10 mb-4 border-t pt-7 text-xl leading-snug font-semibold tracking-tight; }
+  .document h3 { @apply mt-7 mb-3 text-lg font-semibold; }
+  .document h4, .document h5, .document h6 { @apply mt-6 mb-2 font-semibold; }
+  .document :is(h1,h2,h3,h4,h5,h6) { @apply scroll-mt-24; }
+  .document p { @apply my-4; }
+  .document a { @apply text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary focus-visible:outline-2 focus-visible:outline-ring; }
+  .document ul { @apply my-4 list-disc space-y-2 pl-6; }
+  .document ol { @apply my-4 list-decimal space-y-2 pl-6; }
+  .document li > :is(ul,ol) { @apply my-2; }
+  .document blockquote { @apply my-6 border-l-3 border-primary bg-muted px-5 py-1 text-muted-foreground; }
+  .document pre { @apply my-5 max-w-full overflow-x-auto rounded-lg border bg-muted p-5 text-xs leading-6; }
+  .document :not(pre) > code { @apply rounded bg-muted px-1 py-0.5 text-[0.85em]; }
+  .document table { @apply my-5 w-full border-collapse text-left text-sm leading-relaxed; }
+  .document th { @apply bg-primary text-primary-foreground; }
+  .document th, .document td { @apply min-w-32 border px-4 py-3 align-top; }
+  .document tbody tr:nth-child(even) { @apply bg-muted/50; }
+  .document hr { @apply my-8 border-t; }
+  .document input[type='checkbox'] { @apply mr-2; }
+  .document img { @apply max-w-full; }
+}
+
+@media print {
+  body { background: white; }
+  .document { font-size: 10pt; }
+  .document pre { white-space: pre-wrap; }
+  .document h2, .document h3 { break-after: avoid; }
+}
