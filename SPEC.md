@@ -26,6 +26,9 @@ If two authoritative files conflict, implementation MUST stop at the conflict. A
 
 Accepted proposals in [`spec/proposals`](spec/proposals) record **why** a decision was made. They are provenance, not authority: the specification files a proposal promoted into govern what the product does, and a proposal is never cited in place of them. Where a decision is durable enough to constrain future work, the proposal also amends an ADR, and the ADR governs. [`FLOW.md`](FLOW.md) describes how a decision becomes a specification change and then a build.
 
+For a product reading path, use [core domains](spec/product/core-domains.md): **Appointment book,
+Contact, Clinical, Back office, Organisation and access, Reporting**, in that order.
+
 The hierarchy is organised around:
 
 - [`spec/product`](spec/product): purpose, scope, people, terminology, quality goals and the
