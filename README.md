@@ -23,6 +23,20 @@ implementing a capability.
 
 ## Quick start
 
+To read the product documentation without running the clinical app:
+
+```bash
+pnpm install
+pnpm dev:docs
+```
+
+Open http://localhost:4174. The reader follows [the core-domain order](spec/product/core-domains.md)
+and provides search, document links and rendered Markdown. `pnpm docs:artifact` creates a
+self-contained ZIP that starts with `npm start`, including in a browser WebContainer. See the
+[reader instructions](apps/docs/README.md) for sharing it with a collaborator.
+
+### Clinical prototype
+
 Requires Node 22+, pnpm, and Docker.
 
 ```bash
